@@ -31,3 +31,19 @@
     transform: rotate(360deg);
   }
 }
+
+/* Page Transition Animation */
+@keyframes pageTransition {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageTransition 0.5s ease-out forwards;
+}

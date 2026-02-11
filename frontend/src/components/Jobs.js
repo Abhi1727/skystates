@@ -196,7 +196,7 @@ const Jobs = () => {
   }
 
   return (
-    <div className="jobs-container" style={{ padding: '40px 0' }}>
+    <div className="jobs-container page-transition" style={{ padding: '40px 0' }}>
       <div className="container">
         {/* Jobs Hero Section */}
         <div className="jobs-hero" style={{
