@@ -1,4 +1,4 @@
-# Sky States Homepage Replica
+# Sky States Homepage 
 
 A modern, responsive frontend replica of the Sky States website homepage, built with HTML, CSS, and JavaScript.
 
