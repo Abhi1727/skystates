@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginRegister = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -10,6 +11,24 @@ const LoginRegister = () => {
     phone: '',
     confirmPassword: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    if (token && user) {
+      // User is already logged in, redirect to admin or home
+      const userData = JSON.parse(user);
+      if (userData.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
+    }
+  }, [navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -17,23 +36,93 @@ const LoginRegister = () => {
       ...prev,
       [name]: value
     }));
+    setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isLogin) {
-      // Handle login
-      console.log('Login submitted:', { email: formData.email, password: formData.password });
-      alert('Login successful! Welcome back to Sky States.');
-    } else {
-      // Handle registration
-      if (formData.password !== formData.confirmPassword) {
-        alert('Passwords do not match!');
-        return;
+    setLoading(true);
+    setError('');
+
+    try {
+      if (isLogin) {
+        // Handle login
+        const response = await fetch('http://localhost:5000/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Store token and user data in localStorage
+          localStorage.setItem('token', data.data.token);
+          localStorage.setItem('user', JSON.stringify(data.data.user));
+          
+          // Redirect based on user role
+          if (data.data.user.role === 'admin') {
+            navigate('/admin');
+          } else {
+            navigate('/');
+          }
+          
+          alert('Login successful! Welcome back to Sky States.');
+        } else {
+          setError(data.message || 'Login failed');
+        }
+      } else {
+        // Handle registration
+        if (formData.password !== formData.confirmPassword) {
+          setError('Passwords do not match!');
+          setLoading(false);
+          return;
+        }
+
+        const registerResponse = await fetch('http://localhost:5000/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            password: formData.password,
+            phone: formData.phone
+          })
+        });
+
+        const registerData = await registerResponse.json();
+
+        if (registerData.success) {
+          // Store token and user data in localStorage
+          localStorage.setItem('token', registerData.data.token);
+          localStorage.setItem('user', JSON.stringify(registerData.data.user));
+          
+          alert('Registration successful! Welcome to Sky States.');
+          navigate('/');
+        } else {
+          setError(registerData.message || 'Registration failed');
+        }
       }
-      console.log('Registration submitted:', formData);
-      alert('Registration successful! Welcome to Sky States.');
+    } catch (error) {
+      console.error('Auth error:', error);
+      setError('Server error. Please try again.');
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
   };
 
   const toggleForm = () => {
@@ -46,6 +135,7 @@ const LoginRegister = () => {
       phone: '',
       confirmPassword: ''
     });
+    setError('');
   };
 
   return (
@@ -81,6 +171,25 @@ const LoginRegister = () => {
             borderRadius: '10px',
             boxShadow: '0 5px 20px rgba(0,0,0,0.1)'
           }}>
+            <h2 style={{ textAlign: 'center', marginBottom: '30px', color: '#2c3e50' }}>
+              {isLogin ? 'Login to Your Account' : 'Create New Account'}
+            </h2>
+
+            {/* Error Message */}
+            {error && (
+              <div style={{
+                background: '#f8d7da',
+                color: '#721c24',
+                padding: '12px',
+                borderRadius: '5px',
+                marginBottom: '20px',
+                textAlign: 'center',
+                border: '1px solid #f5c6cb'
+              }}>
+                {error}
+              </div>
+            )}
+
             <form onSubmit={handleSubmit}>
               {/* Email Field */}
               <div style={{ marginBottom: '20px' }}>
@@ -99,7 +208,8 @@ const LoginRegister = () => {
                     padding: '12px',
                     border: '1px solid #ddd',
                     borderRadius: '5px',
-                    fontSize: '16px'
+                    fontSize: '16px',
+                    boxSizing: 'border-box'
                   }}
                 />
               </div>
@@ -121,7 +231,8 @@ const LoginRegister = () => {
                     padding: '12px',
                     border: '1px solid #ddd',
                     borderRadius: '5px',
-                    fontSize: '16px'
+                    fontSize: '16px',
+                    boxSizing: 'border-box'
                   }}
                 />
               </div>
@@ -132,7 +243,7 @@ const LoginRegister = () => {
                   {/* First Name */}
                   <div style={{ marginBottom: '20px' }}>
                     <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#333' }}>
-                      First Name *
+                        First Name *
                     </label>
                     <input
                       type="text"
@@ -146,7 +257,8 @@ const LoginRegister = () => {
                         padding: '12px',
                         border: '1px solid #ddd',
                         borderRadius: '5px',
-                        fontSize: '16px'
+                        fontSize: '16px',
+                        boxSizing: 'border-box'
                       }}
                     />
                   </div>
@@ -154,7 +266,7 @@ const LoginRegister = () => {
                   {/* Last Name */}
                   <div style={{ marginBottom: '20px' }}>
                     <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#333' }}>
-                      Last Name *
+                        Last Name *
                     </label>
                     <input
                       type="text"
@@ -168,7 +280,8 @@ const LoginRegister = () => {
                         padding: '12px',
                         border: '1px solid #ddd',
                         borderRadius: '5px',
-                        fontSize: '16px'
+                        fontSize: '16px',
+                        boxSizing: 'border-box'
                       }}
                     />
                   </div>
@@ -176,7 +289,7 @@ const LoginRegister = () => {
                   {/* Phone */}
                   <div style={{ marginBottom: '20px' }}>
                     <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#333' }}>
-                      Phone Number
+                        Phone Number
                     </label>
                     <input
                       type="tel"
@@ -189,7 +302,8 @@ const LoginRegister = () => {
                         padding: '12px',
                         border: '1px solid #ddd',
                         borderRadius: '5px',
-                        fontSize: '16px'
+                        fontSize: '16px',
+                        boxSizing: 'border-box'
                       }}
                     />
                   </div>
@@ -197,7 +311,7 @@ const LoginRegister = () => {
                   {/* Confirm Password */}
                   <div style={{ marginBottom: '20px' }}>
                     <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#333' }}>
-                      Confirm Password *
+                        Confirm Password *
                     </label>
                     <input
                       type="password"
@@ -211,7 +325,8 @@ const LoginRegister = () => {
                         padding: '12px',
                         border: '1px solid #ddd',
                         borderRadius: '5px',
-                        fontSize: '16px'
+                        fontSize: '16px',
+                        boxSizing: 'border-box'
                       }}
                     />
                   </div>
@@ -221,20 +336,22 @@ const LoginRegister = () => {
               {/* Submit Button */}
               <button
                 type="submit"
+                disabled={loading}
                 style={{
-                  background: '#28a745',
+                  background: loading ? '#6c757d' : 'linear-gradient(135deg, rgb(29, 78, 216) 0%, rgb(30, 64, 175) 50%, rgb(23, 37, 84) 100%)',
                   color: 'white',
                   padding: '15px 30px',
                   border: 'none',
                   borderRadius: '5px',
                   fontSize: '18px',
                   fontWeight: '600',
-                  cursor: 'pointer',
+                  cursor: loading ? 'not-allowed' : 'pointer',
                   width: '100%',
-                  transition: 'background 0.3s'
+                  transition: 'all 0.3s',
+                  boxSizing: 'border-box'
                 }}
               >
-                {isLogin ? 'Login' : 'Register'}
+                {loading ? 'Please wait...' : (isLogin ? 'Login' : 'Register')}
               </button>
             </form>
 
@@ -254,10 +371,10 @@ const LoginRegister = () => {
               <button
                 onClick={toggleForm}
                 style={{
-                  background: 'transparent',
-                  color: '#2c3e50',
+                  background: 'linear-gradient(135deg, rgb(29, 78, 216) 0%, rgb(30, 64, 175) 50%, rgb(23, 37, 84) 100%)',
+                  color: 'white',
                   padding: '10px 20px',
-                  border: '2px solid #2c3e50',
+                  border: 'none',
                   borderRadius: '5px',
                   fontSize: '16px',
                   fontWeight: '600',

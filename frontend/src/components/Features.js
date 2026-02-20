@@ -1,6 +1,64 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const Features = () => {
+  // Animation variants for the cards
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+      scale: 0.95
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        duration: 0.6
+      }
+    }
+  };
+
+  const iconVariants = {
+    hidden: {
+      rotate: -180,
+      scale: 0
+    },
+    visible: {
+      rotate: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 10,
+        delay: 0.4
+      }
+    },
+    hover: {
+      rotate: 360,
+      scale: 1.1,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 10
+      }
+    }
+  };
+
   const features = [
     {
       icon: 'fas fa-project-diagram',
@@ -27,17 +85,41 @@ const Features = () => {
   return (
     <section className="features">
       <div className="container">
-        <div className="features-grid">
+        <motion.div 
+          className="features-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           {features.map((feature, index) => (
-            <div className="feature-card" key={index}>
-              <div className="feature-icon">
+            <motion.div 
+              className="feature-card" 
+              key={index}
+              variants={cardVariants}
+              whileHover={{
+                y: -10,
+                scale: 1.05,
+                boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
+                transition: {
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 15
+                }
+              }}
+            >
+              <motion.div 
+                className="feature-icon"
+                variants={iconVariants}
+                whileHover="hover"
+              >
                 <i className={feature.icon}></i>
-              </div>
+              </motion.div>
               <h3>{feature.title}</h3>
               <p>{feature.description}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

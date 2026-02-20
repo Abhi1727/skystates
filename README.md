@@ -1,95 +1,173 @@
-# Sky States Homepage 
+# Sky States - Educational Platform
 
-A modern, responsive frontend replica of the Sky States website homepage, built with HTML, CSS, and JavaScript.
+A modern educational platform offering comprehensive training programs in Data Science & AI, Cyber Security, and DevOps & Cloud Computing.
 
 ## 🚀 Features
 
-- **Responsive Design**: Fully responsive layout that works on all devices
-- **Modern Navigation**: Multi-level dropdown navigation menu with mobile hamburger menu
-- **Hero Section**: Eye-catching gradient hero section with call-to-action
-- **Program Showcase**: Interactive program cards for Data Science, Cyber Security, and DevOps
-- **Features Grid**: Highlighting key benefits and features
-- **Testimonials**: Student testimonials section
-- **Newsletter Signup**: Functional newsletter subscription form
-- **Smooth Animations**: Scroll-triggered animations and hover effects
-- **Interactive Elements**: Ripple effects on buttons and smooth scrolling
+### Programs Offered
+- **Data Science & AI Program** - Master Python, Machine Learning & AI with Microsoft Azure certification
+- **Cyber Security Program** - Comprehensive training in Cyber Security and Ethical Hacking  
+- **DevOps & Cloud Computing** - Learn DevOps practices with Microsoft Azure integration
 
-## 🛠️ Technologies Used
+### Key Features
+- 🎓 Microsoft Certified Programs
+- 💼 100% Job Guarantee
+- ⏰ Flexible Duration Options (Full-time & Short-term)
+- 🎯 Expert-led Training
+- 📱 Responsive Design
+- 🛒 E-commerce Integration
+- 📊 Interactive Learning Paths
+- 🏆 Gamification Elements
 
-- **HTML5**: Semantic markup structure
-- **CSS3**: Modern styling with Flexbox and Grid
-- **JavaScript**: Interactive functionality and animations
-- **Font Awesome**: Icon library
-- **Google Fonts**: Inter font family
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 18** - Modern UI framework
+- **React Router** - Client-side routing
+- **Framer Motion** - Animations
+- **Ant Design** - UI components
+- **Tailwind CSS** - Utility-first CSS
+- **Stripe** - Payment processing
+
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js** - Web framework
+- **MongoDB** - Database
+- **JWT** - Authentication
 
 ## 📁 Project Structure
 
 ```
-windsurf-project/
-├── index.html          # Main HTML file
-├── styles.css          # CSS styling
-├── script.js           # JavaScript functionality
-└── README.md           # Project documentation
+skystates-frontend/
+├── frontend/                 # React frontend application
+│   ├── public/              # Static assets
+│   ├── src/
+│   │   ├── components/      # React components
+│   │   │   ├── DataScienceAI.js
+│   │   │   ├── CyberSecurity.js
+│   │   │   ├── DevOps.js
+│   │   │   └── ...         # Other components
+│   │   ├── contexts/        # React contexts
+│   │   ├── hooks/          # Custom hooks
+│   │   └── App.js          # Main app component
+│   └── package.json
+├── backend/                 # Node.js backend
+│   ├── controllers/         # Route controllers
+│   ├── models/            # Data models
+│   ├── routes/            # API routes
+│   └── server.js          # Server entry point
+└── README.md
 ```
 
-## 🎨 Design Features
+## � Getting Started
 
-- **Color Scheme**: Professional blue and purple gradients
-- **Typography**: Clean Inter font family
-- **Layout**: Modern card-based design
-- **Animations**: Smooth transitions and hover effects
-- **Responsive**: Mobile-first approach with breakpoints
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
+- Git
 
-## 🔧 Getting Started
+### Installation
 
-1. Clone or download the project files
-2. Open `index.html` in your web browser
-3. No additional setup required!
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ayush8433/sky-skates.git
+   cd sky-skates
+   ```
 
-## 📱 Responsive Breakpoints
+2. **Install frontend dependencies**
+   ```bash
+   cd frontend
+   npm install
+   ```
 
-- **Desktop**: 1200px and above
-- **Tablet**: 768px - 1199px
-- **Mobile**: 767px and below
+3. **Install backend dependencies**
+   ```bash
+   cd ../backend
+   npm install
+   ```
 
-## ✨ Interactive Features
+4. **Set up environment variables**
+   ```bash
+   # Create .env file in backend directory
+   cp .env.example .env
+   # Add your environment variables
+   ```
 
-- **Mobile Menu**: Hamburger menu for mobile devices
-- **Dropdown Navigation**: Multi-level navigation menus
-- **Form Validation**: Newsletter signup with validation
-- **Scroll Effects**: Header shadow and scroll-to-top button
-- **Hover Animations**: Card lift effects and button ripples
-- **Intersection Observer**: Scroll-triggered animations
+5. **Start the development servers**
+   
+   **Frontend:**
+   ```bash
+   cd frontend
+   npm start
+   ```
+   
+   **Backend:**
+   ```bash
+   cd backend
+   npm run dev
+   ```
 
-## 🎯 Sections Included
+The application will be available at:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5000
 
-1. **Header**: Navigation with contact info and auth links
-2. **Hero**: Main call-to-action section
-3. **About**: Mission and vision statement
-4. **Features**: Key benefits grid
-5. **Programs**: Course offerings with pricing
-6. **Testimonials**: Student success stories
-7. **Newsletter**: Email subscription form
-8. **Footer**: Contact information and links
+## 📚 Available Programs
 
-## 🌐 Browser Compatibility
+### Data Science & AI
+- **Duration:** 6 Months (Full-time) / 4 Months (Short-term)
+- **Certification:** Sky States + Microsoft Azure
+- **Key Skills:** Python, Machine Learning, AI, Data Visualization
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+### Cyber Security
+- **Duration:** 6 Months (Full-time) / 4 Months (Short-term)  
+- **Certification:** Sky States + Microsoft Azure
+- **Key Skills:** Ethical Hacking, Network Security, Cyber Defense
 
-## 📝 Notes
+### DevOps & Cloud Computing
+- **Duration:** 6 Months (Full-time) / 4 Months (Short-term)
+- **Certification:** Sky States + Microsoft Azure
+- **Key Skills:** Cloud Computing, CI/CD, Containerization, Azure
 
-- This is a frontend-only replica
-- All links are placeholders for demonstration
-- Images use Font Awesome icons as placeholders
-- Form submissions are handled client-side for demo purposes
+## � Key Features
+
+### Certification Advantage
+- Industry-recognized certificates
+- Microsoft Azure integration
+- Expert-led masterclasses
+- Lifetime access to content
+- LinkedIn shareable certificates
+
+### Learning Experience
+- Interactive curriculum
+- Real-world projects
+- Career support
+- Job placement assistance
+- Flexible learning schedules
 
 ## 🤝 Contributing
 
-Feel free to suggest improvements or report issues!
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Contact
+
+- **Author:** Ayush Kumar
+- **Email:** ayush.kumar.csit.2022@miet.ac.in
+- **GitHub:** [@ayush8433](https://github.com/ayush8433)
+
+## 🙏 Acknowledgments
+
+- Microsoft for Azure certification programs
+- All contributors and supporters
+- The open-source community
 
 ---
 
-*Built as a frontend replica of https://skystates.us/*
+**Sky States** - Transforming careers through quality education! 🚀

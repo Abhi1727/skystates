@@ -20,9 +20,7 @@ const LogoMarquee = () => {
     return (
         <section aria-label="Trusted by" style={{
             padding: '60px 0',
-            background: '#f8f9fa',
-            borderTop: '1px solid #dee2e6',
-            borderBottom: '1px solid #dee2e6',
+            background: 'transparent',
             position: 'relative',
             overflow: 'hidden'
         }}>
@@ -106,17 +104,8 @@ const LogoMarquee = () => {
                                     style={{
                                         height: '40px',
                                         width: 'auto',
-                                        filter: 'grayscale(100%)',
                                         opacity: '0.7',
                                         transition: 'all 0.3s ease'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.target.style.filter = 'grayscale(0%)';
-                                        e.target.style.opacity = '1';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.target.style.filter = 'grayscale(100%)';
-                                        e.target.style.opacity = '0.7';
                                     }}
                                     loading="lazy"
                                 />
@@ -171,17 +160,8 @@ const LogoMarquee = () => {
                                     style={{
                                         height: '40px',
                                         width: 'auto',
-                                        filter: 'grayscale(100%)',
                                         opacity: '0.7',
                                         transition: 'all 0.3s ease'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.target.style.filter = 'grayscale(0%)';
-                                        e.target.style.opacity = '1';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.target.style.filter = 'grayscale(100%)';
-                                        e.target.style.opacity = '0.7';
                                     }}
                                     loading="lazy"
                                 />

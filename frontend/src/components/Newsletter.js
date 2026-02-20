@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const Newsletter = () => {
   const [email, setEmail] = useState('');
@@ -27,36 +28,10 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="newsletter">
-      <div className="container">
-        <h2>Get News with Sky States</h2>
-        <p>Sign in to receive updates about our programs and job opportunities</p>
-        <form className="newsletter-form" onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <button type="submit" className="btn-primary">Sign in</button>
-        </form>
-        {message && (
-          <div
-            style={{
-              background: messageType === 'success' ? '#28a745' : '#dc3545',
-              color: 'white',
-              padding: '15px',
-              borderRadius: '5px',
-              marginTop: '20px',
-              textAlign: 'center'
-            }}
-          >
-            {message}
-          </div>
-        )}
-      </div>
-    </section>
+    // Newsletter section commented out
+    <div style={{ display: 'none' }}>
+      {/* Original newsletter code commented out */}
+    </div>
   );
 };
 

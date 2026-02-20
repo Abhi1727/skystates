@@ -1,22 +1,731 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../contexts/CartContext';
+import FloatingRegisterButton from './FloatingRegisterButton';
+import BatchCountdownTimer from './BatchCountdownTimer';
 
 const DevOps = () => {
+  const navigate = useNavigate();
+  const { addToCart, isInCart } = useCart();
+  const [isHovered, setIsHovered] = useState(false);
+  const [activeModule, setActiveModule] = useState(null);
+  const [stats, setStats] = useState({
+    students: 0,
+    companies: 0,
+    salary: 0
+  });
+
+  const programData = {
+    name: 'DevOps and Cloud Computing Program',
+    price: '2999.00',
+    duration: '6 Months',
+    type: 'full_program'
+  };
+
+  // Animated counter effect
+  useEffect(() => {
+    const animateCounter = (target, duration, callback) => {
+      let start = 0;
+      const increment = target / (duration / 16);
+      const timer = setInterval(() => {
+        start += increment;
+        if (start >= target) {
+          callback(target);
+          clearInterval(timer);
+        } else {
+          callback(Math.floor(start));
+        }
+      }, 16);
+    };
+
+    animateCounter(4500, 2000, (val) => setStats(prev => ({ ...prev, students: val })));
+    animateCounter(1500, 2200, (val) => setStats(prev => ({ ...prev, companies: val })));
+    animateCounter(140, 1800, (val) => setStats(prev => ({ ...prev, salary: val })));
+  }, []);
+
   return (
     <div className="product-page">
-      {/* Product Hero Section */}
+      {/* Enhanced Hero Section with Gradient Background */}
       <section className="product-hero" style={{
-        background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
-        color: 'white',
-        padding: '80px 0',
-        textAlign: 'center'
+        position: 'relative',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        background: 'linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%)',
+        overflow: 'hidden'
+      }}>
+        <BatchCountdownTimer />
+
+        {/* Floating elements */}
+        {/* <div style={{
+          position: 'absolute',
+          top: '10%',
+          left: '5%',
+          fontSize: '60px',
+          opacity: 0.3,
+          zIndex: 2,
+          animation: 'float 6s ease-in-out infinite'
+        }}>☁️</div> */}
+        {/* <div style={{
+          position: 'absolute',
+          top: '20%',
+          right: '10%',
+          fontSize: '50px',
+          opacity: 0.3,
+          zIndex: 2,
+          animation: 'float 8s ease-in-out infinite reverse'
+        }}>🚀</div> */}
+        {/* <div style={{
+          position: 'absolute',
+          bottom: '15%',
+          left: '8%',
+          fontSize: '55px',
+          opacity: 0.3,
+          zIndex: 2,
+          animation: 'float 7s ease-in-out infinite'
+        }}>⚙️</div> */}
+
+        <div className="container" style={{ position: 'relative', zIndex: 3 }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '60px',
+            alignItems: 'center',
+            maxWidth: '1200px',
+            margin: '0 auto'
+          }}>
+            {/* Left Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              {/* Popular badge removed */}
+
+              <h1 style={{ 
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+                fontWeight: '800', 
+                marginBottom: '24px',
+                color: '#ffffff',
+                lineHeight: '1.1',
+                letterSpacing: '-0.02em'
+              }}>
+                Become a
+                <span style={{ 
+                  display: 'block',
+                  background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontWeight: '900'
+                }}>
+                  DevOps Cloud Expert
+                </span>
+              </h1>
+              
+              <p style={{ 
+                fontSize: '1.3rem', 
+                color: 'rgba(255, 255, 255, 0.9)', 
+                marginBottom: '32px',
+                lineHeight: '1.6'
+              }}>
+                Master Docker, Kubernetes, AWS & Azure with hands-on projects. 
+                <span style={{ color: '#ffd700', fontWeight: '600' }}> Deploy at scale like a pro</span>
+              </p>
+
+              {/* Trust Indicators - All in one line */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '30px',
+                  marginBottom: '40px',
+                  padding: '16px 24px',
+                  background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%)',
+                  borderRadius: '20px',
+                  border: '1px solid rgba(102, 126, 234, 0.3)',
+                  boxShadow: '0 8px 24px rgba(102, 126, 234, 0.2)'
+                }}
+              >
+                <span style={{ 
+                  fontSize: '1.1rem', 
+                  color: '#ffffff',
+                  fontWeight: '600',
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+                }}>🎓 AWS/Azure Certified</span>
+                <span style={{ 
+                  fontSize: '1.1rem', 
+                  color: '#ffffff',
+                  fontWeight: '600',
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+                }}>💼 100% Job Support</span>
+                <span style={{ 
+                  fontSize: '1.1rem', 
+                  color: '#ffffff',
+                  fontWeight: '600',
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+                }}>⏰ 6 Months Program</span>
+              </motion.div>
+
+              {/* Modern Price Display */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                style={{
+                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05))',
+                  backdropFilter: 'blur(20px)',
+                  padding: '20px 32px',
+                  borderRadius: '20px',
+                  marginBottom: '40px',
+                  border: '1px solid rgba(59, 130, 246, 0.2)',
+                  display: 'inline-block',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+                whileHover={{ 
+                  scale: 1.02,
+                  borderColor: 'rgba(59, 130, 246, 0.3)',
+                  boxShadow: '0 8px 32px rgba(59, 130, 246, 0.15)'
+                }}
+              >
+                {/* Modern accent line */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '2px',
+                  background: 'linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), transparent)'
+                }} />
+                
+                {/* Affordable pricing layout */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: '2px',
+                  position: 'relative',
+                  zIndex: 1
+                }}>
+                  <span style={{ 
+                    fontSize: '18px', 
+                    fontWeight: '600',
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    letterSpacing: '0.5px'
+                  }}>
+                    $
+                  </span>
+                  <span style={{ 
+                    fontSize: '32px', 
+                    fontWeight: '800',
+                    color: '#ffffff',
+                    letterSpacing: '-0.03em',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                  }}>
+                    2,999
+                  </span>
+                  <span style={{ 
+                    fontSize: '14px', 
+                    fontWeight: '400',
+                    color: 'rgba(255, 255, 255, 0.7)',
+                    letterSpacing: '0.3px'
+                  }}>
+                    total
+                  </span>
+                </div>
+                
+                {/* Value proposition */}
+                <div style={{
+                  fontSize: '12px',
+                  color: 'rgba(255, 255, 255, 0.6)',
+                  marginTop: '4px',
+                  letterSpacing: '0.2px',
+                  textTransform: 'uppercase',
+                  fontWeight: '500'
+                }}>
+                  Best Value Program
+                </div>
+                
+                {/* Modern accent element */}
+                <div style={{
+                  position: 'absolute',
+                  top: '12px',
+                  right: '12px',
+                  width: '8px',
+                  height: '8px',
+                  background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 12px rgba(59, 130, 246, 0.4)'
+                }} />
+              </motion.div>
+
+              {/* CTA Buttons */}
+              <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', alignItems: 'center', paddingBottom: '15px' }}>
+                <motion.button
+                  whileHover={{ scale: 1.02, boxShadow: '0 15px 40px rgba(255, 215, 0, 0.4)' }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    // Redirect to checkout with program data
+                    navigate('/checkout', { 
+                      state: { 
+                        program: {
+                          name: programData.name,
+                          price: programData.price,
+                          duration: programData.duration,
+                          type: programData.type
+                        }
+                      } 
+                    });
+                  }}
+                  style={{
+                    background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                    color: '#1a1f36',
+                    padding: '18px 40px',
+                    border: 'none',
+                    borderRadius: '50px',
+                    fontSize: '18px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 10px 30px rgba(255, 215, 0, 0.3)',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <span style={{ position: 'relative', zIndex: 1 }}>
+                    🚀 Enroll Now
+                  </span>
+                  <motion.div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: '-100%',
+                      width: '100%',
+                      height: '100%',
+                      background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
+                    }}
+                    whileHover={{
+                      left: '0%',
+                      transition: { duration: 0.6 }
+                    }}
+                  />
+                </motion.button>
+                
+                <motion.button
+                  whileHover={{ scale: 1.02, boxShadow: '0 15px 40px rgba(40, 167, 69, 0.3)' }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    // Redirect to checkout with $99 registration fee
+                    navigate('/checkout', { 
+                      state: { 
+                        program: {
+                          name: 'Registration fee for DevOps and Cloud Computing Program',
+                          price: '99.00',
+                          duration: '6 Months',
+                          type: 'registration'
+                        }
+                      } 
+                    });
+                  }}
+                  style={{
+                    background: 'linear-gradient(135deg, #28a745, #32c997)',
+                    color: 'white',
+                    padding: '18px 40px',
+                    border: 'none',
+                    borderRadius: '50px',
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 10px 30px rgba(40, 167, 69, 0.3)',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <span style={{ position: 'relative', zIndex: 1 }}>
+                    🚀 Register Now
+                  </span>
+                  <motion.div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: '-100%',
+                      width: '100%',
+                      height: '100%',
+                      background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
+                    }}
+                    whileHover={{
+                      left: '0%',
+                      transition: { duration: 0.6 }
+                    }}
+                  />
+                </motion.button>
+                
+                {/* Commented out Download Syllabus button
+                <motion.button
+                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    background: 'transparent',
+                    color: 'white',
+                    padding: '18px 40px',
+                    border: '2px solid rgba(255, 255, 255, 0.8)',
+                    borderRadius: '50px',
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                >
+                  📅 Download Syllabus
+                </motion.button>
+                */}
+              </div>
+            </motion.div>
+
+            {/* Right Content - Stats Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}
+            >
+              <motion.div
+                style={{
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '24px',
+                  padding: '40px',
+                  textAlign: 'center',
+                  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+                  width: '100%',
+                  maxWidth: '400px'
+                }}
+                whileHover={{ scale: 1.05, boxShadow: '0 25px 70px rgba(0, 0, 0, 0.4)' }}
+              >
+                <motion.div
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                    background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 24px',
+                    fontSize: '40px',
+                    color: '#1a1f36',
+                    boxShadow: '0 15px 30px rgba(255, 215, 0, 0.4)'
+                  }}
+                  animate={{ rotateY: isHovered ? 3600 : 0 }}
+                  transition={{ duration: 0.3, ease: "linear", repeat: isHovered ? Infinity : 0 }}
+                  onHoverStart={() => setIsHovered(true)}
+                  onHoverEnd={() => setIsHovered(false)}
+                >
+                  ⚙️
+                </motion.div>
+                
+                <h3 style={{
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  marginBottom: '24px',
+                  color: '#ffffff'
+                }}>
+                  Program Highlights
+                </h3>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  {[
+                    { number: stats.students, label: 'DevOps Engineers', icon: '👥' },
+                    { number: stats.companies, label: 'Hiring Companies', icon: '🏢' },
+                    { number: `${stats.salary}%`, label: 'Avg Salary Hike', icon: '📈' }
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={index}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '16px',
+                        padding: '16px',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        borderRadius: '16px',
+                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                      }}
+                      whileHover={{ scale: 1.02, background: 'rgba(255, 255, 255, 0.1)' }}
+                    >
+                      <span style={{ fontSize: '24px' }}>{stat.icon}</span>
+                      <div style={{ textAlign: 'left' }}>
+                        <div style={{
+                          fontSize: '24px',
+                          fontWeight: '700',
+                          color: '#ff9f40',
+                          lineHeight: '1'
+                        }}>
+                          {stat.number}
+                        </div>
+                        <div style={{
+                          fontSize: '14px',
+                          color: 'rgba(255, 255, 255, 0.8)'
+                        }}>
+                          {stat.label}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* What Can I Become Section */}
+      <section style={{ 
+        padding: '100px 0', 
+        background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'
       }}>
         <div className="container">
-          <h1 style={{ fontSize: '48px', fontWeight: '700', marginBottom: '20px' }}>
-            DevOps & Cloud Computing Program
-          </h1>
-          <p style={{ fontSize: '20px', opacity: '0.9', maxWidth: '800px', margin: '0 auto' }}>
-            Master the art of DevOps and cloud technologies with Microsoft Azure certification in just 6 months
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            style={{ textAlign: 'center', marginBottom: '60px' }}
+          >
+            <h2 style={{ 
+              fontSize: '3rem', 
+              fontWeight: '800', 
+              marginBottom: '20px',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
+              What Can I Become?
+            </h2>
+            <p style={{ 
+              fontSize: '1.2rem', 
+              color: '#666', 
+              maxWidth: '600px', 
+              margin: '0 auto',
+              lineHeight: '1.6'
+            }}>
+              Unlock diverse career opportunities in DevOps and Cloud Computing
+            </p>
+          </motion.div>
+
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+            gap: '40px',
+            maxWidth: '1200px',
+            margin: '0 auto'
+          }}>
+            {[
+              {
+                title: 'DevOps Engineer',
+                image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                description: 'Automate deployment pipelines, manage infrastructure, and bridge development and operations',
+                skills: ['CI/CD', 'Docker', 'Kubernetes', 'Infrastructure as Code']
+              },
+              {
+                title: 'Cloud Architect',
+                image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                description: 'Design cloud solutions, architect scalable systems, and optimize cloud infrastructure',
+                skills: ['Cloud Architecture', 'AWS', 'Azure', 'Scalability Design']
+              },
+              {
+                title: 'Site Reliability Engineer',
+                image: 'https://images.unsplash.com/photo-1551434675646-33d7c3b7d73?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                description: 'Ensure system reliability, monitor performance, and maintain production infrastructure',
+                skills: ['SRE', 'Monitoring', 'Incident Management', 'Performance Optimization']
+              },
+              {
+                title: 'Cloud Security Specialist',
+                image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                description: 'Secure cloud environments, implement cloud security best practices, and protect cloud assets',
+                skills: ['Cloud Security', 'IAM', 'Compliance', 'Security Automation']
+              },
+              {
+                title: 'Infrastructure Engineer',
+                image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                description: 'Build and maintain infrastructure, automate system provisioning, and ensure scalability',
+                skills: ['Infrastructure', 'Automation', 'System Administration', 'Monitoring']
+              },
+              {
+                title: 'Platform Engineer',
+                image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                description: 'Develop internal platforms, create developer tools, and improve developer experience',
+                skills: ['Platform Engineering', 'Developer Tools', 'Internal Platforms', 'DevEx']
+              },
+              {
+                title: 'Release Engineer',
+                image: 'https://images.unsplash.com/photo-1603726838562-91d1b4d53d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                description: 'Manage software releases, coordinate deployments, and ensure smooth delivery pipelines',
+                skills: ['Release Management', 'Deployment Automation', 'Version Control', 'Release Coordination']
+              },
+              {
+                title: 'DevOps Consultant',
+                image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                description: 'Advise on DevOps strategies, implement DevOps practices, and transform organizations',
+                skills: ['DevOps Strategy', 'Process Improvement', 'Tool Selection', 'Organizational Change']
+              }
+            ].slice(0, 6).map((career, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                style={{
+                  background: 'white',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                whileHover={{ 
+                  transform: 'translateY(-10px)', 
+                  boxShadow: '0 30px 60px rgba(0,0,0,0.15)' 
+                }}
+              >
+                {/* Career Image */}
+                <div style={{
+                  height: '200px',
+                  backgroundImage: `url(${career.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}>
+                </div>
+
+                {/* Career Content */}
+                <div style={{ padding: '30px' }}>
+                  <h3 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '700',
+                    marginBottom: '15px',
+                    color: '#333',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px'
+                  }}>
+                    {career.title}
+                    <span style={{
+                      fontSize: '0.8rem',
+                      background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                      color: '#1a1f36',
+                      padding: '4px 12px',
+                      borderRadius: '20px',
+                      fontWeight: '600'
+                    }}>
+                      HIGH DEMAND
+                    </span>
+                  </h3>
+                  
+                  <p style={{
+                    fontSize: '1rem',
+                    color: '#666',
+                    lineHeight: '1.6',
+                    marginBottom: '20px'
+                  }}>
+                    {career.description}
+                  </p>
+
+                  <div style={{ marginBottom: '20px' }}>
+                    <h4 style={{
+                      fontSize: '0.9rem',
+                      fontWeight: '600',
+                      color: '#667eea',
+                      marginBottom: '10px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1px'
+                    }}>
+                      Key Skills
+                    </h4>
+                    <div style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '8px'
+                    }}>
+                      {career.skills.map((skill, skillIndex) => (
+                        <span key={skillIndex} style={{
+                          background: 'rgba(102, 126, 234, 0.1)',
+                          color: '#667eea',
+                          padding: '6px 12px',
+                          borderRadius: '15px',
+                          fontSize: '0.85rem',
+                          fontWeight: '500'
+                        }}>
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      const added = addToCart(programData);
+                      if (added) {
+                        // Show success notification without redirecting
+                        const notification = document.createElement('div');
+                        notification.style.cssText = `
+                          position: fixed;
+                          top: 20px;
+                          right: 20px;
+                          background: linear-gradient(135deg, #28a745, #20c997);
+                          color: white;
+                          padding: 15px 25px;
+                          border-radius: 10px;
+                          box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+                          z-index: 10000;
+                          font-weight: 600;
+                          animation: slideIn 0.3s ease;
+                        `;
+                        notification.innerHTML = '✓ Course added to cart!';
+                        document.body.appendChild(notification);
+                        
+                        setTimeout(() => {
+                          notification.style.animation = 'slideOut 0.3s ease';
+                          setTimeout(() => {
+                            document.body.removeChild(notification);
+                          }, 300);
+                        }, 3000);
+                      }
+                    }}
+                    style={{
+                      width: '100%',
+                      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '12px',
+                      padding: '14px 24px',
+                      fontSize: '1rem',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease'
+                    }}
+                  >
+                    Register to Know More →
+                  </motion.button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -27,7 +736,7 @@ const DevOps = () => {
             Why Join this Program
           </h2>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
             <div className="feature-card" style={{
               background: 'white',
               padding: '30px',
@@ -350,8 +1059,368 @@ const DevOps = () => {
         </div>
       </section>
 
-      {/* Industry Stats */}
-      <section className="industry-stats" style={{ padding: '80px 0' }}>
+      {/* DevOps Training Program Certification Advantage */}
+      <section className="certification-advantage" style={{ padding: '80px 0', background: '#f8f9fa' }}>
+        <div className="container">
+          <h2 style={{ fontSize: '36px', fontWeight: '600', textAlign: 'center', marginBottom: '50px' }}>
+            DevOps Training Program Certification Advantage
+          </h2>
+          
+          <div style={{
+            maxWidth: '800px',
+            margin: '0 auto',
+            textAlign: 'center',
+            fontSize: '18px',
+            lineHeight: '1.8',
+            color: '#666',
+            marginBottom: '60px'
+          }}>
+            <p>
+              Get certified in DevOps with the Microsoft Azure program and earn both DevOps and Microsoft Azure certifications to boost your career prospects. Gain exclusive access to expert-led masterclasses and benefit from our in-house career support program to secure your dream role in the DevOps field.
+            </p>
+          </div>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
+            <div className="certification-card" style={{
+              background: 'white',
+              padding: '40px',
+              borderRadius: '15px',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+              textAlign: 'center'
+            }}>
+              {/* Certificate Image */}
+              <div style={{
+                marginBottom: '30px'
+              }}>
+                <img 
+                  src="https://skystates.us/wp-content/uploads/2025/10/DevOps-And-Cloud-Computing-1-1024x724.jpg"
+                  alt="DevOps Certificate"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    borderRadius: '10px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
+              
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: '700',
+                marginBottom: '20px',
+                color: '#333'
+              }}>
+                Earn Your DevOps Training Program Certificate
+              </h3>
+              <ul style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                textAlign: 'left'
+              }}>
+                <li style={{ 
+                  marginBottom: '15px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '10px'
+                }}>
+                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <span style={{ color: '#666', fontSize: '16px' }}>
+                    Industry-recognized certificate by Sky States
+                  </span>
+                </li>
+                <li style={{ 
+                  marginBottom: '15px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '10px'
+                }}>
+                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <span style={{ color: '#666', fontSize: '16px' }}>
+                    Dedicated live sessions by faculty of industry experts
+                  </span>
+                </li>
+                <li style={{ 
+                  marginBottom: '15px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '10px'
+                }}>
+                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <span style={{ color: '#666', fontSize: '16px' }}>
+                    Lifetime access to self-paced learning content
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="microsoft-advantage-card" style={{
+              background: 'white',
+              padding: '40px',
+              borderRadius: '15px',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+              textAlign: 'center'
+            }}>
+              {/* Certificate Image */}
+              <div style={{
+                marginBottom: '30px'
+              }}>
+                <img 
+                  src="https://skystates.us/wp-content/uploads/2025/12/devops-1024x724.png"
+                  alt="DevOps Certificate"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    borderRadius: '10px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
+              
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: '700',
+                marginBottom: '20px',
+                color: '#333'
+              }}>
+                Get Ahead With Microsoft Advantage
+              </h3>
+              <ul style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                textAlign: 'left'
+              }}>
+                <li style={{ 
+                  marginBottom: '15px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '10px'
+                }}>
+                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <span style={{ color: '#666', fontSize: '16px' }}>
+                    Content and certificate by Microsoft
+                  </span>
+                </li>
+                <li style={{ 
+                  marginBottom: '15px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '10px'
+                }}>
+                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <span style={{ color: '#666', fontSize: '16px' }}>
+                    Professional-level training from Microsoft
+                  </span>
+                </li>
+                <li style={{ 
+                  marginBottom: '15px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '10px'
+                }}>
+                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <span style={{ color: '#666', fontSize: '16px' }}>
+                    LinkedIn profile Shareable certificate
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DevOps Training Program Certification Course Learning Path */}
+      <section className="learning-path" style={{ padding: '80px 0' }}>
+        <div className="container">
+          <h2 style={{ fontSize: '36px', fontWeight: '600', textAlign: 'center', marginBottom: '50px' }}>
+            DevOps Training Program Certification Course Learning Path
+          </h2>
+          
+          <div style={{
+            maxWidth: '800px',
+            margin: '0 auto',
+            textAlign: 'center',
+            fontSize: '18px',
+            lineHeight: '1.8',
+            color: '#666',
+            marginBottom: '60px'
+          }}>
+            <p>
+              Boost your career with our leading DevOps training program. Master essential DevOps skills and showcase your expertise through our expertly crafted learning path.
+            </p>
+          </div>
+          
+          <div style={{
+            background: 'white',
+            padding: '50px',
+            borderRadius: '20px',
+            boxShadow: '0 15px 40px rgba(0,0,0,0.1)'
+          }}>
+            <h3 style={{
+              fontSize: '28px',
+              fontWeight: '700',
+              textAlign: 'center',
+              marginBottom: '40px',
+              color: '#333'
+            }}>
+              Advanced Program in DevOps Training Program Curriculum
+            </h3>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '25px' }}>
+              {[
+                {
+                  title: 'Module 1: Introduction to DevOps',
+                  description: 'Understand the principles and benefits of DevOps, including collaboration between development and operations teams. Learn about the DevOps lifecycle and key tools to enhance software delivery.'
+                },
+                {
+                  title: 'Module 2: Cloud Computing Fundamentals',
+                  description: 'Explore the core concepts of cloud computing, such as virtualization, scalability, and elasticity. Learn about cloud service models (IaaS, PaaS, SaaS) and deployment models (public, private, hybrid).'
+                },
+                {
+                  title: 'Module 3: Version Control Systems',
+                  description: 'Master Git and other version control systems to track changes in source code. Learn branching, merging, and collaboration techniques to streamline team workflows.'
+                },
+                {
+                  title: 'Module 4: Continuous Integration and Delivery',
+                  description: 'Dive into CI/CD pipelines to automate code integration, testing, and deployment. Learn tools like Jenkins, GitHub Actions, and Azure DevOps to build robust CI/CD workflows.'
+                },
+                {
+                  title: 'Module 5: Containerization with Docker',
+                  description: 'Learn to create, deploy, and manage containers using Docker. Understand containerization concepts, including images, containers, volumes, and networking.'
+                },
+                {
+                  title: 'Module 6: Orchestration with Kubernetes',
+                  description: 'Explore Kubernetes for automating deployment, scaling, and managing containerized applications. Learn about pods, services, deployments, and monitoring clusters.'
+                },
+                {
+                  title: 'Module 7: Infrastructure as Code (IaC)',
+                  description: 'Discover tools like Terraform and CloudFormation to define and provision infrastructure programmatically. Learn best practices for managing infrastructure in a cloud environment.'
+                },
+                {
+                  title: 'Module 8: Cloud Platforms Overview',
+                  description: 'Gain hands-on experience with leading cloud platforms like AWS, Azure, and Google Cloud. Learn core services such as compute, storage, and networking.'
+                },
+                {
+                  title: 'Module 9: Monitoring and Logging',
+                  description: 'Understand the importance of monitoring and logging in maintaining system health. Explore tools like Prometheus, Grafana, and ELK Stack to analyze system performance.'
+                },
+                {
+                  title: 'Module 10: Security in DevOps',
+                  description: 'Integrate security into the DevOps process with DevSecOps practices. Learn about securing CI/CD pipelines, monitoring vulnerabilities, and implementing access controls.'
+                },
+                {
+                  title: 'Module 11: Hybrid and Multi-Cloud Environments',
+                  description: 'Learn strategies for managing applications across hybrid and multi-cloud setups. Explore tools and frameworks for seamless integration between cloud providers.'
+                },
+                {
+                  title: 'Module 12: Domain Wise Capstone Project',
+                  description: 'Apply the knowledge gained throughout the course to complete a real-world project. Design and implement a CI/CD pipeline, containerized application, and monitoring solution in a cloud environment.'
+                }
+              ].map((module, index) => (
+                <div key={index} style={{
+                  background: '#f8f9fa',
+                  padding: '25px',
+                  borderRadius: '15px',
+                  borderLeft: '4px solid #ff6b35',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-5px)';
+                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(0,0,0,0.15)';
+                  e.currentTarget.style.borderLeftColor = '#f7931e';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.borderLeftColor = '#ff6b35';
+                }}
+                onClick={() => setActiveModule(activeModule === index ? null : index)}>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: activeModule === index ? '15px' : '0'
+                  }}>
+                    <h4 style={{
+                      fontSize: '18px',
+                      fontWeight: '700',
+                      color: '#333',
+                      margin: 0,
+                      lineHeight: '1.3'
+                    }}>
+                      {module.title}
+                    </h4>
+                    <span style={{
+                      fontSize: '20px',
+                      color: '#ff6b35',
+                      transition: 'transform 0.3s ease',
+                      transform: activeModule === index ? 'rotate(180deg)' : 'rotate(0deg)'
+                    }}>
+                      ▼
+                    </span>
+                  </div>
+                  
+                  {activeModule === index && (
+                    <div
+                      style={{
+                        overflow: 'hidden',
+                        opacity: 1,
+                        transition: 'opacity 0.3s ease'
+                      }}
+                    >
+                    <p style={{
+                      margin: 0,
+                      color: '#666',
+                      fontSize: '15px',
+                      lineHeight: '1.6'
+                    }}>
+                      {module.description}
+                    </p>
+                  </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+              <a 
+                href="#"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
+                  color: 'white',
+                  padding: '15px 30px',
+                  borderRadius: '25px',
+                  textDecoration: 'none',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  transition: 'transform 0.3s, box-shadow 0.3s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 107, 53, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <i className="fas fa-download"></i>
+                Download Syllabus
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Industry Stats Section - Commented Out */}
+      {/* <section className="industry-stats" style={{ padding: '80px 0' }}>
         <div className="container">
           <h2 style={{ fontSize: '36px', fontWeight: '600', textAlign: 'center', marginBottom: '50px' }}>
             Join the Thriving DevOps Industry
@@ -451,10 +1520,10 @@ const DevOps = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Career Paths */}
-      <section className="career-paths" style={{ padding: '80px 0', background: '#f8f9fa' }}>
+      {/* Career Paths Section - Commented Out */}
+      {/* <section className="career-paths" style={{ padding: '80px 0', background: '#f8f9fa' }}>
         <div className="container">
           <h2 style={{ fontSize: '36px', fontWeight: '600', textAlign: 'center', marginBottom: '50px' }}>
             What Can I Become?
@@ -506,93 +1575,19 @@ const DevOps = () => {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Pricing Section */}
-      <section className="pricing" style={{ padding: '80px 0' }}>
-        <div className="container">
-          <div style={{
-            maxWidth: '600px',
-            margin: '0 auto',
-            background: 'white',
-            padding: '40px',
-            borderRadius: '15px',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-            textAlign: 'center'
-          }}>
-            <h2 style={{ fontSize: '36px', fontWeight: '700', color: '#333', marginBottom: '20px' }}>
-              $2,999
-            </h2>
-            <p style={{ color: '#666', fontSize: '18px', marginBottom: '30px' }}>
-              inc. Taxes
-            </p>
-            
-            <ul style={{ textAlign: 'left', marginBottom: '30px', color: '#666' }}>
-              <li style={{ marginBottom: '10px' }}>Easy-EMI Options Available</li>
-              <li style={{ marginBottom: '10px' }}>Book your seats for this Program for just $99</li>
-              <li>Join along with your friends & get special discounts</li>
-            </ul>
-            
-            <div style={{ marginBottom: '30px' }}>
-              <div style={{
-                background: '#f8f9fa',
-                padding: '20px',
-                borderRadius: '10px',
-                marginBottom: '20px'
-              }}>
-                <h3 style={{ fontSize: '24px', fontWeight: '600', color: '#ff6b35', marginBottom: '10px' }}>
-                  $99
-                </h3>
-                <p style={{ color: '#666', marginBottom: '15px' }}>
-                  Registration Fee
-                </p>
-                <button style={{
-                  background: '#ff6b35',
-                  color: 'white',
-                  padding: '15px 30px',
-                  border: 'none',
-                  borderRadius: '5px',
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'background 0.3s'
-                }}>
-                  Register Now
-                </button>
-              </div>
-            </div>
-            
-            <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-              <button style={{
-                background: '#28a745',
-                color: 'white',
-                padding: '12px 24px',
-                border: 'none',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
-                transition: 'background 0.3s'
-              }}>
-                <i className="fas fa-download" style={{ marginRight: '8px' }}></i>
-                Download Brochure
-              </button>
-              <button style={{
-                background: '#ff6b35',
-                color: 'white',
-                padding: '12px 24px',
-                border: 'none',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
-                transition: 'background 0.3s'
-              }}>
-                <i className="fas fa-phone" style={{ marginRight: '8px' }}></i>
-                Talk to Advisor
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Modern Pricing Section - COMMENTED OUT
+        Investment in Your Future section with pricing and payment options
+        This entire section has been commented out as requested
+      */}
+      
+      {/* Floating Register Button */}
+      <FloatingRegisterButton 
+        programName="DevOps & Cloud"
+        programPrice="3999.00"
+        programType="full_program"
+      />
     </div>
   );
 };

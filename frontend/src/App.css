@@ -1,5 +1,184 @@
+/* Global Typography Improvements */
 .App {
   text-align: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* Prevent horizontal scrolling globally */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Enhanced Readability */
+.container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Section fixes to prevent horizontal scrolling */
+section {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Hero section specific fix */
+.hero {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Programs grid fix */
+.programs-grid {
+  max-width: 100%;
+  overflow-x: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  padding: 20px 0;
+}
+
+/* Locomotive Scroll Styles */
+html.has-scroll-smooth {
+  overflow: hidden;
+}
+
+html {
+  scroll-behavior: auto !important;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* Smooth scroll alternative styles */
+html.smooth-scroll-enabled {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.smooth-scroll-enabled {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Enhanced smooth scrolling */
+html.smooth-scroll-enabled,
+body.smooth-scroll-enabled {
+  scroll-padding-top: 80px; /* Account for fixed header */
+}
+
+/* Smooth scroll for all elements */
+.smooth-scroll-enabled * {
+  scroll-behavior: smooth;
+}
+
+/* Locomotive Scroll Container */
+[data-scroll-container] {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Smooth scroll fallback for browsers that don't support Locomotive */
+html:not(.has-scroll-smooth) {
+  scroll-behavior: smooth;
+}
+
+/* Fix for Locomotive Scroll with React Router */
+[data-scroll-section] {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure proper layering */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Prevent content from jumping during load */
+.App {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.App.is-loaded {
+  opacity: 1;
+}
+
+/* Program card overflow fix */
+.program-card {
+  overflow: hidden !important;
+  position: relative;
+  transform-origin: center center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+}
+
+/* Ensure content stays within bounds */
+.program-card * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Container overflow protection */
+.container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 0 20px;
+}
+
+/* Button Typography */
+.btn-primary, .btn-secondary, button {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: all 0.3s ease;
+}
+
+/* Form Typography */
+input, textarea, select {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Link Typography */
+a {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Card Typography */
+.card, .program-card, .feature-card {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Navigation Typography */
+nav, .nav-link, .menu-item {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Footer Typography */
+footer, .footer-link {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
 }
 
 .App-logo {
@@ -30,6 +209,266 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Cart Notification Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* WooCommerce Checkout Styles */
+.woocommerce {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+}
+
+.woocommerce-message {
+  background: #d4edda !important;
+  color: #155724 !important;
+  border: 1px solid #c3e6cb !important;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.woocommerce-info {
+  background: #e7f3ff !important;
+  color: #0073aa !important;
+  border: 1px solid #0073aa !important;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  margin-bottom: 20px;
+}
+
+.form-row label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-row .required {
+  color: #e74c3c;
+}
+
+.input-text {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.input-text:focus {
+  outline: none;
+  border-color: #0073aa;
+  box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.2);
+}
+
+select.input-text {
+  cursor: pointer;
+}
+
+.shop_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background: #fff;
+}
+
+.shop_table th,
+.shop_table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.shop_table th {
+  font-weight: 600;
+  color: #333;
+}
+
+.shop_table td.product-total {
+  text-align: right;
+}
+
+.shop_table th.product-total {
+  text-align: right;
+}
+
+.woocommerce-Price-amount {
+  font-weight: 600;
+  color: #333;
+}
+
+.woocommerce-Price-currencySymbol {
+  font-weight: 400;
+}
+
+.wc_payment_methods {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.wc_payment_methods li {
+  border-bottom: 1px solid #ddd;
+}
+
+.wc_payment_methods li:last-child {
+  border-bottom: none;
+}
+
+.wc_payment_methods li input[type="radio"] {
+  margin: 15px;
+}
+
+.wc_payment_methods li label {
+  display: inline-block;
+  padding: 15px 0;
+  margin-left: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+}
+
+.wc-stripe-card-icons-container img {
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.button {
+  background: #0073aa;
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button:hover {
+  background: #005a87;
+}
+
+.button.alt {
+  background: #0073aa;
+}
+
+.button.alt:hover {
+  background: #005a87;
+}
+
+#place_order {
+  width: 100%;
+  padding: 15px 30px;
+  font-size: 16px;
+}
+
+.woocommerce-privacy-policy-text {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.woocommerce-privacy-policy-link {
+  color: #0073aa;
+  text-decoration: none;
+}
+
+.woocommerce-privacy-policy-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .woocommerce {
+    padding: 10px;
+  }
+  
+  #customer_details {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .form-row-first,
+  .form-row-last {
+    width: 100% !important;
+  }
+  
+  .shop_table {
+    font-size: 14px;
+  }
+  
+  .shop_table th,
+  .shop_table td {
+    padding: 8px;
+  }
+}
+
+/* Form Validation Styles */
+.input-text:invalid {
+  border-color: #e74c3c;
+}
+
+.input-text:valid {
+  border-color: #27ae60;
+}
+
+/* Loading State */
+.button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Success Animation */
+@keyframes successPulse {
+  0% {
+    background: #27ae60;
+  }
+  50% {
+    background: #2ecc71;
+  }
+  100% {
+    background: #27ae60;
+  }
+}
+
+.button.success {
+  animation: successPulse 1s ease-in-out;
 }
 
 /* Page Transition Animation */
