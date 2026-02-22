@@ -26,7 +26,7 @@ const JobsTab = ({ jobs, setJobs, showNotification }) => {
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/admin/design/jobs');
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/admin/design/jobs`);
       const data = await response.json();
       if (data.success) {
         // Transform API data to match component structure
