@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { protectClerk } = require('./clerkAuth');
 
-// Protect routes - verify JWT token
-const protect = async (req, res, next) => {
+// Protect routes - verify JWT token (legacy, used when Clerk is not configured)
+const protectJWT = async (req, res, next) => {
   let token;
 
   // Get token from header
@@ -50,7 +51,7 @@ const protect = async (req, res, next) => {
   }
 };
 
-// Role-based access control
+// Role-based access control (works with both JWT and Clerk - req.user.role)
 const authorize = (...roles) => {
   return (req, res, next) => {
     if (!req.user) {
@@ -140,6 +141,9 @@ const adminOnly = (req, res, next) => {
 
   next();
 };
+
+// Use Clerk when CLERK_SECRET_KEY is set, else JWT
+const protect = process.env.CLERK_SECRET_KEY ? protectClerk : protectJWT;
 
 module.exports = {
   protect,

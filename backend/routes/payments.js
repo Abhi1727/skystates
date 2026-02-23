@@ -3,6 +3,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Enrollment = require('../models/Enrollment');
 const Course = require('../models/Course');
 const { protect } = require('../middleware/auth');
+const { sendOrderConfirmationEmail } = require('../services/emailService');
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ const router = express.Router();
 // @access  Private
 router.post('/create-intent', protect, async (req, res) => {
   try {
-    const { courseId, amount } = req.body;
+    const { courseId, customerEmail, customerName } = req.body;
 
     // Verify course exists and get price
     const course = await Course.findById(courseId);
@@ -23,8 +24,9 @@ router.post('/create-intent', protect, async (req, res) => {
     }
 
     // Check if user is already enrolled
+    const userId = req.user.id || req.user._id;
     const existingEnrollment = await Enrollment.findOne({
-      student: req.user._id,
+      student: userId,
       course: courseId
     });
 
@@ -35,16 +37,20 @@ router.post('/create-intent', protect, async (req, res) => {
       });
     }
 
-    // Use provided amount or course price (in cents)
-    const paymentAmount = amount || course.price * 100;
+    // NEVER trust client-supplied amount - always use server-side course price
+    const paymentAmount = Math.round(parseFloat(course.price) * 100);
 
-    // Create Stripe payment intent
+    // Create Stripe payment intent (metadata used for webhook confirmation email)
     const paymentIntent = await stripe.paymentIntents.create({
       amount: paymentAmount,
       currency: 'usd',
+      receipt_email: customerEmail || undefined,
       metadata: {
         courseId: courseId,
-        userId: req.user._id.toString()
+        userId: String(userId),
+        courseName: course.title || 'EdTech Program',
+        customerEmail: customerEmail || '',
+        customerName: customerName || 'Student'
       },
       automatic_payment_methods: {
         enabled: true,
@@ -86,8 +92,9 @@ router.post('/confirm', protect, async (req, res) => {
     }
 
     // Verify metadata matches
+    const userId = req.user.id || req.user._id;
     if (paymentIntent.metadata.courseId !== courseId || 
-        paymentIntent.metadata.userId !== req.user._id.toString()) {
+        paymentIntent.metadata.userId !== String(userId)) {
       return res.status(400).json({
         success: false,
         message: 'Payment metadata mismatch'
@@ -143,6 +150,17 @@ router.post('/confirm', protect, async (req, res) => {
       .populate('course', 'title thumbnail instructor')
       .populate('course.instructor', 'firstName lastName');
 
+    // Send order confirmation + welcome email
+    const studentEmail = populatedEnrollment?.student?.email;
+    if (studentEmail) {
+      sendOrderConfirmationEmail({
+        to: studentEmail,
+        customerName: populatedEnrollment.student?.firstName ? `${populatedEnrollment.student.firstName} ${populatedEnrollment.student.lastName || ''}`.trim() : 'Student',
+        courseName: populatedEnrollment.course?.title || 'EdTech Program',
+        amount: enrollment.payment?.amount
+      }).catch(err => console.error('[Confirm] Email send failed:', err));
+    }
+
     res.json({
       success: true,
       message: 'Payment confirmed and enrollment created successfully',
@@ -159,40 +177,42 @@ router.post('/confirm', protect, async (req, res) => {
   }
 });
 
-// @route   POST /api/payments/webhook
-// @desc    Stripe webhook handler
-// @access  Public
-router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
-  const sig = req.headers['stripe-signature'];
-  let event;
+// Webhook handler - must use raw body (mounted in server.js BEFORE express.json)
+const webhookHandler = [
+  express.raw({ type: 'application/json' }),
+  async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+    if (!sig) return res.status(400).send('Missing Stripe signature');
+    if (!process.env.STRIPE_WEBHOOK_SECRET) return res.status(500).send('Webhook not configured');
 
-  try {
-    event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
-  } catch (err) {
-    console.log(`Webhook signature verification failed.`, err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+    let event;
+    try {
+      event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    } catch (err) {
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    switch (event.type) {
+      case 'payment_intent.succeeded': {
+        const pi = event.data.object;
+        const email = pi.receipt_email || pi.metadata?.customerEmail;
+        const customerName = pi.metadata?.customerName || 'Student';
+        const courseName = pi.metadata?.courseName || 'EdTech Program';
+        const amount = (pi.amount_received || 0) / 100;
+        if (email) {
+          sendOrderConfirmationEmail({ to: email, customerName, courseName, amount })
+            .catch(err => console.error('[Webhook] Email send failed:', err));
+        }
+        break;
+      }
+      case 'payment_intent.payment_failed':
+        break;
+      default:
+        break;
+    }
+    res.send();
   }
-
-  // Handle the event
-  switch (event.type) {
-    case 'payment_intent.succeeded':
-      const paymentIntent = event.data.object;
-      console.log('PaymentIntent was successful!');
-      
-      // You can handle post-payment actions here
-      // For example, send confirmation email, update database, etc.
-      
-      break;
-    case 'payment_intent.payment_failed':
-      console.log('PaymentIntent failed:', event.data.object.last_payment_error);
-      break;
-    default:
-      console.log(`Unhandled event type ${event.type}`);
-  }
-
-  // Return a 200 response to acknowledge receipt of the event
-  res.send();
-});
+];
 
 // @route   GET /api/payments/history
 // @desc    Get user's payment history
@@ -314,4 +334,4 @@ router.post('/refund', protect, async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = { router, webhookHandler };

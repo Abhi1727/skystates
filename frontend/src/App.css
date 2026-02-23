@@ -100,10 +100,11 @@ html:not(.has-scroll-smooth) {
   z-index: 1;
 }
 
-/* Ensure proper layering */
+/* Ensure proper layering + offset for fixed header */
 main {
   position: relative;
   z-index: 1;
+  padding-top: 120px; /* Prevent content from hiding under fixed header */
 }
 
 /* Prevent content from jumping during load */

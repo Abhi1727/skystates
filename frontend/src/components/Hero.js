@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Marquee from "react-fast-marquee";
 import { motion } from 'framer-motion';
+import { SignedIn, SignedOut } from '@clerk/clerk-react';
 
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -173,41 +175,77 @@ const Hero = () => {
                 </motion.div>
               ))}
             </motion.div>
-            {/* <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-              <button 
-                onClick={() => {
-                  const programsSection = document.querySelector('.programs');
-                  if (programsSection) {
-                    programsSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                style={{
-                  background: 'linear-gradient(135deg, #28a745, #20c997)',
-                  color: 'white',
-                  padding: '16px 32px',
-                  border: 'none',
-                  borderRadius: '50px',
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 8px 25px rgba(40, 167, 69, 0.3)',
-                  letterSpacing: '0.01em',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 12px 35px rgba(40, 167, 69, 0.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 8px 25px rgba(40, 167, 69, 0.3)';
-                }}>
-                <i className="fas fa-rocket" style={{ marginRight: '10px' }}></i>
-                <span className="cta-text">Explore Programs</span>
-              </button>
-            </div> */}
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <SignedOut>
+                <Link
+                  to="/login"
+                  style={{
+                    background: 'linear-gradient(135deg, rgb(29, 78, 216), rgb(30, 64, 175))',
+                    color: 'white',
+                    padding: '14px 28px',
+                    border: 'none',
+                    borderRadius: '50px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 8px 25px rgba(37, 99, 235, 0.3)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  <i className="fas fa-sign-in-alt"></i>
+                  Login
+                </Link>
+                <Link
+                  to="/sign-up"
+                  style={{
+                    background: 'rgba(40, 167, 69, 0.2)',
+                    color: 'white',
+                    padding: '14px 28px',
+                    border: '2px solid rgba(40, 167, 69, 0.6)',
+                    borderRadius: '50px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  <i className="fas fa-user-plus"></i>
+                  Register
+                </Link>
+              </SignedOut>
+              <SignedIn>
+                <Link
+                  to="/"
+                  style={{
+                    background: 'linear-gradient(135deg, #28a745, #20c997)',
+                    color: 'white',
+                    padding: '14px 28px',
+                    border: 'none',
+                    borderRadius: '50px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 8px 25px rgba(40, 167, 69, 0.3)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  <i className="fas fa-rocket"></i>
+                  Explore Programs
+                </Link>
+              </SignedIn>
+            </div>
           </div>
 
           {/* Right Content - Visual Elements */}

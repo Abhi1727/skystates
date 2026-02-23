@@ -19,6 +19,7 @@
   "author": "Sky States Team",
   "license": "MIT",
   "dependencies": {
+    "@clerk/express": "^1.7.73",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.41.0",
     "cors": "^2.8.5",

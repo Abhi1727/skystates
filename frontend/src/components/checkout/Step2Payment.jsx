@@ -24,7 +24,7 @@ const Step2Payment = ({ data, onChange, onBack, onNext, validation }) => {
   const paymentMethods = [
     {
       id: 'card',
-      name: 'Credit/Debit Card',
+      name: 'Credit/Debit Cards',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" className="payment-icon">
           <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" strokeWidth="2"/>
@@ -33,7 +33,7 @@ const Step2Payment = ({ data, onChange, onBack, onNext, validation }) => {
           <line x1="10" y1="14" x2="14" y2="14" stroke="currentColor" strokeWidth="2"/>
         </svg>
       ),
-      description: 'Visa, Mastercard, American Express'
+      description: 'Visa, Mastercard, American Express, Discover'
     },
     {
       id: 'paypal',
@@ -45,6 +45,22 @@ const Step2Payment = ({ data, onChange, onBack, onNext, validation }) => {
         </svg>
       ),
       description: 'Fast and secure payment'
+    },
+    {
+      id: 'klarna',
+      name: 'Klarna',
+      icon: (
+        <span style={{ fontWeight: 700, fontSize: '14px', color: '#ffb3c7' }}>Klarna</span>
+      ),
+      description: 'Pay in 4 interest-free installments'
+    },
+    {
+      id: 'afterpay',
+      name: 'Afterpay',
+      icon: (
+        <span style={{ fontWeight: 700, fontSize: '13px', color: '#b2fce4' }}>afterpay</span>
+      ),
+      description: 'Pay in 4 interest-free installments'
     }
   ];
 
@@ -158,6 +174,35 @@ const Step2Payment = ({ data, onChange, onBack, onNext, validation }) => {
                 <span className="checkbox-text">Save card for future purchases</span>
               </label>
               <p className="save-card-note">Your card information will be stored securely for faster checkout next time.</p>
+            </div>
+          </div>
+        )}
+
+        {(data.method === 'klarna' || data.method === 'afterpay') && (
+          <div className="paypal-details">
+            <div className="paypal-info">
+              <h3>{data.method === 'klarna' ? 'Klarna' : 'Afterpay'} Information</h3>
+              <p>You will be redirected to {data.method === 'klarna' ? 'Klarna' : 'Afterpay'} to complete your payment. Pay in 4 interest-free installments.</p>
+              <div className="paypal-features">
+                <div className="feature">
+                  <svg className="check-icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span>4 interest-free payments</span>
+                </div>
+                <div className="feature">
+                  <svg className="check-icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span>No fees when you pay on time</span>
+                </div>
+                <div className="feature">
+                  <svg className="check-icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span>Instant approval decision</span>
+                </div>
+              </div>
             </div>
           </div>
         )}

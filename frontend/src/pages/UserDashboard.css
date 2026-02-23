@@ -1,0 +1,218 @@
+.user-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  min-height: 60vh;
+}
+
+.dashboard-header {
+  margin-bottom: 40px;
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  color: #1a1a2e;
+  margin: 0 0 8px 0;
+}
+
+.dashboard-header p {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.dashboard-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.dashboard-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.dashboard-card h2 {
+  font-size: 1.25rem;
+  color: #1a1a2e;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.profile-info {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.profile-avatar img,
+.profile-avatar .avatar-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.profile-details p {
+  margin: 0 0 8px 0;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.edit-profile-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+
+.edit-profile-btn:hover {
+  opacity: 0.9;
+  color: white;
+}
+
+.orders-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.order-course {
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.order-date {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.order-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.order-amount {
+  font-weight: 700;
+  color: #16a34a;
+}
+
+.order-status {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.order-status.completed {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.order-status.refunded {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.loading-msg,
+.info-msg {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.info-msg a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.benefit-item {
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.benefit-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.benefit-item h3 {
+  font-size: 1rem;
+  color: #1a1a2e;
+  margin: 0 0 8px 0;
+}
+
+.benefit-item p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .user-dashboard {
+    padding: 24px 16px;
+  }
+
+  .dashboard-card {
+    padding: 20px;
+  }
+
+  .profile-info {
+    flex-direction: column;
+  }
+}

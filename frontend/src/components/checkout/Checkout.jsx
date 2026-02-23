@@ -67,7 +67,7 @@ const Checkout = () => {
     }
   }, []);
 
-  const stripePromise = loadStripe('pk_test_51QD8TfDyzD57haVrTQo8bVWlVTnPOmwKeCkbkLVzmaAacgeKCNo4cHSZWC15ekYJGej6EfmKELm1ucoeEMtmvhzL00bXi40Xmr');
+  const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY || 'pk_test_51QD8TfDyzD57haVrTQo8bVWlVTnPOmwKeCkbkLVzmaAacgeKCNo4cHSZWC15ekYJGej6EfmKELm1ucoeEMtmvhzL00bXi40Xmr');
 
   const updateContact = (field, value) => {
     setCheckoutData(prev => ({

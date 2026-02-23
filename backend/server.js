@@ -3,7 +3,10 @@ const { sequelize } = require('./config/database');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const { clerkMiddleware } = require('./middleware/clerkAuth');
 require('dotenv').config();
+
+const useClerk = !!process.env.CLERK_SECRET_KEY;
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -11,7 +14,7 @@ const userRoutes = require('./routes/users');
 const courseRoutes = require('./routes/courses');
 const jobRoutes = require('./routes/jobs');
 const enrollmentRoutes = require('./routes/enrollments');
-const paymentRoutes = require('./routes/payments');
+const { router: paymentRoutes, webhookHandler } = require('./routes/payments');
 const adminDesignRoutes = require('./routes/admin-design');
 const couponRoutes = require('./routes/coupons');
 
@@ -21,12 +24,24 @@ const app = express();
 // Security middleware
 app.use(helmet());
 
+// Stripe webhook needs raw body - must be BEFORE express.json()
+app.use('/api/payments/webhook', ...webhookHandler);
+
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100
 });
 app.use(limiter);
+
+// Stricter rate limit for auth endpoints
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: { success: false, message: 'Too many attempts. Try again in 15 minutes.' }
+});
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', rateLimit({ windowMs: 60 * 60 * 1000, max: 3 }));
 
 // CORS configuration
 app.use(cors({
@@ -37,6 +52,11 @@ app.use(cors({
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// Clerk auth (when CLERK_SECRET_KEY is set)
+if (useClerk) {
+  app.use(clerkMiddleware());
+}
 
 // Database connection
 sequelize.sync({ force: false }).then(() => {

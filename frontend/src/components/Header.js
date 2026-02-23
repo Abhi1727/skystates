@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-// import { useCart } from '../contexts/CartContext';
+import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
+import { useCart } from '../contexts/CartContext';
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  // const [showCart, setShowCart] = useState(false);
+  const [showCart, setShowCart] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
-  // const { cartItems, cartCount, removeFromCart, getCartTotal } = useCart();
+  const { cartItems, cartCount, removeFromCart, getCartTotal } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -131,47 +132,51 @@ const Header = () => {
             alignItems: window.innerWidth <= 576 ? 'stretch' : 'center',
             textAlign: 'center'
           }}>
-            <Link to="/login" className="login-btn" onClick={(e) => {
-              e.preventDefault();
-              const btn = e.currentTarget;
-              btn.style.transform = 'scale(0.95)';
-              setTimeout(() => {
-                btn.style.transform = 'scale(1)';
-                navigate('/login');
-              }, 200);
-            }} style={{
-              color: 'white',
-              padding: '6px 14px',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              borderRadius: '20px',
-              textDecoration: 'none',
-              fontSize: '13px',
-              fontWeight: '500',
-              transition: 'all 0.3s ease',
-              display: 'inline-block',
-              background: 'linear-gradient(135deg, rgb(29, 78, 216) 0%, rgb(30, 64, 175) 50%, rgb(23, 37, 84) 100%)',
-              cursor: 'pointer'
-            }}
-              onMouseEnter={(e) => {
-                e.target.style.background = 'linear-gradient(135deg, rgb(25, 69, 196) 0%, rgb(26, 58, 164) 50%, rgb(20, 33, 74) 100%)';
-                e.target.style.color = '#ffffff';
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = 'linear-gradient(135deg, rgb(29, 78, 216) 0%, rgb(30, 64, 175) 50%, rgb(23, 37, 84) 100%)';
-                e.target.style.color = '#ffffff';
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = 'none';
-              }}
-              onMouseDown={(e) => {
-                e.currentTarget.style.transform = 'scale(0.95)';
-              }}
-              onMouseUp={(e) => {
-                e.currentTarget.style.transform = 'scale(1) translateY(-2px)';
+            <SignedOut>
+              <Link to="/login" className="login-btn" style={{
+                color: 'white',
+                padding: '6px 14px',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                borderRadius: '20px',
+                textDecoration: 'none',
+                fontSize: '13px',
+                fontWeight: '500',
+                transition: 'all 0.3s ease',
+                display: 'inline-block',
+                background: 'linear-gradient(135deg, rgb(29, 78, 216) 0%, rgb(30, 64, 175) 50%, rgb(23, 37, 84) 100%)',
+                cursor: 'pointer'
               }}>
-              Login/Register
-            </Link>
+                Login
+              </Link>
+              <Link to="/sign-up" style={{
+                color: 'white',
+                padding: '6px 14px',
+                border: '1px solid rgba(40, 167, 69, 0.5)',
+                borderRadius: '20px',
+                textDecoration: 'none',
+                fontSize: '13px',
+                fontWeight: '500',
+                background: 'rgba(40, 167, 69, 0.2)',
+                cursor: 'pointer'
+              }}>
+                Register
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <Link to="/dashboard" style={{
+                color: 'white',
+                padding: '6px 12px',
+                fontSize: '13px',
+                fontWeight: '500',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}>
+                Dashboard
+              </Link>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
             <button onClick={handleLMSLogin} className="lms-btn" style={{
               background: 'linear-gradient(135deg, rgb(29, 78, 216) 0%, rgb(30, 64, 175) 50%, rgb(23, 37, 84) 100%)',
               color: 'white',
@@ -926,22 +931,19 @@ const Header = () => {
               </AnimatePresence>
             </motion.li>
 
-            {/* Cart Icon - Commented Out */}
-            {/* <motion.li
+            {/* Cart Icon */}
+            <motion.li
               whileHover={{ y: -2, scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.2 }}
             >
-              <a 
-                href="#" 
-                className="cart-icon"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate('/checkout');
-                }}
+              <button
+                type="button"
+                onClick={() => setShowCart(true)}
                 style={{
+                  background: 'transparent',
+                  border: 'none',
                   color: '#ffffff',
-                  textDecoration: 'none',
                   padding: '15px',
                   borderRadius: '12px',
                   display: 'flex',
@@ -953,15 +955,35 @@ const Header = () => {
                   fontSize: '22px'
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0)';
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
                 🛒
-              </a>
-            </motion.li> */}
+                {cartCount > 0 && (
+                  <span style={{
+                    position: 'absolute',
+                    top: '4px',
+                    right: '4px',
+                    background: '#dc3545',
+                    color: 'white',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    minWidth: '18px',
+                    height: '18px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '0 4px'
+                  }}>
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+            </motion.li>
           </motion.ul>
 
           {/* Mobile Menu Toggle */}
@@ -1319,8 +1341,7 @@ const Header = () => {
           )}
         </AnimatePresence>
 
-        {/* Shopping Cart Modal - COMMENTED OUT */}
-        {/*
+        {/* Shopping Cart Modal */}
         <AnimatePresence>
           {showCart && (
             <motion.div
@@ -1523,7 +1544,6 @@ const Header = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        */}
       </motion.nav>
     </header>
   );

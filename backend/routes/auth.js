@@ -33,12 +33,16 @@ router.post('/register', validateUserRegistration, async (req, res) => {
       });
     }
 
+    // Hash password before storing
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     // Create new user
     const user = await User.create({
       firstName,
       lastName,
       email,
-      password, // No hashing for demo
+      password: hashedPassword,
       phone,
       role: 'student',
       isActive: true,
@@ -79,14 +83,9 @@ router.post('/login', validateUserLogin, async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log('Login attempt:', { email, password });
-
-    // Find user by email (using our mock interface)
+    // Find user by email
     const users = await User.findAll();
-    console.log('All users:', users);
-    
     const user = users.find(u => u.email === email);
-    console.log('Found user:', user);
 
     if (!user) {
       return res.status(401).json({
@@ -103,9 +102,7 @@ router.post('/login', validateUserLogin, async (req, res) => {
       });
     }
 
-    // Simple password comparison for demo (no bcrypt)
-    const isPasswordValid = password === user.password;
-    console.log('Password comparison:', { input: password, stored: user.password, valid: isPasswordValid });
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
       return res.status(401).json({
@@ -292,8 +289,7 @@ router.post('/forgot-password', async (req, res) => {
 
     await user.save();
 
-    // TODO: Send email with reset token
-    console.log(`Password reset token for ${email}: ${resetToken}`);
+    // TODO: Send email with reset token (do not log token)
 
     res.json({
       success: true,
@@ -327,8 +323,9 @@ router.post('/reset-password', async (req, res) => {
       });
     }
 
-    // Update password
-    user.password = newPassword;
+    // Hash and update password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 
