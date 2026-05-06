@@ -13,11 +13,7 @@ import CyberSecurityShortTerm from './components/CyberSecurityShortTerm';
 import DevOpsShortTerm from './components/DevOpsShortTerm';
 import RefundReturns from './components/RefundReturns';
 import Checkout from './components/checkout/Checkout';
-import SignInPage from './pages/SignInPage';
-import SignUpPage from './pages/SignUpPage';
-import UserDashboard from './pages/UserDashboard';
-import UserProfilePage from './pages/UserProfilePage';
-import ProtectedRoute from './components/ProtectedRoute';
+import LoginRegister from './components/LoginRegister';
 import AdminDashboard from './components/admin/AdminDashboard';
 import CursorTrail from './components/CursorTrail';
 import ScrollToTop from './components/ScrollToTop';
@@ -45,12 +41,10 @@ function App() {
               <Route path="/product/cyber-security-and-ethical-hacking-short-term-program" element={<CyberSecurityShortTerm />} />
               <Route path="/product/devops-and-cloud-computing-short-term-program" element={<DevOpsShortTerm />} />
               <Route path="/refund-returns" element={<RefundReturns />} />
-              <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
-              <Route path="/login/*" element={<SignInPage />} />
-              <Route path="/sign-up/*" element={<SignUpPage />} />
-              <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
-              <Route path="/user/*" element={<ProtectedRoute><UserProfilePage /></ProtectedRoute>} />
-              <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/login" element={<LoginRegister />} />
+              <Route path="/sign-up" element={<LoginRegister />} />
+              <Route path="/admin" element={<AdminDashboard />} />
             </Routes>
           </main>
           <Footer />

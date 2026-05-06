@@ -562,17 +562,8 @@ const DevOpsShortTerm = () => {
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    // Redirect directly to checkout with program data
-                    navigate('/checkout', { 
-                      state: { 
-                        program: {
-                          name: 'DevOps and Cloud Computing Short Term Program',
-                          price: '6499.00',
-                          duration: '4 Months',
-                          type: 'short_program'
-                        }
-                      } 
-                    });
+                    const added = addToCart(programData);
+                    if (added) navigate('/checkout');
                   }}
                   style={{
                     background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
@@ -619,17 +610,13 @@ const DevOpsShortTerm = () => {
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    // Redirect to checkout with registration data
-                    navigate('/checkout', { 
-                      state: { 
-                        program: {
-                          name: 'Registration fee for DevOps and Cloud Computing Short Term Program',
-                          price: '499.00',
-                          duration: '4 Months',
-                          type: 'registration'
-                        }
-                      } 
+                    const added = addToCart({
+                      name: 'Registration fee for DevOps and Cloud Computing Short Term Program',
+                      price: '499.00',
+                      duration: '4 Months',
+                      type: 'registration'
                     });
+                    if (added) navigate('/checkout');
                   }}
                   style={{
                     background: '#ff6b35',

@@ -18,6 +18,14 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
   --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.2);
+  /* Enhanced accessibility variables */
+  --font-size-base: 18px;
+  --font-size-large: 20px;
+  --font-size-xlarge: 22px;
+  --line-height-relaxed: 1.7;
+  --min-touch-target: 44px;
+  --high-contrast-border: #333;
+  --high-contrast-text: #000;
 }
 
 /* Base Container */
@@ -26,7 +34,8 @@
   margin: 0 auto;
   padding: 40px 20px 20px 20px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.6;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
   color: var(--text-primary);
   position: relative;
   z-index: 1;
@@ -41,7 +50,7 @@
 .checkout-header h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -49,9 +58,10 @@
 }
 
 .checkout-header p {
-  font-size: 1.1rem;
+  font-size: var(--font-size-large);
   color: var(--text-secondary);
   margin: 0;
+  line-height: var(--line-height-relaxed);
 }
 
 /* Progress Bar - Commented Out */
@@ -191,15 +201,51 @@
 }
 
 .step-header h2 {
-  font-size: 1.5rem;
+  font-size: var(--font-size-xlarge);
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: var(--text-primary);
+  line-height: var(--line-height-relaxed);
 }
 
 .step-header p {
+  font-size: var(--font-size-base);
   color: var(--text-secondary);
   margin: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+/* Auto-save Status */
+.auto-save-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  color: var(--success-color);
+  font-weight: 500;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.save-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--success-color);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Form Styles */
@@ -210,9 +256,10 @@
 .form-label {
   display: block;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: var(--text-primary);
-  font-size: 0.95rem;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
 }
 
 .required {
@@ -222,12 +269,14 @@
 .form-input,
 .form-select {
   width: 100%;
-  padding: 16px;
-  border: 2px solid var(--border-color);
+  padding: 18px;
+  border: 3px solid var(--border-color);
   border-radius: var(--border-radius);
-  font-size: 16px;
+  font-size: var(--font-size-base);
   transition: var(--transition);
   background: white;
+  min-height: var(--min-touch-target);
+  line-height: var(--line-height-relaxed);
 }
 
 .form-input:focus,
@@ -244,11 +293,28 @@
 
 .error-message {
   color: var(--error-color);
-  font-size: 0.875rem;
-  margin-top: 4px;
+  font-size: var(--font-size-base);
+  margin-top: 8px;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(220, 53, 69, 0.1);
+  border: 2px solid rgba(220, 53, 69, 0.3);
+  border-radius: var(--border-radius);
+  line-height: var(--line-height-relaxed);
+  font-weight: 500;
+}
+
+.error-message::before {
+  content: '⚠️';
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.klarna-error,
+.afterpay-error {
+  margin-top: 16px;
 }
 
 /* Phone Input */
@@ -282,10 +348,11 @@
 .next-button,
 .back-button,
 .confirm-button {
-  padding: 16px 24px;
+  padding: 18px 24px;
+  min-height: var(--min-touch-target);
   border-radius: var(--border-radius);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   border: none;
   cursor: pointer;
   transition: var(--transition);
@@ -293,6 +360,7 @@
   align-items: center;
   gap: 8px;
   text-decoration: none;
+  line-height: var(--line-height-relaxed);
 }
 
 .next-button,
@@ -331,7 +399,97 @@
   height: 20px;
 }
 
-/* Payment Methods */
+/* Payment Methods Header with Help */
+.payment-methods-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.payment-methods-header h3 {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.help-button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.help-button:hover {
+  background: rgba(255, 107, 53, 0.1);
+  color: var(--primary-color);
+}
+
+.help-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.help-tooltip {
+  background: white;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  max-width: 100%;
+}
+
+.help-tooltip p {
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.help-tooltip ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.help-tooltip li {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  line-height: var(--line-height-relaxed);
+}
+
+.help-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: var(--transition);
+  min-width: 24px;
+  min-height: 24px;
+}
+
+.help-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+}
 .payment-method-cards {
   display: flex;
   flex-direction: column;
@@ -340,12 +498,14 @@
 }
 
 .payment-card {
-  border: 2px solid var(--border-color);
+  border: 3px solid var(--border-color);
   border-radius: var(--border-radius);
-  padding: 20px;
+  padding: 24px;
   cursor: pointer;
   transition: var(--transition);
   background: white;
+  min-height: var(--min-touch-target);
+  margin-bottom: 16px;
 }
 
 .payment-card:hover {
@@ -422,16 +582,89 @@
 .payment-name {
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
 }
 
 .payment-description {
-  font-size: 0.875rem;
+  font-size: var(--font-size-base);
   color: var(--text-secondary);
   margin: 0;
+  line-height: var(--line-height-relaxed);
 }
 
-/* Card Element */
+/* Klarna and Afterpay Styles */
+.klarna-details,
+.afterpay-details {
+  margin-bottom: 24px;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(255, 165, 0, 0.05));
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+}
+
+.klarna-info h3,
+.afterpay-info h3 {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  line-height: var(--line-height-relaxed);
+}
+
+.klarna-info p,
+.afterpay-info p {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  line-height: var(--line-height-relaxed);
+}
+
+.klarna-features,
+.afterpay-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.klarna-features .feature,
+.afterpay-features .feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  line-height: var(--line-height-relaxed);
+}
+
+.check-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--success-color);
+  flex-shrink: 0;
+}
+
+.installment-breakdown {
+  padding: 16px;
+  background: white;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  margin-top: 16px;
+}
+
+.installment-breakdown p {
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  margin: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.installment-breakdown strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
 .card-details {
   margin-bottom: 24px;
 }
@@ -581,6 +814,83 @@
   width: 16px;
   height: 16px;
   color: var(--success-color);
+}
+
+/* Step 1: small security note (avoid giant padlock) */
+.security-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  padding: 12px 16px;
+  background: rgba(40, 167, 69, 0.06);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(40, 167, 69, 0.15);
+}
+
+.security-note .lock-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--success-color);
+}
+
+.security-note p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Step 2: Stripe Payment Element visibility */
+.payment-element-wrapper {
+  min-height: 220px;
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: #fff;
+}
+
+.payment-element-wrapper:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.checkout-main {
+  min-height: 200px;
+}
+
+.checkout-loading-payment,
+.checkout-intent-error {
+  padding: 32px 24px;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.checkout-loading-payment p,
+.checkout-intent-error p {
+  margin: 0 0 12px 0;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.checkout-loading-hint {
+  font-size: 0.875rem !important;
+  color: var(--text-secondary) !important;
+}
+
+.checkout-intent-error button {
+  margin-top: 16px;
+  padding: 10px 20px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
 }
 
 /* Review Step */

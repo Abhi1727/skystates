@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
 
 const LoginRegister = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -45,10 +46,9 @@ const LoginRegister = () => {
     setError('');
 
     try {
-      const apiBase = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
       if (isLogin) {
         // Handle login
-        const response = await fetch(`${apiBase}/auth/login`, {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const LoginRegister = () => {
           return;
         }
 
-        const registerResponse = await fetch(`${apiBase}/auth/register`, {
+        const registerResponse = await fetch(`${API_BASE_URL}/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

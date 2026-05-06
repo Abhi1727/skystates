@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '../../config';
 
 const JobsTab = ({ jobs, setJobs, showNotification }) => {
   const [showForm, setShowForm] = useState(false);
@@ -26,7 +27,7 @@ const JobsTab = ({ jobs, setJobs, showNotification }) => {
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/admin/design/jobs`);
+      const response = await fetch(`${API_BASE_URL}/admin/design/jobs`);
       const data = await response.json();
       if (data.success) {
         // Transform API data to match component structure

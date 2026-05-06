@@ -1,3 +1,121 @@
+/* Fixed Header Styles */
+.header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 9999;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+/* Header scrolled state */
+.header.scrolled {
+  background: rgba(26, 26, 46, 0.95) !important;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+/* Main content padding to account for fixed header */
+main {
+  padding-top: 0 !important; /* Remove the padding since hero section will handle it */
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero section specific adjustments */
+.hero {
+  margin-top: 0 !important; /* Remove margin to start right after navbar */
+  padding-top: 190px !important; /* 140px + 50px extra spacing */
+  min-height: 100vh !important; /* Full viewport height */
+}
+
+/* Product pages and program sections adjustments */
+.product-page,
+.programs,
+.product-detail-page,
+.course-page,
+.program-page {
+  padding-top: 105px !important; /* Reduced by 5px to eliminate space */
+}
+
+/* Short term program pages */
+.short-term-program,
+.short-term-course {
+  padding-top: 105px !important; /* Reduced by 5px to eliminate space */
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 170px !important; /* 120px + 50px extra spacing for mobile */
+  }
+  
+  .product-page,
+  .programs,
+  .product-detail-page,
+  .course-page,
+  .program-page,
+  .short-term-program,
+  .short-term-course {
+    padding-top: 85px !important; /* Reduced by 5px to eliminate space on mobile */
+  }
+}
+
+/* Ensure dropdown menus appear above fixed header */
+.dropdown-menu {
+  z-index: 10000 !important;
+}
+
+/* Mobile menu adjustments for fixed header */
+@media (max-width: 768px) {
+  .nav-menu.active {
+    position: fixed;
+    top: 140px;
+    left: 0;
+    right: 0;
+    background: rgba(26, 26, 46, 0.98);
+    backdrop-filter: blur(15px);
+    z-index: 9998;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+  }
+}
+
+/* Locomotive Scroll adjustments for fixed header */
+[data-scroll-container] {
+  padding-top: 0; /* Remove padding since hero handles it */
+}
+
+/* Smooth scroll adjustments for fixed header */
+html.smooth-scroll-enabled,
+body.smooth-scroll-enabled {
+  scroll-padding-top: 140px; /* Account for fixed header */
+}
+
+/* Fallback smooth scroll for browsers without Locomotive */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 140px;
+}
+
+body {
+  scroll-behavior: smooth;
+  scroll-padding-top: 140px;
+}
+
+/* Ensure all sections have proper scroll offset */
+section {
+  scroll-margin-top: 140px;
+}
+
+/* Special case for hero section */
+.hero {
+  scroll-margin-top: 0 !important; /* Hero doesn't need scroll margin */
+}
+
 /* Global Typography Improvements */
 .App {
   text-align: center;
@@ -100,11 +218,10 @@ html:not(.has-scroll-smooth) {
   z-index: 1;
 }
 
-/* Ensure proper layering + offset for fixed header */
+/* Ensure proper layering */
 main {
   position: relative;
   z-index: 1;
-  padding-top: 120px; /* Prevent content from hiding under fixed header */
 }
 
 /* Prevent content from jumping during load */

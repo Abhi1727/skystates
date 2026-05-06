@@ -270,17 +270,8 @@ const CyberSecurity = () => {
                   whileHover={{ scale: 1.02, boxShadow: '0 15px 40px rgba(255, 215, 0, 0.4)' }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    // Redirect to checkout with program data
-                    navigate('/checkout', { 
-                      state: { 
-                        program: {
-                          name: programData.name,
-                          price: programData.price,
-                          duration: programData.duration,
-                          type: programData.type
-                        }
-                      } 
-                    });
+                    const added = addToCart(programData);
+                    if (added) navigate('/checkout');
                   }}
                   style={{
                     background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
@@ -320,17 +311,13 @@ const CyberSecurity = () => {
                   whileHover={{ scale: 1.02, boxShadow: '0 15px 40px rgba(40, 167, 69, 0.3)' }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    // Redirect to checkout with $99 registration fee
-                    navigate('/checkout', { 
-                      state: { 
-                        program: {
-                          name: 'Registration fee for Cyber Security and Ethical Hacking Program',
-                          price: '99.00',
-                          duration: '6 Months',
-                          type: 'registration'
-                        }
-                      } 
+                    const added = addToCart({
+                      name: 'Registration fee for Cyber Security and Ethical Hacking Program',
+                      price: '99.00',
+                      duration: '6 Months',
+                      type: 'registration'
                     });
+                    if (added) navigate('/checkout');
                   }}
                   style={{
                     background: 'linear-gradient(135deg, #28a745, #32c997)',

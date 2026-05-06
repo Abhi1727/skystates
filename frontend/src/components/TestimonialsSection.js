@@ -1,10 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { motion } from 'framer-motion';
 import TestimonialCard from './TestimonialCard';
-
-gsap.registerPlugin(useGSAP);
+import './HomepageTheme.css';
 
 // Professional color palette
 const colors = {
@@ -136,21 +133,9 @@ const TestimonialsSection = () => {
     setIsAnimating(true);
     const nextIndex = (currentIndex + 1) % totalSlides;
     
-    // GSAP animation for transition
-    gsap.to(containerRef.current, {
-      x: -50,
-      opacity: 0.3,
-      duration: 0.3,
-      ease: "power2.inOut",
-      onComplete: () => {
-        setCurrentIndex(nextIndex);
-        gsap.fromTo(containerRef.current, 
-          { x: 50, opacity: 0.3 },
-          { x: 0, opacity: 1, duration: 0.3, ease: "power2.inOut" }
-        );
-        setTimeout(() => setIsAnimating(false), 300);
-      }
-    });
+    // Simple state change without animation
+    setCurrentIndex(nextIndex);
+    setTimeout(() => setIsAnimating(false), 300);
   };
 
   const handlePrevious = () => {
@@ -159,21 +144,9 @@ const TestimonialsSection = () => {
     setIsAnimating(true);
     const prevIndex = currentIndex === 0 ? totalSlides - 1 : currentIndex - 1;
     
-    // GSAP animation for transition
-    gsap.to(containerRef.current, {
-      x: 50,
-      opacity: 0.3,
-      duration: 0.3,
-      ease: "power2.inOut",
-      onComplete: () => {
-        setCurrentIndex(prevIndex);
-        gsap.fromTo(containerRef.current, 
-          { x: -50, opacity: 0.3 },
-          { x: 0, opacity: 1, duration: 0.3, ease: "power2.inOut" }
-        );
-        setTimeout(() => setIsAnimating(false), 300);
-      }
-    });
+    // Simple state change without animation
+    setCurrentIndex(prevIndex);
+    setTimeout(() => setIsAnimating(false), 300);
   };
 
   const goToSlide = (index) => {
@@ -181,21 +154,9 @@ const TestimonialsSection = () => {
     
     setIsAnimating(true);
     
-    // GSAP animation for direct slide navigation
-    gsap.to(containerRef.current, {
-      scale: 0.9,
-      opacity: 0.5,
-      duration: 0.2,
-      ease: "power2.inOut",
-      onComplete: () => {
-        setCurrentIndex(index);
-        gsap.fromTo(containerRef.current, 
-          { scale: 0.9, opacity: 0.5 },
-          { scale: 1, opacity: 1, duration: 0.2, ease: "power2.inOut" }
-        );
-        setTimeout(() => setIsAnimating(false), 200);
-      }
-    });
+    // Simple state change without animation
+    setCurrentIndex(index);
+    setTimeout(() => setIsAnimating(false), 200);
   };
 
   // Removed auto-play functionality - testimonials stay until user interaction
@@ -203,13 +164,12 @@ const TestimonialsSection = () => {
   const currentTestimonials = getCurrentTestimonials();
 
   return (
-    <section style={{
+    <section className="gradient-medium" style={{
       padding: '100px 0',
-      background: `linear-gradient(180deg, ${colors.neutral50} 0%, white 50%, ${colors.neutral50} 100%)`,
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Background decoration */}
+      {/* Background decoration with gold accents */}
       <div style={{
         position: 'absolute',
         top: '10%',
@@ -217,7 +177,7 @@ const TestimonialsSection = () => {
         width: '200px',
         height: '200px',
         borderRadius: '50%',
-        background: `radial-gradient(circle, ${colors.accent}10, transparent)`,
+        background: 'radial-gradient(circle, rgba(255, 215, 0, 0.15), transparent)',
         zIndex: 0
       }} />
       
@@ -228,7 +188,7 @@ const TestimonialsSection = () => {
         width: '300px',
         height: '300px',
         borderRadius: '50%',
-        background: `radial-gradient(circle, ${colors.accentLight}08, transparent)`,
+        background: 'radial-gradient(circle, rgba(255, 165, 0, 0.1), transparent)',
         zIndex: 0
       }} />
 
@@ -243,44 +203,35 @@ const TestimonialsSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           style={{ textAlign: 'center', marginBottom: '80px' }}
         >
-          <motion.h2
-            style={{
-              fontSize: '48px',
-              fontWeight: '800',
-              color: colors.neutral900,
-              marginBottom: '24px',
-              lineHeight: '1.2'
-            }}
+          <h2 className="heading-gradient" style={{
+            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+            fontWeight: '900',
+            marginBottom: '20px',
+            lineHeight: '1.1'
+          }}>
+            What Our Students Have To Say
+          </h2>
+          
+          <p className="subtitle-enhanced" style={{
+            fontSize: '1.2rem',
+            marginBottom: '40px',
+            maxWidth: '600px',
+            margin: '0 auto 40px',
+            lineHeight: '1.6'
+          }}>
+            Hear from our successful graduates who transformed their careers with Sky States
+          </p>
+
+          {/* Stats Pills with gold accents */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-          >
-            What Our Students Have To Say
-          </motion.h2>
-          
-          <motion.p
-            style={{
-              fontSize: '20px',
-              color: colors.neutral500,
-              maxWidth: '700px',
-              margin: '0 auto',
-              lineHeight: '1.6'
-            }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            Hear from our successful graduates who transformed their careers with Sky States
-          </motion.p>
-
-          {/* Stats Pills */}
-          <motion.div
             style={{
               display: 'flex',
               justifyContent: 'center',
@@ -288,54 +239,39 @@ const TestimonialsSection = () => {
               marginTop: '48px',
               flexWrap: 'wrap'
             }}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
           >
             {[
-              { number: '95%', label: 'Success Rate', delay: 0.1 },
-              { number: '500+', label: 'Placements', delay: 0.2 },
-              { number: '4.9/5', label: 'Student Rating', delay: 0.3 }
+              { number: '95%', label: 'Success Rate' },
+              { number: '500+', label: 'Placements' },
+              { number: '4.9/5', label: 'Student Rating' }
             ].map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 + stat.delay }}
-                viewport={{ once: true }}
+                className="glass-card-premium"
                 whileHover={{ 
-                  scale: 1.05, 
-                  y: -5,
-                  transition: { duration: 0.2 }
+                  scale: 1.05,
+                  borderColor: 'rgba(255, 215, 0, 0.5)'
                 }}
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   gap: '8px',
-                  background: 'white',
                   padding: '20px 32px',
-                  borderRadius: '16px',
-                  boxShadow: `0 8px 30px ${colors.accent}15`,
-                  border: `1px solid ${colors.neutral100}`
+                  position: 'relative'
                 }}
               >
-                <motion.div
-                  style={{
-                    fontSize: '32px',
-                    fontWeight: '800',
-                    color: colors.accent,
-                    lineHeight: 1
-                  }}
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <div className="gold-text" style={{
+                  fontSize: '2rem',
+                  fontWeight: '900',
+                  lineHeight: 1,
+                  textShadow: '0 4px 8px rgba(255, 215, 0, 0.3)'
+                }}>
                   {stat.number}
-                </motion.div>
+                </div>
                 <div style={{
-                  fontSize: '14px',
-                  color: colors.neutral500,
+                  fontSize: '0.9rem',
+                  color: 'rgba(255, 255, 255, 0.9)',
                   fontWeight: '600',
                   textAlign: 'center'
                 }}>
@@ -347,15 +283,21 @@ const TestimonialsSection = () => {
         </motion.div>
 
         {/* Testimonials Carousel */}
-        <div style={{ position: 'relative' }}>
-          {/* Navigation Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          style={{ position: 'relative' }}
+        >
+          {/* Navigation Buttons with gold accents */}
           <motion.button
             onClick={handlePrevious}
             disabled={isAnimating}
+            className="glass-card"
             whileHover={{ 
               scale: 1.1,
-              backgroundColor: colors.accent,
-              transition: { duration: 0.2 }
+              borderColor: 'rgba(255, 215, 0, 0.5)'
             }}
             whileTap={{ scale: 0.9 }}
             style={{
@@ -366,16 +308,13 @@ const TestimonialsSection = () => {
               width: '50px',
               height: '50px',
               borderRadius: '50%',
-              background: 'white',
-              border: `2px solid ${colors.accent}`,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '20px',
-              color: colors.accent,
+              color: '#ffd700',
               zIndex: 10,
-              boxShadow: `0 8px 25px ${colors.accent}20`,
               transition: 'all 0.3s ease',
               opacity: isAnimating ? 0.5 : 1
             }}
@@ -386,10 +325,10 @@ const TestimonialsSection = () => {
           <motion.button
             onClick={handleNext}
             disabled={isAnimating}
+            className="glass-card"
             whileHover={{ 
               scale: 1.1,
-              backgroundColor: colors.accent,
-              transition: { duration: 0.2 }
+              borderColor: 'rgba(255, 215, 0, 0.5)'
             }}
             whileTap={{ scale: 0.9 }}
             style={{
@@ -400,16 +339,13 @@ const TestimonialsSection = () => {
               width: '50px',
               height: '50px',
               borderRadius: '50%',
-              background: 'white',
-              border: `2px solid ${colors.accent}`,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '20px',
-              color: colors.accent,
+              color: '#ffd700',
               zIndex: 10,
-              boxShadow: `0 8px 25px ${colors.accent}20`,
               transition: 'all 0.3s ease',
               opacity: isAnimating ? 0.5 : 1
             }}
@@ -418,7 +354,7 @@ const TestimonialsSection = () => {
           </motion.button>
 
           {/* Testimonials Grid */}
-          <motion.div
+          <div
             ref={containerRef}
             style={{
               display: 'grid',
@@ -426,46 +362,36 @@ const TestimonialsSection = () => {
               gap: '32px',
               position: 'relative'
             }}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
           >
-            <AnimatePresence mode="wait">
-              {currentTestimonials.map((testimonial, index) => (
-                <motion.div
-                  key={`${testimonial.id}-${currentIndex}`}
-                  initial={{ opacity: 0, x: 100, scale: 0.8 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: -100, scale: 0.8 }}
-                  transition={{ 
-                    duration: 0.5, 
-                    delay: index * 0.1,
-                    ease: "easeOut"
-                  }}
-                >
-                  <TestimonialCard 
-                    testimonial={testimonial} 
-                    index={index}
-                  />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-        </div>
+            {currentTestimonials.map((testimonial, index) => (
+              <motion.div 
+                key={`${testimonial.id}-${currentIndex}`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <TestimonialCard 
+                  testimonial={testimonial} 
+                  index={index}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
-        {/* Slide Indicators */}
+        {/* Slide Indicators with gold theme */}
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
           style={{
             display: 'flex',
             justifyContent: 'center',
             gap: '12px',
             marginTop: '48px'
           }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          viewport={{ once: true }}
         >
           {Array.from({ length: totalSlides }, (_, i) => (
             <motion.button
@@ -481,8 +407,8 @@ const TestimonialsSection = () => {
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 background: i === currentIndex 
-                  ? colors.accent 
-                  : colors.neutral100,
+                  ? 'linear-gradient(135deg, #ff6b35, #ffd700)' 
+                  : 'rgba(255, 255, 255, 0.3)',
                 opacity: i === currentIndex ? 1 : 0.5
               }}
             />
@@ -491,19 +417,21 @@ const TestimonialsSection = () => {
 
         {/* Slide Counter */}
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          viewport={{ once: true }}
           style={{
             textAlign: 'center',
             marginTop: '24px',
             fontSize: '14px',
-            color: colors.neutral500,
+            color: 'rgba(255, 255, 255, 0.8)',
             fontWeight: '500'
           }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-          viewport={{ once: true }}
         >
-          {currentIndex + 1} / {totalSlides}
+          <span className="gold-text" style={{ fontWeight: '700' }}>
+            {currentIndex + 1} / {totalSlides}
+          </span>
         </motion.div>
 
         {/* Call to Action */}

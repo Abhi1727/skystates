@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import './HomepageTheme.css';
 
 const FloatingEnrollButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -49,32 +50,43 @@ const FloatingEnrollButton = () => {
     >
       <motion.button
         onClick={handleEnrollClick}
+        className="btn-gradient-primary"
         animate={pulse ? { scale: [1, 1.1, 1] } : {}}
         transition={{ duration: 0.3 }}
         style={{
-          background: 'linear-gradient(135deg, rgb(29, 78, 216) 0%, rgb(30, 64, 175) 50%, rgb(23, 37, 84) 100%)',
-          color: 'white',
-          border: 'none',
           borderRadius: '50px',
-          padding: '16px 24px',
+          padding: '18px 28px',
           fontSize: '1rem',
-          fontWeight: '700',
+          fontWeight: '800',
           cursor: 'pointer',
-          boxShadow: '0 10px 30px rgba(37, 99, 235, 0.4)',
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
+          gap: '10px',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          textTransform: 'uppercase',
+          letterSpacing: '1px',
+          boxShadow: '0 15px 40px rgba(255, 107, 53, 0.4)',
+          border: '2px solid rgba(255, 215, 0, 0.3)'
         }}
         whileHover={{
           scale: 1.05,
-          boxShadow: '0 15px 40px rgba(37, 99, 235, 0.5)',
-          transition: { duration: 0.3 }
+          boxShadow: '0 20px 50px rgba(255, 215, 0, 0.6)'
         }}
         whileTap={{ scale: 0.95 }}
       >
-        {/* Animated background effect */}
+        {/* Lightning bolt icon */}
+        <motion.span
+          animate={{ rotate: pulse ? [0, -10, 10, 0] : 0 }}
+          transition={{ duration: 0.5, repeat: pulse ? Infinity : 0, repeatDelay: 2 }}
+          style={{ fontSize: '1.2rem' }}
+        >
+          ⚡
+        </motion.span>
+        
+        ENROLL NOW
+        
+        {/* Animated shimmer effect */}
         <motion.div
           style={{
             position: 'absolute',
@@ -82,38 +94,39 @@ const FloatingEnrollButton = () => {
             left: '-100%',
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
+            background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)',
           }}
-          animate={{ left: ['100%', '-100%'] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          animate={{ left: pulse ? ['100%', '-100%'] : '-100%' }}
+          transition={{ duration: 2, repeat: pulse ? Infinity : 0 }}
         />
-        
-        <span style={{ position: 'relative', zIndex: 1 }}>
-          🚀 ENROLL NOW
-        </span>
       </motion.button>
 
-      {/* Notification tooltip */}
+      {/* Notification tooltip with gold theme */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
+        className="glass-card-premium"
         style={{
           position: 'absolute',
           bottom: '70px',
           right: '0',
-          background: 'white',
-          color: '#333',
-          padding: '12px 16px',
-          borderRadius: '12px',
+          padding: '12px 20px',
+          borderRadius: '15px',
           fontSize: '0.85rem',
-          fontWeight: '600',
-          boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+          fontWeight: '700',
           whiteSpace: 'nowrap',
-          border: '2px solid rgb(29, 78, 216)'
+          border: '2px solid rgba(255, 215, 0, 0.4)',
+          boxShadow: '0 10px 30px rgba(255, 107, 53, 0.3)'
         }}
       >
-        ⚡ Limited Time Offer!
+        <motion.span
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          style={{ color: '#ffd700' }}
+        >
+          ⚡ Limited Time Offer!
+        </motion.span>
         <div style={{
           position: 'absolute',
           bottom: '-8px',
@@ -122,7 +135,7 @@ const FloatingEnrollButton = () => {
           height: '0',
           borderLeft: '8px solid transparent',
           borderRight: '8px solid transparent',
-          borderTop: '8px solid white'
+          borderTop: '8px solid #ffd700'
         }} />
       </motion.div>
     </motion.div>

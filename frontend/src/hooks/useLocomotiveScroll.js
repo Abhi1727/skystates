@@ -30,7 +30,7 @@ const useLocomotiveScroll = (enabled = false) => {
               multiplier: 1
             },
             reloadOnContextChange: true,
-            offset: [0, 0],
+            offset: ['20%', 0], // Offset to account for fixed header
             getDirection: true,
             getSpeed: true,
             lerp: 0.1,

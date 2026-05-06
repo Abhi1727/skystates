@@ -1,70 +1,10 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-
-gsap.registerPlugin(ScrollTrigger);
+import './HomepageTheme.css';
 
 const Programs = () => {
   const containerRef = useRef(null);
-
-  useGSAP(() => {
-    const cards = gsap.utils.toArray('.program-card');
-
-    cards.forEach((card, i) => {
-      // Create a timeline for smoother, continuous animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: card,
-          start: "top 95%",
-          end: "top 35%",
-          toggleActions: "play none none reverse"
-        }
-      });
-
-      // Break down into micro-steps that blend together
-      tl.fromTo(card, 
-        { opacity: 0, y: 40, scale: 0.98, rotationY: 5 },
-        { opacity: 0.3, y: 30, scale: 0.99, rotationY: 4, duration: 0.3, ease: "none" }
-      )
-      .to(card, 
-        { opacity: 0.6, y: 20, scale: 0.995, rotationY: 3, duration: 0.3, ease: "none" }
-      )
-      .to(card, 
-        { opacity: 0.8, y: 10, scale: 0.998, rotationY: 2, duration: 0.3, ease: "none" }
-      )
-      .to(card, 
-        { opacity: 0.9, y: 5, scale: 0.999, rotationY: 1, duration: 0.2, ease: "none" }
-      )
-      .to(card, 
-        { opacity: 1, y: 0, scale: 1, rotationY: 0, duration: 0.2, ease: "none" }
-      );
-
-      // Add subtle continuous micro-movement on hover
-      card.addEventListener('mouseenter', () => {
-        gsap.to(card, {
-          y: -8,
-          scale: 1.03,
-          duration: 0.4,
-          ease: "power2.out",
-          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)"
-        });
-      });
-
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          y: 0,
-          scale: 1,
-          duration: 0.4,
-          ease: "power2.out",
-          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)"
-        });
-      });
-    });
-
-  }, { scope: containerRef });
   const programs = [
     {
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
@@ -115,18 +55,23 @@ const Programs = () => {
           padding: '40px 0 20px 0'
         }}>
           {programs.map((program, index) => (
-            <div className={`program-card ${program.popular ? 'popular' : ''}`} key={index} style={{
-              background: 'white',
-              borderRadius: '16px',
-              padding: '28.35px 19.44px 19.44px 19.44px',
-              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              position: 'relative',
-              overflow: 'visible',
-              border: '1px solid rgba(0, 0, 0, 0.05)',
-              transformOrigin: 'center center'
-            }}>
-              {/* {program.popular && (
+            <motion.div 
+              className={`program-card ${program.popular ? 'popular' : ''}`} 
+              key={index} 
+              className="glass-card-premium"
+              whileHover={{ 
+                scale: 1.03,
+                borderColor: 'rgba(255, 165, 0, 0.5)',
+                boxShadow: '0 20px 40px rgba(255, 107, 53, 0.2)'
+              }}
+              style={{
+                padding: '28px',
+                position: 'relative',
+                overflow: 'visible',
+                transformOrigin: 'center center'
+              }}
+            >
+              {program.popular && (
                 <motion.div 
                   className="popular-badge"
                   initial={{ scale: 0 }}
@@ -137,20 +82,21 @@ const Programs = () => {
                     top: '-20px',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    background: 'linear-gradient(135deg, #ff6b6b, #feca57)',
+                    background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
                     color: 'white',
                     padding: '8px 16px',
                     borderRadius: '20px',
                     fontSize: '0.8rem',
-                    fontWeight: '600',
+                    fontWeight: '700',
                     zIndex: 10,
-                    boxShadow: '0 4px 15px rgba(255, 107, 107, 0.3)',
-                    whiteSpace: 'nowrap'
+                    boxShadow: '0 4px 15px rgba(255, 107, 53, 0.4)',
+                    whiteSpace: 'nowrap',
+                    border: '2px solid rgba(255, 215, 0, 0.3)'
                   }}
                 >
-                  🔥 Most Popular
+                  ⚡ Most Popular
                 </motion.div>
-              )} */}
+              )}
               
               <div className="program-image">
                 <img 
@@ -160,134 +106,168 @@ const Programs = () => {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    borderRadius: '8px'
+                    borderRadius: '12px'
                   }}
                 />
               </div>
               
-              <h3 className="feature-title">{program.title}</h3>
-              <p className="subtitle">{program.description}</p>
+              <h3 className="gold-text" style={{
+                fontSize: '1.4rem',
+                fontWeight: '700',
+                marginBottom: '12px',
+                textShadow: '0 2px 4px rgba(255, 215, 0, 0.3)'
+              }}>{program.title}</h3>
+              <p className="subtitle-enhanced" style={{
+                fontSize: '1rem',
+                marginBottom: '16px',
+                lineHeight: '1.5'
+              }}>{program.description}</p>
               
               {/* Social Proof */}
               <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   marginBottom: '15px',
-                  padding: '10px',
-                  background: 'rgba(102, 126, 234, 0.1)',
-                  borderRadius: '8px'
+                  padding: '12px',
+                  background: 'rgba(255, 165, 0, 0.1)',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255, 165, 0, 0.2)'
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#ffa500', fontSize: '1rem' }}>⭐</span>
-                  <span className="cta-text" style={{ fontSize: '0.9rem', fontWeight: '600' }}>{program.rating}</span>
-                  <span className="subtitle" style={{ fontSize: '0.8rem', color: '#666' }}>({program.students} students)</span>
+                  <span style={{ color: '#ffa500', fontSize: '1.2rem' }}>⭐</span>
+                  <span className="gold-text" style={{ fontSize: '0.9rem', fontWeight: '700' }}>{program.rating}</span>
+                  <span className="subtitle-enhanced" style={{ fontSize: '0.8rem' }}>({program.students} students)</span>
                 </div>
               </motion.div>
               
               {/* Scarcity Indicator */}
               <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
                 style={{
                   marginBottom: '15px',
-                  padding: '10px',
-                  background: program.spotsLeft <= 5 ? 'rgba(255, 107, 107, 0.1)' : 'rgba(102, 126, 234, 0.1)',
-                  borderRadius: '8px',
-                  border: `1px solid ${program.spotsLeft <= 5 ? '#ff6b6b' : '#667eea'}`
+                  padding: '12px',
+                  background: program.spotsLeft <= 5 ? 'rgba(255, 107, 53, 0.15)' : 'rgba(255, 165, 0, 0.1)',
+                  borderRadius: '12px',
+                  border: `2px solid ${program.spotsLeft <= 5 ? '#ff6b35' : '#ffa500'}`
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
-                  <span className="cta-text" style={{ fontSize: '0.85rem', fontWeight: '600' }}>
-                    {program.spotsLeft <= 5 ? '⚠️ Almost Full!' : '📚 Spots Available'}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <span className="gold-text" style={{ fontSize: '0.9rem', fontWeight: '700' }}>
+                    {program.spotsLeft <= 5 ? '⚠️ Almost Full!' : '⚡ Spots Available'}
                   </span>
-                  <span className="cta-text" style={{ fontSize: '0.85rem', fontWeight: '700', color: program.spotsLeft <= 5 ? '#ff6b6b' : '#667eea' }}>
+                  <span className="gold-text" style={{ fontSize: '0.9rem', fontWeight: '800' }}>
                     {program.spotsLeft}/{program.spotsTotal}
                   </span>
                 </div>
                 <div style={{
                   width: '100%',
-                  height: '6px',
-                  background: '#e0e0e0',
-                  borderRadius: '3px',
+                  height: '8px',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: '4px',
                   overflow: 'hidden'
                 }}>
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${((program.spotsTotal - program.spotsLeft) / program.spotsTotal) * 100}%` }}
-                    transition={{ duration: 1, delay: 0.6 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                    viewport={{ once: true }}
                     style={{
                       height: '100%',
-                      background: program.spotsLeft <= 5 ? '#ff6b6b' : '#667eea',
-                      borderRadius: '3px'
+                      background: program.spotsLeft <= 5 ? '#ff6b35' : '#ffa500',
+                      borderRadius: '4px'
                     }}
                   />
                 </div>
               </motion.div>
               
               {/* Pricing */}
-              <div style={{ marginBottom: '20px' }}>
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+                style={{ marginBottom: '20px' }}
+              >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px' }}>
-                  <span className="price-text" style={{
-                    fontSize: '1.5rem',
-                    fontWeight: '700',
-                    color: '#667eea'
+                  <span className="gold-text" style={{
+                    fontSize: '1.8rem',
+                    fontWeight: '900',
+                    textShadow: '0 4px 8px rgba(255, 215, 0, 0.3)'
                   }}>
                     {program.price}
                   </span>
                 </div>
-              </div>
+              </motion.div>
               
-              <Link to={program.link} className="btn-primary" style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                background: 'linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1e3a8a 100%)',
-                color: 'white',
-                padding: '16px 32px',
-                borderRadius: '12px',
-                textDecoration: 'none',
-                fontWeight: '700',
-                fontSize: '16px',
-                textAlign: 'center',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                boxShadow: '0 4px 20px rgba(37, 99, 235, 0.25)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(10px)',
-                position: 'relative',
-                overflow: 'hidden',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-                minWidth: '160px'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-3px) scale(1.02)';
-                e.target.style.boxShadow = '0 8px 30px rgba(37, 99, 235, 0.4)';
-                e.target.style.background = 'linear-gradient(135deg, #1d4ed8 0%, #1e40af 50%, #172554 100%)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0) scale(1)';
-                e.target.style.boxShadow = '0 4px 20px rgba(37, 99, 235, 0.25)';
-                e.target.style.background = 'linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1e3a8a 100%)';
-              }}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                viewport={{ once: true }}
               >
-                <span className="cta-text" style={{ 
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}>
-                  <span style={{ fontSize: '18px' }}>🚀</span>
-                  Explore More
-                </span>
-              </Link>
-            </div>
+                <Link 
+                  to={program.link} 
+                  className="btn-gradient-primary"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '10px',
+                    padding: '18px 32px',
+                    borderRadius: '50px',
+                    textDecoration: 'none',
+                    fontWeight: '800',
+                    fontSize: '16px',
+                    textAlign: 'center',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    minWidth: '180px'
+                  }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: '0 20px 50px rgba(255, 215, 0, 0.5)'
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span style={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    position: 'relative',
+                    zIndex: 1
+                  }}>
+                    <span style={{ fontSize: '18px' }}>⚡</span>
+                    Explore Program
+                  </span>
+                  <motion.div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: '-100%',
+                      width: '100%',
+                      height: '100%',
+                      background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)',
+                    }}
+                    whileHover={{
+                      left: '0%',
+                      transition: { duration: 0.6 }
+                    }}
+                  />
+                </Link>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </div>

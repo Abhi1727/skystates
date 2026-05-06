@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '../../config';
 import './AdminDashboard.css';
 import JobsTab from './JobsTab';
 import CouponsTab from './CouponsTab';
@@ -128,7 +129,7 @@ const DashboardTab = () => {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/admin/design`);
+      const response = await fetch(`${API_BASE_URL}/admin/design`);
       const data = await response.json();
       
       if (data.success) {

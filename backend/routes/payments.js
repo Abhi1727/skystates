@@ -7,6 +7,59 @@ const { sendOrderConfirmationEmail } = require('../services/emailService');
 
 const router = express.Router();
 
+// @route   POST /api/payments/create-checkout-intent
+// @desc    Create Stripe PaymentIntent for cart checkout (guest or logged-in). Enables card, Klarna, Afterpay, PayPal via Stripe.
+// @access  Public
+router.post('/create-checkout-intent', async (req, res) => {
+  try {
+    const { amount, customerEmail, customerName, metadata: clientMetadata } = req.body;
+    const amountNum = parseFloat(amount);
+    if (isNaN(amountNum) || amountNum < 0.5) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid amount (minimum $0.50)'
+      });
+    }
+    const paymentAmountCents = Math.round(amountNum * 100);
+    const maxCents = 500000; // $5,000 max
+    if (paymentAmountCents > maxCents) {
+      return res.status(400).json({
+        success: false,
+        message: 'Amount exceeds maximum allowed'
+      });
+    }
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: paymentAmountCents,
+      currency: 'usd',
+      receipt_email: customerEmail || undefined,
+      metadata: {
+        customerEmail: customerEmail || '',
+        customerName: customerName || 'Customer',
+        ...(clientMetadata && typeof clientMetadata === 'object' ? clientMetadata : {})
+      },
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
+
+    res.json({
+      success: true,
+      data: {
+        clientSecret: paymentIntent.client_secret,
+        amount: paymentIntent.amount,
+        currency: paymentIntent.currency
+      }
+    });
+  } catch (error) {
+    console.error('Create checkout intent error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error'
+    });
+  }
+});
+
 // @route   POST /api/payments/create-intent
 // @desc    Create Stripe payment intent
 // @access  Private

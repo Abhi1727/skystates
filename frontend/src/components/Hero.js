@@ -1,11 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Marquee from "react-fast-marquee";
 import { motion } from 'framer-motion';
-import { SignedIn, SignedOut } from '@clerk/clerk-react';
+import './HomepageTheme.css';
 
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
+
+  // Lightning bolt animation component
+  const LightningBolt = ({ size = 24, color = '#ff6b35' }) => (
+    <motion.svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      initial={{ rotate: 0 }}
+      animate={{ rotate: [0, -10, 10, 0] }}
+      transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
+    >
+      <path
+        d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
+        fill={color}
+        stroke={color}
+        strokeWidth="1"
+        strokeLinejoin="round"
+      />
+    </motion.svg>
+  );
 
   const stats = [
     { number: "5000+", label: "Students", color: "#ffd700", icon: "fa-users" },
@@ -33,73 +53,70 @@ const Hero = () => {
         }
       `}</style>
       
-      <section className="hero" style={{
+      <section className="hero gradient-primary" style={{
       position: 'relative',
       overflow: 'hidden',
       minHeight: '100vh',
       display: 'flex',
       alignItems: 'center'
     }}>
-      {/* Video Background */}
-      <div style={{
+      {/* Animated Lightning Background Pattern */}
+      <div className="pattern-overlay" style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 0
-      }}>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          onLoadedData={() => setVideoLoaded(true)}
+        zIndex: 1
+      }} />
+
+      {/* Floating Lightning Elements */}
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="floating-lightning"
           style={{
             position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0
+            fontSize: `${20 + i * 5}px`,
+            top: `${10 + i * 15}%`,
+            left: `${5 + i * 15}%`,
+            animationDelay: `${i * 0.2}s`
+          }}
+          animate={{
+            y: [0, -20, 0],
+            rotate: [0, 5, -5, 0]
+          }}
+          transition={{
+            duration: 2 + i * 0.5,
+            repeat: Infinity,
+            ease: "easeInOut"
           }}
         >
-          <source src="/videos/hero.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        
-        {/* Fallback background while video loads */}
-        {!videoLoaded && (
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundImage: `url("https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80")`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-              backgroundAttachment: 'fixed',
-              zIndex: 0
-            }}
-          />
-        )}
-      </div>
-      
-      {/* Dark overlay for text readability */}
+          <LightningBolt size={30 + i * 10} color="#ffffff" />
+        </motion.div>
+      ))}
+
+      {/* Speed Lines */}
       <div style={{
         position: 'absolute',
-        top: 0,
+        top: '20%',
         left: 0,
         right: 0,
-        bottom: 0,
-        background: 'rgba(0, 0, 0, 0.6)',
-        zIndex: 1,
-        transition: 'background 2s ease-in-out'
-      }} />
+        height: '2px',
+        zIndex: 1
+      }}>
+        <div className="speed-line" style={{ top: 0 }} />
+      </div>
+      <div style={{
+        position: 'absolute',
+        top: '60%',
+        left: 0,
+        right: 0,
+        height: '2px',
+        zIndex: 1
+      }}>
+        <div className="speed-line" style={{ top: 0, animationDelay: '1s' }} />
+      </div>
       
       <div className="container" style={{ position: 'relative', zIndex: 2, width: '100%' }}>
         <div className="hero-content" style={{
@@ -108,33 +125,111 @@ const Hero = () => {
           gap: '60px',
           alignItems: 'center'
         }}>
-          {/* Left Content */}
-          <div className="hero-left" style={{ color: 'white' }}>
-            <h1 className="heading-display" style={{
-              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-              fontWeight: '700',
-              lineHeight: '1.1',
+          {/* Left Content - Speed Focused */}
+          <motion.div 
+            className="hero-left"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            style={{ color: 'white' }}
+          >
+            {/* Fast Track Badge */}
+            <motion.div
+              className="glass-card"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 20px',
+                borderRadius: '30px',
+                marginBottom: '24px',
+                border: '2px solid rgba(255, 215, 0, 0.3)',
+                maxWidth: 'fit-content'
+              }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <LightningBolt size={20} color="#ffd700" />
+              <span style={{ color: '#ffd700', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
+                FAST TRACK LEARNING
+              </span>
+              <motion.div
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#00ff00',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 10px #00ff00'
+                }}
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </motion.div>
+
+            <h1 className="heading-gradient" style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+              fontWeight: '900',
               marginBottom: '24px',
-              color: '#ffffff',
-              letterSpacing: '-0.03em'
+              lineHeight: '1.1',
+              letterSpacing: '-0.02em'
             }}>
               Accessible Learning for
-              <span className="text-gold" style={{ 
+              <span style={{ 
                 display: 'block',
-                fontWeight: '800'
+                fontWeight: '900'
               }}> All</span>
+              <span style={{
+                display: 'block',
+                fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+                color: '#ffd700',
+                fontWeight: '700',
+                marginTop: '8px'
+              }}>
+                ⚡ Career Ready in Months
+              </span>
             </h1>
             
-            <h2 className="subtitle" style={{
-              fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
-              fontWeight: '500',
-              lineHeight: '1.6',
+            <p className="subtitle-enhanced" style={{
+              fontSize: '1.4rem',
               marginBottom: '32px',
-              color: 'rgba(255, 255, 255, 0.9)',
-              maxWidth: '600px'
+              lineHeight: '1.6',
+              fontWeight: '500'
             }}>
-              Achieve Success with Sky States – Premier Online Programs for Every Learner
-            </h2>
+              Achieve Success with <span className="gold-text">Lightning-Fast</span> Skill Development
+            </p>
+
+            {/* Value Proposition Pills */}
+            <div style={{
+              display: 'flex',
+              gap: '15px',
+              marginBottom: '40px'
+            }}>
+              {[
+                { icon: '⚡', text: '2x Faster Learning', color: '#ff6b35' },
+                { icon: '🎯', text: 'Personalized for You', color: '#f7931e' },
+                { icon: '👨‍🏫', text: '1-on-1 Mentor Support', color: '#ff9558' },
+                { icon: '💼', text: 'Job Guarantee', color: '#ffa500' }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="value-pill"
+                  whileHover={{ 
+                    scale: 1.05,
+                    borderColor: item.color
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
+                  <span style={{ 
+                    fontSize: '0.9rem', 
+                    color: '#ffffff', 
+                    fontWeight: '600',
+                    whiteSpace: 'nowrap'
+                  }}>
+                    {item.text}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
 
             {/* Trust Indicators */}
             <motion.div
@@ -146,7 +241,6 @@ const Hero = () => {
                 display: 'flex',
                 gap: '30px',
                 marginBottom: '40px',
-                flexWrap: 'wrap',
                 justifyContent: 'center'
               }}
             >
@@ -158,120 +252,86 @@ const Hero = () => {
               ].map((item, index) => (
                 <motion.div
                   key={index}
+                  className="glass-card"
                   whileHover={{ scale: 1.05 }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
                     padding: '8px 16px',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    borderRadius: '20px',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    backdropFilter: 'blur(10px)'
+                    borderRadius: '20px'
                   }}
                 >
                   <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
-                  <span className="cta-text" style={{ fontSize: '0.9rem', color: 'white' }}>{item.text}</span>
+                  <span style={{ fontSize: '0.9rem', color: 'white' }}>{item.text}</span>
                 </motion.div>
               ))}
             </motion.div>
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
-              <SignedOut>
-                <Link
-                  to="/login"
-                  style={{
-                    background: 'linear-gradient(135deg, rgb(29, 78, 216), rgb(30, 64, 175))',
-                    color: 'white',
-                    padding: '14px 28px',
-                    border: 'none',
-                    borderRadius: '50px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 8px 25px rgba(37, 99, 235, 0.3)',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px'
-                  }}
-                >
-                  <i className="fas fa-sign-in-alt"></i>
-                  Login
-                </Link>
-                <Link
-                  to="/sign-up"
-                  style={{
-                    background: 'rgba(40, 167, 69, 0.2)',
-                    color: 'white',
-                    padding: '14px 28px',
-                    border: '2px solid rgba(40, 167, 69, 0.6)',
-                    borderRadius: '50px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px'
-                  }}
-                >
-                  <i className="fas fa-user-plus"></i>
-                  Register
-                </Link>
-              </SignedOut>
-              <SignedIn>
-                <Link
-                  to="/"
-                  style={{
-                    background: 'linear-gradient(135deg, #28a745, #20c997)',
-                    color: 'white',
-                    padding: '14px 28px',
-                    border: 'none',
-                    borderRadius: '50px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 8px 25px rgba(40, 167, 69, 0.3)',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px'
-                  }}
-                >
-                  <i className="fas fa-rocket"></i>
-                  Explore Programs
-                </Link>
-              </SignedIn>
-            </div>
-          </div>
+          </motion.div>
 
           {/* Right Content - Visual Elements */}
-          <div className="hero-right" style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            {/* Main Visual Card */}
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              borderRadius: '20px',
-              padding: '40px',
-              textAlign: 'center',
-              marginBottom: '40px',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-              width: '100%',
-              maxWidth: '400px'
-            }}>
+          <motion.div
+            className="hero-right"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            {/* Main Visual Card - Premium Glassmorphism */}
+            <motion.div
+              className="glass-card-premium"
+              whileHover={{ scale: 1.02 }}
+              style={{
+                textAlign: 'center',
+                marginBottom: '40px',
+                width: '100%',
+                maxWidth: '400px'
+              }}
+            >
+              {/* Live indicator */}
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  top: '15px',
+                  right: '15px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  background: 'rgba(0, 255, 0, 0.2)',
+                  padding: '6px 12px',
+                  borderRadius: '20px',
+                  border: '1px solid rgba(0, 255, 0, 0.4)'
+                }}
+                animate={{ opacity: [0.8, 1, 0.8] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <div style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#00ff00',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 10px #00ff00'
+                }} />
+                <span style={{
+                  color: '#00ff00',
+                  fontSize: '11px',
+                  fontWeight: '700',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>
+                  Live Now
+                </span>
+              </motion.div>
+
               <div style={{
                 width: '120px',
                 height: '120px',
-                background: 'linear-gradient(45deg, #ffd700, #ff6b35)',
+                background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
@@ -279,26 +339,25 @@ const Hero = () => {
                 margin: '0 auto 20px',
                 fontSize: '48px',
                 color: 'white',
-                boxShadow: '0 10px 20px rgba(255, 107, 53, 0.3)'
+                boxShadow: '0 15px 30px rgba(255, 107, 53, 0.4)',
+                position: 'relative'
               }}>
-                <i className="fas fa-graduation-cap"></i>
+                <LightningBolt size={50} color="#ffffff" />
               </div>
-              <h3 className="feature-title" style={{
+              <h3 className="gold-text" style={{
                 fontSize: '24px',
-                fontWeight: '600',
-                marginBottom: '10px',
-                color: '#ffffff'
+                fontWeight: '700',
+                marginBottom: '10px'
               }}>
                 Industry-Recognized
               </h3>
-              <p className="subtitle" style={{
+              <p className="subtitle-enhanced" style={{
                 fontSize: '16px',
-                color: 'rgba(255, 255, 255, 0.8)',
                 marginBottom: '0'
               }}>
                 Certificates & Job Placement
               </p>
-            </div>
+            </motion.div>
 
             {/* Sliding Stats Cards */}
             <div style={{ width: '100%', maxWidth: '600px', overflow: 'hidden', marginBottom: '40px' }}>
@@ -309,28 +368,20 @@ const Hero = () => {
                 direction="left"
               >
                 {stats.map((stat, index) => (
-                  <div key={index} style={{
-                    background: 'rgba(255, 255, 255, 0.15)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    borderRadius: '16px',
-                    padding: '20px',
-                    margin: '0 15px',
+                  <div key={index} className="glass-card" style={{
                     textAlign: 'center',
                     minWidth: '200px',
-                    cursor: 'default',
-                    transition: 'transform 0.3s ease, background 0.3s ease'
+                    margin: '0 15px',
+                    cursor: 'default'
                   }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = 'translateY(-5px)';
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
                     }}
                   >
-                    <div className="stat-number" style={{
+                    <div style={{
                       fontSize: '36px',
                       fontWeight: '800',
                       color: stat.color,
@@ -339,7 +390,7 @@ const Hero = () => {
                     }}>
                       {stat.number}
                     </div>
-                    <div className="cta-text" style={{
+                    <div style={{
                       fontSize: '15px',
                       color: 'white',
                       fontWeight: '500',
@@ -356,49 +407,27 @@ const Hero = () => {
               </Marquee>
             </div>
 
-            {/* Explore Programs Button - Below Stats */}
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-              <button 
-                onClick={() => {
-                  const programsSection = document.querySelector('.programs');
-                  if (programsSection) {
-                    programsSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                style={{
-                  background: 'linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1e3a8a 100%)',
-                  color: 'white',
-                  padding: '18px 40px',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  fontSize: '16px',
-                  fontWeight: '700',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  boxShadow: '0 4px 20px rgba(37, 99, 235, 0.25)',
-                  backdropFilter: 'blur(10px)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-3px) scale(1.02)';
-                  e.target.style.boxShadow = '0 8px 30px rgba(37, 99, 235, 0.4)';
-                  e.target.style.background = 'linear-gradient(135deg, #1d4ed8 0%, #1e40af 50%, #172554 100%)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0) scale(1)';
-                  e.target.style.boxShadow = '0 4px 20px rgba(37, 99, 235, 0.25)';
-                  e.target.style.background = 'linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1e3a8a 100%)';
-                }}
-              >
-                <span style={{ fontSize: '18px' }}>🚀</span>
-                <span className="cta-text">Explore Programs</span>
-              </button>
-            </div>
-          </div>
+            {/* Enhanced Explore Programs Button */}
+            <motion.button
+              className="btn-gradient-primary"
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: '0 20px 50px rgba(255, 215, 0, 0.5)'
+              }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const programsSection = document.querySelector('.programs');
+                if (programsSection) {
+                  programsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
+              <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <LightningBolt size={20} color="#1a1f36" />
+                Explore Programs
+              </span>
+            </motion.button>
+          </motion.div>
         </div>
       </div>
 
@@ -419,7 +448,7 @@ const Hero = () => {
           left: '5%',
           width: '200px',
           height: '200px',
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%)',
           borderRadius: '50%'
         }}></div>
         <div style={{
@@ -428,7 +457,7 @@ const Hero = () => {
           right: '10%',
           width: '300px',
           height: '300px',
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%)',
           borderRadius: '50%'
         }}></div>
       </div>
@@ -436,5 +465,4 @@ const Hero = () => {
     </>
   );
 };
-
-export default Hero;
+                  export default Hero;

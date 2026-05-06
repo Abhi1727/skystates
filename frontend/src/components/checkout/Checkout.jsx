@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { useLocation, Link, useSearchParams } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Elements, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useCart } from '../../contexts/CartContext';
-import ProgressBar from './ProgressBar';
+import { API_BASE_URL } from '../../config';
 import Step1ContactInfo from './Step1ContactInfo';
 import Step2Payment from './Step2Payment';
 import Step3Review from './Step3Review';
@@ -13,16 +13,19 @@ import './CheckoutModern.css';
 
 const Checkout = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { cartItems, getCartTotal, clearCart } = useCart();
+  
+  const [clientSecret, setClientSecret] = useState('');
+  const [intentLoading, setIntentLoading] = useState(false);
+  const [intentError, setIntentError] = useState(null);
   
   const [checkoutData, setCheckoutData] = useState({
     step: 1,
     contact: {
       fullName: '',
       email: '',
-      phone: '',
-      country: 'US'
+      phone: ''
     },
     payment: {
       method: 'card',
@@ -67,7 +70,54 @@ const Checkout = () => {
     }
   }, []);
 
-  const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY || 'pk_test_51QD8TfDyzD57haVrTQo8bVWlVTnPOmwKeCkbkLVzmaAacgeKCNo4cHSZWC15ekYJGej6EfmKELm1ucoeEMtmvhzL00bXi40Xmr');
+  // Create Stripe PaymentIntent when entering step 2 (enables card, Klarna, Afterpay, PayPal via Stripe)
+  useEffect(() => {
+    if (checkoutData.step !== 2 || clientSecret || intentLoading) return;
+    const total = getFinalTotal();
+    const email = checkoutData.contact?.email?.trim();
+    const name = checkoutData.contact?.fullName?.trim();
+    if (total < 0.5 || !email) return;
+
+    setIntentLoading(true);
+    setIntentError(null);
+    fetch(`${API_BASE_URL}/payments/create-checkout-intent`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        amount: total,
+        customerEmail: email,
+        customerName: name || 'Customer',
+        metadata: { items: checkoutItems.length }
+      })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.data?.clientSecret) {
+          setClientSecret(data.data.clientSecret);
+        } else {
+          setIntentError(data.message || 'Could not load payment options');
+        }
+      })
+      .catch((err) => {
+        setIntentError(err.message || 'Network error');
+      })
+      .finally(() => setIntentLoading(false));
+  }, [checkoutData.step, checkoutData.contact?.email, checkoutData.contact?.fullName]);
+
+  // Handle return from Stripe redirect (PayPal, Klarna, Afterpay)
+  useEffect(() => {
+    const pi = searchParams.get('payment_intent');
+    const status = searchParams.get('redirect_status');
+    if (pi && status === 'succeeded') {
+      setOrderComplete(true);
+      localStorage.removeItem('checkoutProgress');
+      window.history.replaceState({}, '', location.pathname);
+      const t = setTimeout(() => clearCart(), 500);
+      return () => clearTimeout(t);
+    }
+  }, [searchParams, clearCart, location.pathname]);
+
+  const stripePromise = loadStripe('pk_test_51QD8TfDyzD57haVrTQo8bVWlVTnPOmwKeCkbkLVzmaAacgeKCNo4cHSZWC15ekYJGej6EfmKELm1ucoeEMtmvhzL00bXi40Xmr');
 
   const updateContact = (field, value) => {
     setCheckoutData(prev => ({
@@ -102,9 +152,6 @@ const Checkout = () => {
       if (!checkoutData.contact.phone.trim()) {
         errors.phone = 'Phone number is required';
       }
-      if (!checkoutData.contact.country) {
-        errors.country = 'Please select a country';
-      }
     }
     
     setValidation(errors);
@@ -119,6 +166,7 @@ const Checkout = () => {
 
   const prevStep = () => {
     setCheckoutData(prev => ({ ...prev, step: prev.step - 1 }));
+    if (checkoutData.step === 2) setClientSecret('');
   };
 
   const goToStep = (step) => {
@@ -161,32 +209,10 @@ const Checkout = () => {
     return Math.max(0, checkoutData.orderTotal - calculateDiscount());
   };
 
-  const processPayment = async () => {
-    setLoading(true);
-    
-    try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log('Order processed:', {
-        contact: checkoutData.contact,
-        payment: checkoutData.payment,
-        items: checkoutItems,
-        subtotal: checkoutData.orderTotal,
-        discount: calculateDiscount(),
-        total: getFinalTotal(),
-        coupon: checkoutData.coupon?.code
-      });
-      
-      setOrderComplete(true);
-      clearCart();
-      localStorage.removeItem('checkoutProgress');
-      
-    } catch (error) {
-      console.error('Payment error:', error);
-      setValidation(prev => ({ ...prev, payment: 'Payment failed. Please try again.' }));
-    } finally {
-      setLoading(false);
-    }
+  const handlePaymentSuccess = () => {
+    setOrderComplete(true);
+    clearCart();
+    localStorage.removeItem('checkoutProgress');
   };
 
   if (checkoutItems.length === 0 && !orderComplete) {
@@ -246,69 +272,85 @@ const Checkout = () => {
     );
   }
 
-  return (
-    <Elements stripe={stripePromise}>
-      <div className="checkout-container">
-        {/* <ProgressBar 
-          currentStep={checkoutData.step} 
-          onStepClick={goToStep}
-        /> */}
-        
-        <div className="checkout-header">
-          <h1>Secure Checkout</h1>
-          <p>Complete your purchase in just a few steps</p>
-        </div>
-
-        <div className="checkout-content">
-          <div className="checkout-main">
-            {checkoutData.step === 1 && (
-              <Step1ContactInfo
-                data={checkoutData.contact}
-                onChange={updateContact}
-                validation={validation}
-                onNext={nextStep}
-              />
-            )}
-            
-            {checkoutData.step === 2 && (
-              <Step2Payment
-                data={checkoutData.payment}
-                onChange={updatePayment}
-                onBack={prevStep}
-                onNext={nextStep}
-                validation={validation}
-              />
-            )}
-            
-            {checkoutData.step === 3 && (
-              <Step3Review
-                contactData={checkoutData.contact}
-                paymentData={checkoutData.payment}
-                items={checkoutItems}
-                coupon={checkoutData.coupon}
-                subtotal={checkoutData.orderTotal}
-                total={getFinalTotal()}
-                onBack={prevStep}
-                onConfirm={processPayment}
-                loading={loading}
-              />
-            )}
+  const paymentStepContent = (checkoutData.step === 2 || checkoutData.step === 3) && (
+    !clientSecret ? (
+      <div className="checkout-main">
+        {intentLoading && (
+          <div className="checkout-loading-payment">
+            <p>Loading payment options…</p>
+            <p className="checkout-loading-hint">Card, Klarna, Afterpay, PayPal</p>
           </div>
-
-          <div className="checkout-sidebar">
-            <OrderSummary
+        )}
+        {intentError && !intentLoading && (
+          <div className="checkout-intent-error">
+            <p>{intentError}</p>
+            <button type="button" onClick={prevStep}>Back to contact</button>
+          </div>
+        )}
+      </div>
+    ) : (
+      <Elements stripe={stripePromise} options={{ clientSecret }}>
+        <div className="checkout-main">
+          {checkoutData.step === 2 && (
+            <Step2Payment
+              data={checkoutData.payment}
+              onChange={updatePayment}
+              onBack={prevStep}
+              onNext={nextStep}
+              validation={validation}
+            />
+          )}
+          {checkoutData.step === 3 && (
+            <Step3Review
+              contactData={checkoutData.contact}
+              paymentData={checkoutData.payment}
               items={checkoutItems}
               coupon={checkoutData.coupon}
               subtotal={checkoutData.orderTotal}
               total={getFinalTotal()}
-              onApplyCoupon={applyCoupon}
-              onRemoveCoupon={removeCoupon}
+              onBack={prevStep}
+              onPaymentSuccess={handlePaymentSuccess}
+              loading={loading}
             />
-            <TrustBadges />
+          )}
+        </div>
+      </Elements>
+    )
+  );
+
+  return (
+    <div className="checkout-container">
+      <div className="checkout-header">
+        <h1>Secure Checkout</h1>
+        <p>Complete your purchase in just a few steps</p>
+      </div>
+
+      <div className="checkout-content">
+        {checkoutData.step === 1 && (
+          <div className="checkout-main">
+            <Step1ContactInfo
+              data={checkoutData.contact}
+              onChange={updateContact}
+              validation={validation}
+              onNext={nextStep}
+            />
           </div>
+        )}
+        {(checkoutData.step === 2 || checkoutData.step === 3) && paymentStepContent}
+
+        <div className="checkout-sidebar">
+          <OrderSummary
+            items={checkoutItems}
+            coupon={checkoutData.coupon}
+            subtotal={checkoutData.orderTotal}
+            total={getFinalTotal()}
+            onApplyCoupon={applyCoupon}
+            onRemoveCoupon={removeCoupon}
+          />
+          <TrustBadges />
         </div>
       </div>
-    </Elements>
+    </div>
   );
 };
 

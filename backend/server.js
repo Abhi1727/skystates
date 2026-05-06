@@ -3,10 +3,7 @@ const { sequelize } = require('./config/database');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { clerkMiddleware } = require('./middleware/clerkAuth');
 require('dotenv').config();
-
-const useClerk = !!process.env.CLERK_SECRET_KEY;
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -29,8 +26,8 @@ app.use('/api/payments/webhook', ...webhookHandler);
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
 
@@ -52,11 +49,6 @@ app.use(cors({
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-
-// Clerk auth (when CLERK_SECRET_KEY is set)
-if (useClerk) {
-  app.use(clerkMiddleware());
-}
 
 // Database connection
 sequelize.sync({ force: false }).then(() => {

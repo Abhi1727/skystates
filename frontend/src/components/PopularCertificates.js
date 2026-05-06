@@ -1,70 +1,8 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const PopularCertificates = () => {
   const containerRef = useRef(null);
-
-  useGSAP(() => {
-    const cards = gsap.utils.toArray('.certificate-card');
-
-    cards.forEach((card, i) => {
-      // Create a timeline for smoother, continuous animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: card,
-          start: "top 95%",
-          end: "top 35%",
-          toggleActions: "play none none reverse"
-        }
-      });
-
-      // Break down into micro-steps that blend together
-      tl.fromTo(card, 
-        { opacity: 0, y: 40, scale: 0.98, rotationY: 5 },
-        { opacity: 0.3, y: 30, scale: 0.99, rotationY: 4, duration: 0.3, ease: "none" }
-      )
-      .to(card, 
-        { opacity: 0.6, y: 20, scale: 0.995, rotationY: 3, duration: 0.3, ease: "none" }
-      )
-      .to(card, 
-        { opacity: 0.8, y: 10, scale: 0.998, rotationY: 2, duration: 0.3, ease: "none" }
-      )
-      .to(card, 
-        { opacity: 0.9, y: 5, scale: 0.999, rotationY: 1, duration: 0.2, ease: "none" }
-      )
-      .to(card, 
-        { opacity: 1, y: 0, scale: 1, rotationY: 0, duration: 0.2, ease: "none" }
-      );
-
-      // Add subtle continuous micro-movement on hover
-      card.addEventListener('mouseenter', () => {
-        gsap.to(card, {
-          y: -8,
-          scale: 1.03,
-          duration: 0.4,
-          ease: "power2.out",
-          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)"
-        });
-      });
-
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          y: 0,
-          scale: 1,
-          duration: 0.4,
-          ease: "power2.out",
-          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)"
-        });
-      });
-    });
-
-  }, { scope: containerRef });
 
   const certificates = [
     {
@@ -134,11 +72,8 @@ const PopularCertificates = () => {
 
       <div className="container">
         {/* Section Header */}
-        <motion.div 
+        <div 
           className="section-header"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ 
             textAlign: 'center', 
             marginBottom: '80px',
@@ -159,11 +94,8 @@ const PopularCertificates = () => {
               { icon: '', text: 'Globally Accredited' },
               { icon: '', text: 'Microsoft Partner' }
             ].map((badge, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -184,15 +116,12 @@ const PopularCertificates = () => {
                 }}>
                   {badge.text}
                 </span>
-              </motion.div>
+              </div>
             ))}
           </div>
 
-          <motion.h1 
+          <h1 
             className="heading"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
             style={{
               fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
               fontWeight: '800',
@@ -203,12 +132,9 @@ const PopularCertificates = () => {
             }}
           >
             Professional Certificates
-          </motion.h1>
+          </h1>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+          <p 
             style={{
               fontSize: '1.2rem',
               color: '#4a5568',
@@ -229,8 +155,8 @@ const PopularCertificates = () => {
               Job-ready skills
             </span> 
             {' '}in 6 months.
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
         {/* Certificate Cards Grid */}
         <div className="certificates-grid" style={{
@@ -240,13 +166,9 @@ const PopularCertificates = () => {
           marginBottom: '60px'
         }}>
           {certificates.map((certificate, index) => (
-            <motion.div
+            <div
               key={certificate.id}
               className="certificate-card"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
               style={{
                 background: 'white',
                 borderRadius: '20px',
@@ -256,11 +178,6 @@ const PopularCertificates = () => {
                 cursor: 'pointer',
                 position: 'relative',
                 border: '1px solid rgba(0, 0, 0, 0.05)'
-              }}
-              whileHover={{
-                transform: 'translateY(-10px)',
-                boxShadow: '0 25px 50px rgba(102, 126, 234, 0.15)',
-                border: '1px solid rgba(102, 126, 234, 0.2)'
               }}
             >
               <Link 
@@ -476,15 +393,12 @@ const PopularCertificates = () => {
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+        <div
           style={{
             textAlign: 'center',
             maxWidth: '600px',
@@ -524,7 +438,7 @@ const PopularCertificates = () => {
             Explore All Programs
           </Link>
           */}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

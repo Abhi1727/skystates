@@ -1,108 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Step1ContactInfo = ({ data, onChange, validation, onNext }) => {
   const [touched, setTouched] = useState({});
-  const [phoneCountryCode, setPhoneCountryCode] = useState('+1');
-
-  const topCountries = [
-    { code: 'US', name: 'United States', dialCode: '+1' },
-    { code: 'GB', name: 'United Kingdom', dialCode: '+44' },
-    { code: 'CA', name: 'Canada', dialCode: '+1' },
-    { code: 'AU', name: 'Australia', dialCode: '+61' },
-    { code: 'IN', name: 'India', dialCode: '+91' },
-    { code: 'DE', name: 'Germany', dialCode: '+49' },
-    { code: 'FR', name: 'France', dialCode: '+33' },
-    { code: 'JP', name: 'Japan', dialCode: '+81' },
-    { code: 'CN', name: 'China', dialCode: '+86' },
-    { code: 'BR', name: 'Brazil', dialCode: '+55' }
-  ];
-
-  const allCountries = [
-    ...topCountries,
-    { code: 'AF', name: 'Afghanistan', dialCode: '+93' },
-    { code: 'AL', name: 'Albania', dialCode: '+355' },
-    { code: 'DZ', name: 'Algeria', dialCode: '+213' },
-    { code: 'AR', name: 'Argentina', dialCode: '+54' },
-    { code: 'AT', name: 'Austria', dialCode: '+43' },
-    { code: 'BD', name: 'Bangladesh', dialCode: '+880' },
-    { code: 'BE', name: 'Belgium', dialCode: '+32' },
-    { code: 'BG', name: 'Bulgaria', dialCode: '+359' },
-    { code: 'CL', name: 'Chile', dialCode: '+56' },
-    { code: 'CO', name: 'Colombia', dialCode: '+57' },
-    { code: 'HR', name: 'Croatia', dialCode: '+385' },
-    { code: 'CZ', name: 'Czech Republic', dialCode: '+420' },
-    { code: 'DK', name: 'Denmark', dialCode: '+45' },
-    { code: 'EG', name: 'Egypt', dialCode: '+20' },
-    { code: 'EE', name: 'Estonia', dialCode: '+372' },
-    { code: 'FI', name: 'Finland', dialCode: '+358' },
-    { code: 'GR', name: 'Greece', dialCode: '+30' },
-    { code: 'HK', name: 'Hong Kong', dialCode: '+852' },
-    { code: 'HU', name: 'Hungary', dialCode: '+36' },
-    { code: 'ID', name: 'Indonesia', dialCode: '+62' },
-    { code: 'IE', name: 'Ireland', dialCode: '+353' },
-    { code: 'IL', name: 'Israel', dialCode: '+972' },
-    { code: 'IT', name: 'Italy', dialCode: '+39' },
-    { code: 'JO', name: 'Jordan', dialCode: '+962' },
-    { code: 'KE', name: 'Kenya', dialCode: '+254' },
-    { code: 'LV', name: 'Latvia', dialCode: '+371' },
-    { code: 'LT', name: 'Lithuania', dialCode: '+370' },
-    { code: 'LU', name: 'Luxembourg', dialCode: '+352' },
-    { code: 'MY', name: 'Malaysia', dialCode: '+60' },
-    { code: 'MX', name: 'Mexico', dialCode: '+52' },
-    { code: 'NL', name: 'Netherlands', dialCode: '+31' },
-    { code: 'NZ', name: 'New Zealand', dialCode: '+64' },
-    { code: 'NG', name: 'Nigeria', dialCode: '+234' },
-    { code: 'NO', name: 'Norway', dialCode: '+47' },
-    { code: 'PK', name: 'Pakistan', dialCode: '+92' },
-    { code: 'PH', name: 'Philippines', dialCode: '+63' },
-    { code: 'PL', name: 'Poland', dialCode: '+48' },
-    { code: 'PT', name: 'Portugal', dialCode: '+351' },
-    { code: 'RO', name: 'Romania', dialCode: '+40' },
-    { code: 'RU', name: 'Russia', dialCode: '+7' },
-    { code: 'SA', name: 'Saudi Arabia', dialCode: '+966' },
-    { code: 'SG', name: 'Singapore', dialCode: '+65' },
-    { code: 'SK', name: 'Slovakia', dialCode: '+421' },
-    { code: 'SI', name: 'Slovenia', dialCode: '+386' },
-    { code: 'ZA', name: 'South Africa', dialCode: '+27' },
-    { code: 'KR', name: 'South Korea', dialCode: '+82' },
-    { code: 'ES', name: 'Spain', dialCode: '+34' },
-    { code: 'SE', name: 'Sweden', dialCode: '+46' },
-    { code: 'CH', name: 'Switzerland', dialCode: '+41' },
-    { code: 'TH', name: 'Thailand', dialCode: '+66' },
-    { code: 'TR', name: 'Turkey', dialCode: '+90' },
-    { code: 'UA', name: 'Ukraine', dialCode: '+380' },
-    { code: 'AE', name: 'United Arab Emirates', dialCode: '+971' },
-    { code: 'VE', name: 'Venezuela', dialCode: '+58' },
-    { code: 'VN', name: 'Vietnam', dialCode: '+84' }
-  ];
-
-  useEffect(() => {
-    const selectedCountry = allCountries.find(country => country.code === data.country);
-    if (selectedCountry) {
-      setPhoneCountryCode(selectedCountry.dialCode);
-    }
-  }, [data.country]);
 
   const handleFieldBlur = (fieldName) => {
     setTouched(prev => ({ ...prev, [fieldName]: true }));
   };
 
-  const handleCountryChange = (value) => {
-    onChange('country', value);
-    const selectedCountry = allCountries.find(country => country.code === value);
-    if (selectedCountry) {
-      setPhoneCountryCode(selectedCountry.dialCode);
-    }
-  };
-
-  const formatPhoneNumber = (value) => {
-    const cleaned = value.replace(/\D/g, '');
-    return cleaned;
-  };
-
   const handlePhoneChange = (value) => {
-    const formatted = formatPhoneNumber(value);
-    onChange('phone', formatted);
+    const cleaned = value.replace(/\D/g, '');
+    onChange('phone', cleaned);
   };
 
   const validateEmail = (email) => {
@@ -115,11 +22,9 @@ const Step1ContactInfo = ({ data, onChange, validation, onNext }) => {
       data.fullName.trim() &&
       validateEmail(data.email) &&
       data.phone.trim() &&
-      data.country &&
       !validation.fullName &&
       !validation.email &&
-      !validation.phone &&
-      !validation.country
+      !validation.phone
     );
   };
 
@@ -134,7 +39,7 @@ const Step1ContactInfo = ({ data, onChange, validation, onNext }) => {
     <div className="checkout-step active">
       <div className="step-header">
         <h2>Contact Information</h2>
-        <p>We need this information to process your order and send you confirmation.</p>
+        <p>We only need your name, email, and phone to process your order and send confirmation.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="contact-form">
@@ -182,57 +87,19 @@ const Step1ContactInfo = ({ data, onChange, validation, onNext }) => {
           <label htmlFor="phone" className="form-label">
             Phone Number <span className="required">*</span>
           </label>
-          <div className="phone-input-group">
-            <div className="country-code">
-              <span>{phoneCountryCode}</span>
-            </div>
-            <input
-              type="tel"
-              id="phone"
-              className={`form-input phone-field ${touched.phone && validation.phone ? 'error' : ''}`}
-              value={data.phone}
-              onChange={(e) => handlePhoneChange(e.target.value)}
-              onBlur={() => handleFieldBlur('phone')}
-              placeholder="(555) 123-4567"
-              autoComplete="tel"
-              required
-            />
-          </div>
+          <input
+            type="tel"
+            id="phone"
+            className={`form-input ${touched.phone && validation.phone ? 'error' : ''}`}
+            value={data.phone}
+            onChange={(e) => handlePhoneChange(e.target.value)}
+            onBlur={() => handleFieldBlur('phone')}
+            placeholder="5551234567"
+            autoComplete="tel"
+            required
+          />
           {touched.phone && validation.phone && (
             <span className="error-message">{validation.phone}</span>
-          )}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="country" className="form-label">
-            Country <span className="required">*</span>
-          </label>
-          <select
-            id="country"
-            className={`form-select ${touched.country && validation.country ? 'error' : ''}`}
-            value={data.country}
-            onChange={(e) => handleCountryChange(e.target.value)}
-            onBlur={() => handleFieldBlur('country')}
-            required
-          >
-            <option value="">Select your country</option>
-            <optgroup label="Popular Countries">
-              {topCountries.map(country => (
-                <option key={country.code} value={country.code}>
-                  {country.name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="All Countries">
-              {allCountries.map(country => (
-                <option key={country.code} value={country.code}>
-                  {country.name}
-                </option>
-              ))}
-            </optgroup>
-          </select>
-          {touched.country && validation.country && (
-            <span className="error-message">{validation.country}</span>
           )}
         </div>
 

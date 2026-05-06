@@ -1,0 +1,297 @@
+/* Homepage Theme Redesign - Orange/Amber Gradient Theme */
+/* Based on the impressive short-term courses design */
+
+/* ===== CORE GRADIENT ANIMATIONS ===== */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes slidePattern {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100px); }
+}
+
+@keyframes speedLine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes lightningPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes goldShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ===== PRIMARY GRADIENTS ===== */
+.gradient-primary {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #ff9558 50%, #ffa500 75%, #ff6b35 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, #f7931e 0%, #ff9558 30%, #ffa500 60%, #ff6b35 100%);
+  background-size: 300% 300%;
+  animation: gradientShift 6s ease infinite;
+}
+
+.gradient-light {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 25%, rgba(255, 149, 88, 0.1) 50%, rgba(255, 165, 0, 0.1) 75%, rgba(255, 107, 53, 0.1) 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite;
+}
+
+.gradient-medium {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.3) 0%, rgba(247, 147, 30, 0.3) 25%, rgba(255, 149, 88, 0.3) 50%, rgba(255, 165, 0, 0.3) 75%, rgba(255, 107, 53, 0.3) 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 9s ease infinite;
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.5) 0%, rgba(247, 147, 30, 0.5) 25%, rgba(255, 149, 88, 0.5) 50%, rgba(255, 165, 0, 0.5) 75%, rgba(255, 107, 53, 0.5) 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 7s ease infinite;
+}
+
+/* ===== GOLD ACCENTS ===== */
+.gold-gradient {
+  background: linear-gradient(135deg, #ffd700, #ffed4e, #ffd700);
+  background-size: 200% 200%;
+  animation: goldShimmer 3s linear infinite;
+}
+
+.gold-text {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.5)) drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+  color: #ffd700; /* Fallback for browsers that don't support background-clip */
+}
+
+/* ===== GLASSMORPHISM CARDS ===== */
+.glass-card {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 165, 0, 0.3);
+}
+
+.glass-card-premium {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(25px);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 25px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.glass-card-premium:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+/* ===== BUTTON STYLES ===== */
+.btn-gradient-primary {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #1a1f36;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gradient-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(255, 215, 0, 0.5);
+  background: linear-gradient(135deg, #ffed4e, #ffd700);
+}
+
+.btn-gradient-secondary {
+  background: linear-gradient(135deg, #ff6b35, #ffa500);
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+}
+
+.btn-gradient-secondary:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(255, 107, 53, 0.4);
+}
+
+/* ===== LIGHTNING BOLT EFFECTS ===== */
+.lightning-bolt {
+  animation: lightningPulse 2s ease-in-out infinite;
+}
+
+.floating-lightning {
+  position: absolute;
+  animation: float 3s ease-in-out infinite;
+  opacity: 0.1;
+  color: #ffffff;
+}
+
+/* ===== SPEED LINES ===== */
+.speed-line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  animation: speedLine 2s linear infinite;
+}
+
+/* ===== PATTERN OVERLAYS ===== */
+.pattern-overlay {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 255, 255, 0.03) 10px,
+    rgba(255, 255, 255, 0.03) 20px
+  );
+  animation: slidePattern 20s linear infinite;
+}
+
+/* ===== VALUE PROPOSITION PILLS ===== */
+.value-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.value-pill:hover {
+  transform: scale(1.05);
+  background: rgba(0, 0, 0, 0.4);
+  border-color: #ff6b35;
+}
+
+/* ===== SECTION BACKGROUNDS ===== */
+.section-gradient-1 {
+  background: linear-gradient(135deg, #495057 0%, #6c757d 50%, #495057 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-gradient-1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 25%, rgba(255, 149, 88, 0.1) 50%, rgba(255, 165, 0, 0.1) 75%, rgba(255, 107, 53, 0.1) 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+}
+
+.section-gradient-2 {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 50%, #6c757d 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-gradient-2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 149, 88, 0.15) 0%, rgba(255, 165, 0, 0.15) 25%, rgba(255, 107, 53, 0.15) 50%, rgba(247, 147, 30, 0.15) 75%, rgba(255, 149, 88, 0.15) 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite;
+}
+
+/* ===== TYPOGRAPHY ENHANCEMENTS ===== */
+.heading-gradient {
+  background: linear-gradient(135deg, #ffffff, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  font-weight: 900;
+}
+
+.subtitle-enhanced {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .glass-card-premium {
+    border-radius: 20px;
+    padding: 20px;
+  }
+  
+  .btn-gradient-primary {
+    padding: 14px 28px;
+    font-size: 14px;
+  }
+  
+  .value-pill {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .gradient-primary,
+  .gradient-secondary,
+  .gradient-light,
+  .gradient-medium,
+  .gradient-dark,
+  .gold-gradient,
+  .floating-lightning,
+  .speed-line,
+  .pattern-overlay,
+  .section-gradient-1::before,
+  .section-gradient-2::before {
+    animation: none;
+  }
+  
+  .lightning-bolt {
+    animation: none;
+  }
+}

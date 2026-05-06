@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
 
-const Step3Review = ({ contactData, paymentData, items, coupon, subtotal, total, onBack, onConfirm, loading }) => {
+const Step3Review = ({ contactData, paymentData, items, coupon, subtotal, total, onBack, onPaymentSuccess, loading }) => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [marketingConsent, setMarketingConsent] = useState(false);
+  const [confirming, setConfirming] = useState(false);
+  const [paymentError, setPaymentError] = useState(null);
+  const stripe = useStripe();
+  const elements = useElements();
 
   const getPaymentMethodName = (method) => {
     switch (method) {
@@ -10,25 +15,13 @@ const Step3Review = ({ contactData, paymentData, items, coupon, subtotal, total,
         return 'Credit/Debit Card';
       case 'paypal':
         return 'PayPal';
+      case 'klarna':
+        return 'Klarna';
+      case 'afterpay_clearpay':
+        return 'Afterpay';
       default:
-        return method;
+        return method ? String(method) : 'Payment';
     }
-  };
-
-  const getCountryName = (countryCode) => {
-    const countries = {
-      'US': 'United States',
-      'GB': 'United Kingdom',
-      'CA': 'Canada',
-      'AU': 'Australia',
-      'IN': 'India',
-      'DE': 'Germany',
-      'FR': 'France',
-      'JP': 'Japan',
-      'CN': 'China',
-      'BR': 'Brazil'
-    };
-    return countries[countryCode] || countryCode;
   };
 
   const formatPhoneNumber = (phone, countryCode) => {
@@ -43,10 +36,31 @@ const Step3Review = ({ contactData, paymentData, items, coupon, subtotal, total,
     return phone;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (termsAccepted) {
-      onConfirm();
+    if (!termsAccepted || !stripe || !elements) return;
+    setPaymentError(null);
+    setConfirming(true);
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: window.location.origin + '/checkout',
+        receipt_email: contactData?.email || undefined,
+        payment_method_data: {
+          billing_details: {
+            name: contactData?.fullName || undefined,
+            email: contactData?.email || undefined,
+            phone: contactData?.phone || undefined,
+            address: { country: 'US' }
+          }
+        }
+      }
+    });
+    setConfirming(false);
+    if (error) {
+      setPaymentError(error.message || 'Payment failed');
+    } else {
+      onPaymentSuccess();
     }
   };
 
@@ -73,10 +87,6 @@ const Step3Review = ({ contactData, paymentData, items, coupon, subtotal, total,
               <div className="review-item">
                 <label>Phone Number</label>
                 <p>{formatPhoneNumber(contactData.phone, '+1')}</p>
-              </div>
-              <div className="review-item">
-                <label>Country</label>
-                <p>{getCountryName(contactData.country)}</p>
               </div>
             </div>
             <button type="button" className="edit-button" onClick={onBack}>
@@ -105,10 +115,7 @@ const Step3Review = ({ contactData, paymentData, items, coupon, subtotal, total,
                   )}
                 </div>
                 <div className="payment-details">
-                  <p className="payment-name">{getPaymentMethodName(paymentData.method)}</p>
-                  {paymentData.method === 'card' && paymentData.saveCard && (
-                    <p className="save-card-note">Card will be saved for future purchases</p>
-                  )}
+                  <p className="payment-name">{getPaymentMethodName(paymentData?.method)}</p>
                 </div>
               </div>
             </div>
@@ -146,7 +153,7 @@ const Step3Review = ({ contactData, paymentData, items, coupon, subtotal, total,
               {coupon && (
                 <div className="total-row discount">
                   <span>Discount ({coupon.code}):</span>
-                  <span>-${coupon.discountValue.toFixed(2)}</span>
+                  <span>-${(coupon.discountValue || 0).toFixed(2)}</span>
                 </div>
               )}
               <div className="total-row final">
@@ -196,12 +203,15 @@ const Step3Review = ({ contactData, paymentData, items, coupon, subtotal, total,
             Back to Payment
           </button>
           
+          {paymentError && (
+          <div className="error-message payment-error">{paymentError}</div>
+        )}
           <button
             type="submit"
             className="confirm-button"
-            disabled={!termsAccepted || loading}
+            disabled={!termsAccepted || loading || confirming}
           >
-            {loading ? (
+            {(loading || confirming) ? (
               <>
                 <div className="spinner"></div>
                 Processing...

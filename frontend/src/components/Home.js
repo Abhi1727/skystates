@@ -6,21 +6,29 @@ import Features from './Features';
 import Programs from './Programs';
 import PopularCertificates from './PopularCertificates';
 import TestimonialsSection from './TestimonialsSection';
+import EnhancedTestimonials from './EnhancedTestimonials';
 import Clients from './Clients';
 import Newsletter from './Newsletter';
 import FloatingEnrollButton from './FloatingEnrollButton';
+import FloatingEnrollmentAssistant from './FloatingEnrollmentAssistant';
 import ExitIntentPopup from './ExitIntentPopup';
 import GamificationWidget from './GamificationWidget';
+import LiveActivityFeed from './LiveActivityFeed';
+import SmartScarcityIndicators from './SmartScarcityIndicators';
+import InteractiveLearningJourney from './InteractiveLearningJourney';
+import EnhancedCourseComparison from './EnhancedCourseComparison';
+import './HomepageTheme.css';
 
 const Home = () => {
-  // Progressive lightening shades from dark to light
+  // Progressive gradient variations with orange/amber theme
   const sectionBackgrounds = [
-    { component: <Hero />, shade: 'transparent' }, // Hero has its own background
-    // { component: <LogoMarquee />, shade: '#495057' }, // Darkest - COMMENTED OUT
-    { component: <About />, shade: '#495057' }, // About section
-    { component: <Programs />, shade: '#6c757d' }, // Our Programs section
-    { component: <PopularCertificates />, shade: 'transparent' }, // Popular Certificates section - same as About
-    { component: <Features />, shade: 'transparent' } // Features section - same as About
+    { component: <Hero />, shade: 'transparent' }, // Hero has its own animated gradient background
+    { component: <About />, shade: 'section-gradient-1' }, // About section with gradient overlay
+    { component: <Programs />, shade: 'section-gradient-2' }, // Programs section with lighter gradient
+    { component: <InteractiveLearningJourney />, shade: 'gradient-light' }, // Interactive Learning Journey
+    // { component: <EnhancedCourseComparison />, shade: 'gradient-medium' }, // Enhanced Course Comparison
+    { component: <PopularCertificates />, shade: 'gradient-medium' }, // Popular Certificates with medium gradient
+    { component: <Features />, shade: 'gradient-darker' } // Features section with darkest gradient
   ];
 
   return (
@@ -38,10 +46,10 @@ const Home = () => {
           <div 
             key={index}
             data-scroll-section
+            className={section.shade}
             style={{
-              background: section.shade,
               position: 'relative',
-              transition: 'background-color 0.5s ease'
+              transition: 'all 0.5s ease'
             }}
           >
             {section.component}
@@ -51,11 +59,15 @@ const Home = () => {
       
       {/* Additional Engagement Components */}
       <TestimonialsSection />
+      <EnhancedTestimonials />
       <Clients />
       <Newsletter />
       {/* <GamificationWidget /> */}
+      {/* <LiveActivityFeed /> */}
+      {/* <SmartScarcityIndicators /> */}
       {/* <ExitIntentPopup /> */}
       <FloatingEnrollButton />
+      {/* <FloatingEnrollmentAssistant /> */}
     </>
   );
 };

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 import { useCart } from '../contexts/CartContext';
+import { PAY_NOW_LINKS } from '../config';
+import './Header.css';
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
@@ -11,7 +12,7 @@ const Header = () => {
   const [showCart, setShowCart] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
-  const { cartItems, cartCount, removeFromCart, getCartTotal } = useCart();
+  const { cartItems, cartCount, removeFromCart, getCartTotal, addToCart } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -49,12 +50,35 @@ const Header = () => {
   };
 
   const handleProgramCheckout = (programName, price, duration) => {
-    const programInfo = {
-      name: programName,
-      price: price,
-      duration: duration
+    const nameMap = {
+      'Data Science & AI': 'Data Science and AI Program',
+      'Cyber Security & Ethical Hacking': 'Cyber Security and Ethical Hacking Program',
+      'DevOps & Cloud Computing': 'DevOps and Cloud Computing Program'
     };
-    navigate('/checkout', { state: { program: programInfo } });
+    const programInfo = {
+      name: nameMap[programName] || programName,
+      price: '2999.00',
+      duration: duration || '6 Months',
+      type: 'full_program'
+    };
+    const added = addToCart(programInfo);
+    if (added) navigate('/checkout');
+  };
+
+  // 6 registration options: left = program $99, right = one-to-one $499
+  const REGISTER_LEFT = [
+    { name: 'Registration fee for Data Science and AI Program', price: '99.00', duration: '6 Months', type: 'registration' },
+    { name: 'Registration fee for Cyber Security and Ethical Hacking Program', price: '99.00', duration: '6 Months', type: 'registration' },
+    { name: 'Registration fee for DevOps and Cloud Computing Program', price: '99.00', duration: '6 Months', type: 'registration' },
+  ];
+  const REGISTER_RIGHT = [
+    { name: 'Registration fee for Data Science and AI Short Term Program', price: '499.00', duration: 'Short Term', type: 'registration' },
+    { name: 'Registration fee for Cyber Security and Ethical Hacking Short Term Program', price: '499.00', duration: 'Short Term', type: 'registration' },
+    { name: 'Registration fee for DevOps and Cloud Computing Short Term Program', price: '499.00', duration: 'Short Term', type: 'registration' },
+  ];
+  const handleRegisterOption = (item) => {
+    const added = addToCart(item);
+    if (added) navigate('/checkout');
   };
 
   console.log('Header rendering, current path:', location.pathname);
@@ -132,8 +156,7 @@ const Header = () => {
             alignItems: window.innerWidth <= 576 ? 'stretch' : 'center',
             textAlign: 'center'
           }}>
-            <SignedOut>
-              <Link to="/login" className="login-btn" style={{
+            <Link to="/login" className="login-btn" style={{
                 color: 'white',
                 padding: '6px 14px',
                 border: '1px solid rgba(255, 255, 255, 0.3)',
@@ -161,22 +184,6 @@ const Header = () => {
               }}>
                 Register
               </Link>
-            </SignedOut>
-            <SignedIn>
-              <Link to="/dashboard" style={{
-                color: 'white',
-                padding: '6px 12px',
-                fontSize: '13px',
-                fontWeight: '500',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px'
-              }}>
-                Dashboard
-              </Link>
-              <UserButton afterSignOutUrl="/" />
-            </SignedIn>
             <button onClick={handleLMSLogin} className="lms-btn" style={{
               background: 'linear-gradient(135deg, rgb(29, 78, 216) 0%, rgb(30, 64, 175) 50%, rgb(23, 37, 84) 100%)',
               color: 'white',
@@ -667,8 +674,7 @@ const Header = () => {
               </AnimatePresence>
             </motion.li>
 
-            {/* Register Now Dropdown - COMMENTED OUT */}
-            {/*
+            {/* Register now – dropdown: left 3 program $99, right 3 one-to-one $499 */}
             <motion.li
               className="dropdown"
               whileHover={{ y: -2 }}
@@ -681,151 +687,7 @@ const Header = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <a 
-                  href="#" 
-                  className="dropdown-toggle"
-                  style={{
-                    color: '#ffffff',
-                    textDecoration: 'none',
-                    padding: '15px 20px',
-                    borderRadius: '8px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    fontWeight: '500',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer',
-                    background: 'linear-gradient(45deg, #007bff, #0056b3)',
-                    border: '1px solid rgba(0,123,255,0.3)'
-                  }}
-                >
-                  Register Now 
-                  <motion.i 
-                    className="fas fa-chevron-down"
-                    animate={{ rotate: activeDropdown === 'register' ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ fontSize: '12px' }}
-                  />
-                </a>
-              </motion.div>
-              
-              <AnimatePresence>
-                {activeDropdown === 'register' && (
-                  <motion.ul
-                    className="dropdown-menu"
-                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    style={{
-                      position: 'absolute',
-                      top: '100%',
-                      left: '0',
-                      background: 'rgba(26, 26, 46, 0.95)',
-                      backdropFilter: 'blur(10px)',
-                      borderRadius: '12px',
-                      padding: '10px 0',
-                      minWidth: '250px',
-                      boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      listStyle: 'none',
-                      margin: 0,
-                      zIndex: 9999
-                    }}
-                  >
-                    <motion.li whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
-                      <a 
-                        href="#"
-                        onClick={() => handleProgramCheckout('Data Science & AI', '$2,999', '6 Months')}
-                        style={{
-                          color: '#ffffff',
-                          textDecoration: 'none',
-                          padding: '12px 20px',
-                          display: 'block',
-                          transition: 'all 0.3s ease',
-                          fontSize: '14px'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.background = 'rgba(0,123,255,0.1)';
-                          e.target.style.paddingLeft = '25px';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.background = 'transparent';
-                          e.target.style.paddingLeft = '20px';
-                        }}
-                      >
-                        Data Science & AI
-                      </a>
-                    </motion.li>
-                    <motion.li whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
-                      <a 
-                        href="#"
-                        onClick={() => handleProgramCheckout('Cyber Security & Ethical Hacking', '$2,999', '6 Months')}
-                        style={{
-                          color: '#ffffff',
-                          textDecoration: 'none',
-                          padding: '12px 20px',
-                          display: 'block',
-                          transition: 'all 0.3s ease',
-                          fontSize: '14px'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.background = 'rgba(0,123,255,0.1)';
-                          e.target.style.paddingLeft = '25px';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.background = 'transparent';
-                          e.target.style.paddingLeft = '20px';
-                        }}
-                      >
-                        Cyber Security & Ethical Hacking
-                      </a>
-                    </motion.li>
-                    <motion.li whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
-                      <a 
-                        href="#"
-                        onClick={() => handleProgramCheckout('DevOps & Cloud Computing', '$2,999', '6 Months')}
-                        style={{
-                          color: '#ffffff',
-                          textDecoration: 'none',
-                          padding: '12px 20px',
-                          display: 'block',
-                          transition: 'all 0.3s ease',
-                          fontSize: '14px'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.background = 'rgba(0,123,255,0.1)';
-                          e.target.style.paddingLeft = '25px';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.background = 'transparent';
-                          e.target.style.paddingLeft = '20px';
-                        }}
-                      >
-                        DevOps & Cloud
-                      </a>
-                    </motion.li>
-                  </motion.ul>
-                )}
-              </AnimatePresence>
-            </motion.li>
-            */}
-
-            {/* More Dropdown */}
-            <motion.li
-              className="dropdown"
-              whileHover={{ y: -2 }}
-              transition={{ duration: 0.2 }}
-              onHoverStart={() => setActiveDropdown('more')}
-              onHoverEnd={() => setActiveDropdown(null)}
-              style={{ position: 'relative' }}
-            >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <a 
-                  href="#" 
+                <span
                   className="dropdown-toggle"
                   style={{
                     color: '#ffffff',
@@ -841,23 +703,185 @@ const Header = () => {
                     whiteSpace: 'nowrap'
                   }}
                 >
-                  More 
+                  Register now
+                  <motion.svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    animate={{ rotate: activeDropdown === 'register' ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }}
+                  >
+                    <path d="m6 9 6 6 6-6" stroke="url(#chevronGradientReg)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <defs>
+                      <linearGradient id="chevronGradientReg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#667eea"/>
+                        <stop offset="100%" stopColor="#764ba2"/>
+                      </linearGradient>
+                    </defs>
+                  </motion.svg>
+                </span>
+              </motion.div>
+
+              <AnimatePresence>
+                {activeDropdown === 'register' && (
+                  <motion.div
+                    className="dropdown-menu register-dropdown"
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                    style={{
+                      position: 'absolute',
+                      top: '100%',
+                      right: 0,
+                      marginTop: '4px',
+                      background: 'rgba(26, 26, 46, 0.98)',
+                      backdropFilter: 'blur(10px)',
+                      borderRadius: '12px',
+                      padding: '16px 12px',
+                      width: '420px',
+                      maxWidth: '90vw',
+                      boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      listStyle: 'none',
+                      margin: 0,
+                      zIndex: 9999,
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr',
+                      gap: '20px 24px'
+                    }}
+                  >
+                    <div style={{ borderRight: '1px solid rgba(255,255,255,0.15)', paddingRight: '16px' }}>
+                      <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '11px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '10px' }}>Program — $99</div>
+                      {REGISTER_LEFT.map((item, idx) => (
+                        <motion.div key={idx} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
+                          <button
+                            type="button"
+                            onClick={() => handleRegisterOption(item)}
+                            style={{
+                              width: '100%',
+                              textAlign: 'left',
+                              color: '#ffffff',
+                              textDecoration: 'none',
+                              padding: '10px 14px',
+                              display: 'block',
+                              transition: 'all 0.3s ease',
+                              fontSize: '13px',
+                              background: 'transparent',
+                              border: 'none',
+                              cursor: 'pointer',
+                              borderRadius: '8px'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = 'rgba(0,123,255,0.15)';
+                              e.currentTarget.style.paddingLeft = '18px';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = 'transparent';
+                              e.currentTarget.style.paddingLeft = '14px';
+                            }}
+                          >
+                            {item.name.replace('Registration fee for ', '').replace(' Program', '')}
+                            <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: '12px', display: 'block', marginTop: '2px' }}>${item.price} · {item.duration}</span>
+                          </button>
+                        </motion.div>
+                      ))}
+                    </div>
+                    <div>
+                      <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '11px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '10px' }}>One-to-One — $499</div>
+                      {REGISTER_RIGHT.map((item, idx) => (
+                        <motion.div key={idx} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
+                          <button
+                            type="button"
+                            onClick={() => handleRegisterOption(item)}
+                            style={{
+                              width: '100%',
+                              textAlign: 'left',
+                              color: '#ffffff',
+                              textDecoration: 'none',
+                              padding: '10px 14px',
+                              display: 'block',
+                              transition: 'all 0.3s ease',
+                              fontSize: '13px',
+                              background: 'transparent',
+                              border: 'none',
+                              cursor: 'pointer',
+                              borderRadius: '8px'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = 'rgba(0,123,255,0.15)';
+                              e.currentTarget.style.paddingLeft = '18px';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = 'transparent';
+                              e.currentTarget.style.paddingLeft = '14px';
+                            }}
+                          >
+                            {item.name.replace('Registration fee for ', '').replace(' Short Term Program', '')}
+                            <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: '12px', display: 'block', marginTop: '2px' }}>${item.price} · {item.duration}</span>
+                          </button>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.li>
+
+            {/* Pay Now – Partner EMI's 1, 2, 3, 4 (links from config / .env) */}
+            <motion.li
+              className="dropdown"
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.2 }}
+              onHoverStart={() => setActiveDropdown('paynow')}
+              onHoverEnd={() => setActiveDropdown(null)}
+              style={{ position: 'relative' }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span 
+                  className="dropdown-toggle"
+                  style={{
+                    color: '#ffffff',
+                    textDecoration: 'none',
+                    padding: '15px 20px',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    fontWeight: '500',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  Pay Now 
                   <motion.svg 
                     width="12" 
                     height="12" 
                     viewBox="0 0 24 24" 
                     fill="none"
-                    animate={{ rotate: activeDropdown === 'more' ? 180 : 0 }}
+                    animate={{ rotate: activeDropdown === 'paynow' ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
                     style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }}
                   >
-                    <path d="m6 9 6 6 6-6" stroke="url(#chevronGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="m6 9 6 6 6-6" stroke="url(#chevronGradientPay)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <defs>
+                      <linearGradient id="chevronGradientPay" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#667eea"/>
+                        <stop offset="100%" stopColor="#764ba2"/>
+                      </linearGradient>
+                    </defs>
                   </motion.svg>
-                </a>
+                </span>
               </motion.div>
               
               <AnimatePresence>
-                {activeDropdown === 'more' && (
+                {activeDropdown === 'paynow' && (
                   <motion.ul
                     className="dropdown-menu"
                     initial={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -872,7 +896,7 @@ const Header = () => {
                       backdropFilter: 'blur(10px)',
                       borderRadius: '12px',
                       padding: '10px 0',
-                      minWidth: '200px',
+                      minWidth: '220px',
                       boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
                       border: '1px solid rgba(255,255,255,0.1)',
                       listStyle: 'none',
@@ -880,66 +904,48 @@ const Header = () => {
                       zIndex: 9999
                     }}
                   >
-                    <motion.li whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
-                      <a 
-                        href="#"
-                        style={{
-                          color: '#ffffff',
-                          textDecoration: 'none',
-                          padding: '12px 20px',
-                          display: 'block',
-                          transition: 'all 0.3s ease',
-                          fontSize: '14px'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.background = 'rgba(0,123,255,0.1)';
-                          e.target.style.paddingLeft = '25px';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.background = 'transparent';
-                          e.target.style.paddingLeft = '20px';
-                        }}
-                      >
-                        Partner EMIs
-                      </a>
-                    </motion.li>
-                    <motion.li whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
-                      <Link 
-                        to="/refund-returns"
-                        style={{
-                          color: '#ffffff',
-                          textDecoration: 'none',
-                          padding: '12px 20px',
-                          display: 'block',
-                          transition: 'all 0.3s ease',
-                          fontSize: '14px'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.background = 'rgba(0,123,255,0.1)';
-                          e.target.style.paddingLeft = '25px';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.background = 'transparent';
-                          e.target.style.paddingLeft = '20px';
-                        }}
-                      >
-                        Refund and Returns Policy
-                      </Link>
-                    </motion.li>
+                    {PAY_NOW_LINKS.map((item, idx) => (
+                      <motion.li key={idx} whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
+                        <a 
+                          href={item.url}
+                          target={item.url && item.url !== '#' ? '_blank' : undefined}
+                          rel={item.url && item.url !== '#' ? 'noopener noreferrer' : undefined}
+                          style={{
+                            color: '#ffffff',
+                            textDecoration: 'none',
+                            padding: '12px 20px',
+                            display: 'block',
+                            transition: 'all 0.3s ease',
+                            fontSize: '14px'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.background = 'rgba(0,123,255,0.1)';
+                            e.target.style.paddingLeft = '25px';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.background = 'transparent';
+                            e.target.style.paddingLeft = '20px';
+                          }}
+                        >
+                          {item.label}
+                        </a>
+                      </motion.li>
+                    ))}
                   </motion.ul>
                 )}
               </AnimatePresence>
             </motion.li>
 
-            {/* Cart Icon */}
+            {/* Cart – click only; dropdown opens below icon only when cart icon is clicked */}
             <motion.li
+              style={{ position: 'relative' }}
               whileHover={{ y: -2, scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.2 }}
             >
               <button
                 type="button"
-                onClick={() => setShowCart(true)}
+                onClick={() => setShowCart(prev => !prev)}
                 style={{
                   background: 'transparent',
                   border: 'none',
@@ -983,6 +989,84 @@ const Header = () => {
                   </span>
                 )}
               </button>
+              <AnimatePresence>
+                {showCart && (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      onClick={() => setShowCart(false)}
+                      style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'rgba(0,0,0,0.3)',
+                        zIndex: 9998
+                      }}
+                    />
+                    <motion.div
+                      className="cart-dropdown"
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                      onClick={(e) => e.stopPropagation()}
+                      style={{
+                        position: 'fixed',
+                        top: '72px',
+                        right: '20px',
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        borderRadius: '16px',
+                        padding: '1.25rem 1.5rem',
+                        width: '360px',
+                        maxWidth: 'calc(100vw - 40px)',
+                        maxHeight: '80vh',
+                        overflow: 'auto',
+                        boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
+                        border: '1px solid rgba(255,255,255,0.15)',
+                        zIndex: 9999
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                        <h2 style={{ color: '#fff', fontSize: '1.2rem', fontWeight: '700', margin: 0 }}>🛒 Cart</h2>
+                        <button type="button" onClick={() => setShowCart(false)} style={{ background: 'rgba(255,255,255,0.2)', border: 'none', color: '#fff', fontSize: '1.2rem', cursor: 'pointer', padding: '4px 10px', borderRadius: '8px' }}>✕</button>
+                      </div>
+                      {cartItems.length === 0 ? (
+                        <div style={{ textAlign: 'center', padding: '1.5rem', color: '#fff' }}>
+                          <p style={{ margin: 0, opacity: 0.9 }}>Your cart is empty</p>
+                          <p style={{ margin: '8px 0 0', fontSize: '0.9rem', opacity: 0.8 }}>Add courses to get started</p>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="cart-items">
+                            {cartItems.map((item, index) => (
+                              <div key={index} style={{ background: 'rgba(255,255,255,0.12)', borderRadius: '12px', padding: '0.75rem', marginBottom: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div>
+                                  <div style={{ color: '#fff', fontWeight: '600', fontSize: '0.9rem' }}>{item.name}</div>
+                                  <div style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.8rem' }}>{item.duration}</div>
+                                </div>
+                                <div style={{ textAlign: 'right' }}>
+                                  <div style={{ color: '#fff', fontWeight: '600' }}>{item.price}</div>
+                                  <button type="button" onClick={() => removeFromCart(item.id)} style={{ background: 'rgba(255,107,107,0.3)', border: 'none', color: '#fff', padding: '4px 8px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.75rem', marginTop: '4px' }}>Remove</button>
+                                </div>
+                              </div>
+                            ))}
+                            <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)', paddingTop: '0.75rem', marginTop: '0.5rem', textAlign: 'right', color: '#fff', fontWeight: '600' }}>Total: ${getCartTotal().toFixed(2)}</div>
+                          </div>
+                          <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem' }}>
+                            <button type="button" onClick={() => setShowCart(false)} style={{ flex: 1, padding: '0.75rem', border: '1px solid rgba(255,255,255,0.4)', background: 'transparent', color: '#fff', borderRadius: '10px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}>Continue</button>
+                            <button type="button" onClick={() => { navigate('/checkout'); setShowCart(false); }} style={{ flex: 1, padding: '0.75rem', border: 'none', background: 'linear-gradient(45deg, #28a745, #20c997)', color: '#fff', borderRadius: '10px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}>Checkout</button>
+                          </div>
+                        </>
+                      )}
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
             </motion.li>
           </motion.ul>
 
@@ -1076,170 +1160,89 @@ const Header = () => {
                   </motion.button>
                 </div>
 
-                {/* Mobile Navigation Items */}
-                <div style={{
-                  padding: '20px'
-                }}>
-                  {/* Programs Dropdown */}
-                  <div style={{ marginBottom: '20px' }}>
-                    <motion.div
-                      onClick={() => setActiveDropdown(activeDropdown === 'register-mobile' ? null : 'register-mobile')}
-                      whileHover={{ x: 5 }}
-                      style={{
-                        color: '#ffffff',
-                        fontSize: '16px',
-                        fontWeight: '500',
-                        padding: '15px 0',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        borderBottom: '1px solid rgba(255,255,255,0.1)'
-                      }}
-                    >
-                      <span>Programs</span>
-                      <span>{activeDropdown === 'register-mobile' ? '−' : '+'}</span>
+                {/* Mobile Navigation Items: Home, Live Job, Program, One to One, Register now, Pay Now, Cart */}
+                <div style={{ padding: '20px' }}>
+                  <Link to="/" onClick={toggleMobileMenu} style={{ display: 'block', color: '#ffffff', fontSize: '16px', fontWeight: '500', padding: '15px 0', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Home</Link>
+                  <Link to="/jobs" onClick={toggleMobileMenu} style={{ display: 'block', color: '#ffffff', fontSize: '16px', fontWeight: '500', padding: '15px 0', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Live Job</Link>
+
+                  {/* Program (expandable) */}
+                  <div style={{ marginBottom: '0' }}>
+                    <motion.div onClick={() => setActiveDropdown(activeDropdown === 'program-mobile' ? null : 'program-mobile')} style={{ color: '#ffffff', fontSize: '16px', fontWeight: '500', padding: '15px 0', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <span>Program</span>
+                      <span>{activeDropdown === 'program-mobile' ? '−' : '+'}</span>
                     </motion.div>
-                    
                     <AnimatePresence>
-                      {activeDropdown === 'register-mobile' && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          style={{ paddingLeft: '20px' }}
-                        >
-                          <motion.a
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleProgramCheckout('Data Science & AI', '$2,999', '6 Months');
-                              toggleMobileMenu();
-                            }}
-                            whileHover={{ x: 5 }}
-                            style={{
-                              display: 'block',
-                              color: '#ffffff',
-                              padding: '12px 0',
-                              fontSize: '14px',
-                              opacity: 0.8,
-                              textDecoration: 'none'
-                            }}
-                          >
-                            Data Science & AI
-                          </motion.a>
-                          <motion.a
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleProgramCheckout('Cyber Security & Ethical Hacking', '$2,999', '6 Months');
-                              toggleMobileMenu();
-                            }}
-                            whileHover={{ x: 5 }}
-                            style={{
-                              display: 'block',
-                              color: '#ffffff',
-                              padding: '12px 0',
-                              fontSize: '14px',
-                              opacity: 0.8,
-                              textDecoration: 'none'
-                            }}
-                          >
-                            Cyber Security & Ethical Hacking
-                          </motion.a>
-                          <motion.a
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleProgramCheckout('DevOps & Cloud Computing', '$2,999', '6 Months');
-                              toggleMobileMenu();
-                            }}
-                            whileHover={{ x: 5 }}
-                            style={{
-                              display: 'block',
-                              color: '#ffffff',
-                              padding: '12px 0',
-                              fontSize: '14px',
-                              opacity: 0.8,
-                              textDecoration: 'none'
-                            }}
-                          >
-                            DevOps & Cloud Computing
-                          </motion.a>
+                      {activeDropdown === 'program-mobile' && (
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ paddingLeft: '20px' }}>
+                          <Link to="/product/data-science-ai-program" onClick={toggleMobileMenu} style={{ display: 'block', color: 'rgba(255,255,255,0.9)', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>Data Science And AI</Link>
+                          <Link to="/product/cyber-security-and-ethical-hacking-program" onClick={toggleMobileMenu} style={{ display: 'block', color: 'rgba(255,255,255,0.9)', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>Cyber Security And Ethical Hacking</Link>
+                          <Link to="/product/devops-and-cloud-computing-program" onClick={toggleMobileMenu} style={{ display: 'block', color: 'rgba(255,255,255,0.9)', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>DevOps & Cloud Computing</Link>
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
 
-                  {/* Other Navigation Items */}
-                  <motion.a
-                    href="/about"
-                    onClick={toggleMobileMenu}
-                    whileHover={{ x: 5 }}
-                    style={{
-                      display: 'block',
-                      color: '#ffffff',
-                      fontSize: '16px',
-                      fontWeight: '500',
-                      padding: '15px 0',
-                      textDecoration: 'none',
-                      borderBottom: '1px solid rgba(255,255,255,0.1)'
-                    }}
-                  >
-                    About Us
-                  </motion.a>
+                  {/* One to One (expandable) */}
+                  <div style={{ marginBottom: '0' }}>
+                    <motion.div onClick={() => setActiveDropdown(activeDropdown === 'onetoone-mobile' ? null : 'onetoone-mobile')} style={{ color: '#ffffff', fontSize: '16px', fontWeight: '500', padding: '15px 0', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <span>One to One</span>
+                      <span>{activeDropdown === 'onetoone-mobile' ? '−' : '+'}</span>
+                    </motion.div>
+                    <AnimatePresence>
+                      {activeDropdown === 'onetoone-mobile' && (
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ paddingLeft: '20px' }}>
+                          <Link to="/product/data-science-ai-short-term-program" onClick={toggleMobileMenu} style={{ display: 'block', color: 'rgba(255,255,255,0.9)', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>Data Science & AI Short Term</Link>
+                          <Link to="/product/cyber-security-and-ethical-hacking-short-term-program" onClick={toggleMobileMenu} style={{ display: 'block', color: 'rgba(255,255,255,0.9)', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>Cyber Security Short Term</Link>
+                          <Link to="/product/devops-and-cloud-computing-short-term-program" onClick={toggleMobileMenu} style={{ display: 'block', color: 'rgba(255,255,255,0.9)', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>DevOps & Cloud Computing Short Term</Link>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
 
-                  <motion.a
-                    href="/how-it-works"
-                    onClick={toggleMobileMenu}
-                    whileHover={{ x: 5 }}
-                    style={{
-                      display: 'block',
-                      color: '#ffffff',
-                      fontSize: '16px',
-                      fontWeight: '500',
-                      padding: '15px 0',
-                      textDecoration: 'none',
-                      borderBottom: '1px solid rgba(255,255,255,0.1)'
-                    }}
-                  >
-                    How It Works
-                  </motion.a>
+                  {/* Register now – 6 options (3 program $99, 3 one-to-one $499) */}
+                  <div style={{ marginBottom: '0' }}>
+                    <motion.div onClick={() => setActiveDropdown(activeDropdown === 'register-mobile' ? null : 'register-mobile')} style={{ color: '#ffffff', fontSize: '16px', fontWeight: '500', padding: '15px 0', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <span>Register now</span>
+                      <span>{activeDropdown === 'register-mobile' ? '−' : '+'}</span>
+                    </motion.div>
+                    <AnimatePresence>
+                      {activeDropdown === 'register-mobile' && (
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ paddingLeft: '16px' }}>
+                          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px', marginTop: '8px', marginBottom: '4px' }}>Program — $99</div>
+                          {REGISTER_LEFT.map((item, idx) => (
+                            <button key={`l-${idx}`} type="button" onClick={() => { handleRegisterOption(item); toggleMobileMenu(); }} style={{ display: 'block', width: '100%', textAlign: 'left', background: 'none', border: 'none', color: 'rgba(255,255,255,0.95)', padding: '10px 0', fontSize: '14px', cursor: 'pointer', textDecoration: 'none' }}>{item.name.replace('Registration fee for ', '').replace(' Program', '')} — $99</button>
+                          ))}
+                          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px', marginTop: '12px', marginBottom: '4px' }}>One-to-One — $499</div>
+                          {REGISTER_RIGHT.map((item, idx) => (
+                            <button key={`r-${idx}`} type="button" onClick={() => { handleRegisterOption(item); toggleMobileMenu(); }} style={{ display: 'block', width: '100%', textAlign: 'left', background: 'none', border: 'none', color: 'rgba(255,255,255,0.95)', padding: '10px 0', fontSize: '14px', cursor: 'pointer', textDecoration: 'none' }}>{item.name.replace('Registration fee for ', '').replace(' Short Term Program', '')} — $499</button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
 
-                  <motion.a
-                    href="/contact"
-                    onClick={toggleMobileMenu}
-                    whileHover={{ x: 5 }}
-                    style={{
-                      display: 'block',
-                      color: '#ffffff',
-                      fontSize: '16px',
-                      fontWeight: '500',
-                      padding: '15px 0',
-                      textDecoration: 'none',
-                      borderBottom: '1px solid rgba(255,255,255,0.1)'
-                    }}
-                  >
-                    Contact
-                  </motion.a>
+                  {/* Pay Now – Partner EMI's 1–4 */}
+                  <div style={{ marginBottom: '0' }}>
+                    <motion.div onClick={() => setActiveDropdown(activeDropdown === 'paynow-mobile' ? null : 'paynow-mobile')} style={{ color: '#ffffff', fontSize: '16px', fontWeight: '500', padding: '15px 0', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <span>Pay Now</span>
+                      <span>{activeDropdown === 'paynow-mobile' ? '−' : '+'}</span>
+                    </motion.div>
+                    <AnimatePresence>
+                      {activeDropdown === 'paynow-mobile' && (
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ paddingLeft: '20px' }}>
+                          {PAY_NOW_LINKS.map((item, idx) => (
+                            <a key={idx} href={item.url} target={item.url && item.url !== '#' ? '_blank' : undefined} rel={item.url && item.url !== '#' ? 'noopener noreferrer' : undefined} onClick={toggleMobileMenu} style={{ display: 'block', color: 'rgba(255,255,255,0.9)', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>{item.label}</a>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
 
-                  <motion.a
-                    href="/refund-returns"
-                    onClick={toggleMobileMenu}
-                    whileHover={{ x: 5 }}
-                    style={{
-                      display: 'block',
-                      color: '#ffffff',
-                      fontSize: '16px',
-                      fontWeight: '500',
-                      padding: '15px 0',
-                      textDecoration: 'none',
-                      borderBottom: '1px solid rgba(255,255,255,0.1)'
-                    }}
-                  >
-                    Refund Policy
-                  </motion.a>
+                  <motion.button type="button" onClick={() => { setShowCart(true); toggleMobileMenu(); }} style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', color: '#ffffff', fontSize: '16px', fontWeight: '500', padding: '15px 0', cursor: 'pointer', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    🛒 Cart {cartCount > 0 && `(${cartCount})`}
+                  </motion.button>
+
+                  <Link to="/refund-returns" onClick={toggleMobileMenu} style={{ display: 'block', color: '#ffffff', fontSize: '16px', fontWeight: '500', padding: '15px 0', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>Refund and Returns Policy</Link>
 
                   {/* Auth Buttons */}
                   <div style={{
@@ -1341,209 +1344,6 @@ const Header = () => {
           )}
         </AnimatePresence>
 
-        {/* Shopping Cart Modal */}
-        <AnimatePresence>
-          {showCart && (
-            <motion.div
-              className="cart-modal-overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowCart(false)}
-              style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'rgba(0, 0, 0, 0.5)',
-                zIndex: 10000,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <motion.div
-                className="cart-modal"
-                initial={{ scale: 0.9, opacity: 0, y: 20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                onClick={(e) => e.stopPropagation()}
-                style={{
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  borderRadius: '20px',
-                  padding: '2rem',
-                  width: '90%',
-                  maxWidth: '500px',
-                  maxHeight: '80vh',
-                  overflow: 'auto',
-                  boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-                  border: '1px solid rgba(255,255,255,0.1)'
-                }}
-              >
-                <div className="cart-header" style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '1.5rem'
-                }}>
-                  <h2 style={{
-                    color: '#ffffff',
-                    fontSize: '1.5rem',
-                    fontWeight: '700',
-                    margin: 0
-                  }}>
-                    🛒 Shopping Cart
-                  </h2>
-                  <button 
-                    onClick={() => setShowCart(false)}
-                    style={{
-                      background: 'rgba(255,255,255,0.1)',
-                      border: 'none',
-                      color: '#ffffff',
-                      fontSize: '1.5rem',
-                      cursor: 'pointer',
-                      padding: '0.5rem',
-                      borderRadius: '50%',
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.background = 'rgba(255,255,255,0.2)';
-                      e.target.style.transform = 'rotate(90deg)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = 'rgba(255,255,255,0.1)';
-                      e.target.style.transform = 'rotate(0deg)';
-                    }}
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                {cartItems.length === 0 ? (
-                  <div className="empty-cart" style={{
-                    textAlign: 'center',
-                    padding: '3rem 1rem',
-                    color: '#ffffff'
-                  }}>
-                    <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🛒</div>
-                    <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>Your cart is empty</h3>
-                    <p style={{ opacity: 0.8, margin: 0 }}>Add some courses to get started!</p>
-                  </div>
-                ) : (
-                  <div className="cart-items">
-                    {cartItems.map((item, index) => (
-                      <div key={index} className="cart-item" style={{
-                        background: 'rgba(255,255,255,0.1)',
-                        borderRadius: '12px',
-                        padding: '1rem',
-                        marginBottom: '1rem',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                      }}>
-                        <div>
-                          <h4 style={{ color: '#ffffff', margin: '0 0 0.5rem 0' }}>{item.name}</h4>
-                          <p style={{ color: 'rgba(255,255,255,0.8)', margin: 0, fontSize: '0.9rem' }}>{item.duration}</p>
-                        </div>
-                        <div style={{ textAlign: 'right' }}>
-                          <p style={{ color: '#ffffff', fontWeight: '600', margin: 0 }}>{item.price}</p>
-                          <button 
-                            onClick={() => removeFromCart(item.id)}
-                            style={{
-                              background: 'rgba(255,107,107,0.2)',
-                              border: '1px solid rgba(255,107,107,0.5)',
-                              color: '#ffffff',
-                              padding: '0.25rem 0.5rem',
-                              borderRadius: '6px',
-                              cursor: 'pointer',
-                              fontSize: '0.8rem',
-                              marginTop: '0.5rem'
-                            }}
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                    
-                    <div className="cart-total" style={{
-                      borderTop: '1px solid rgba(255,255,255,0.2)',
-                      paddingTop: '1rem',
-                      marginTop: '1rem',
-                      textAlign: 'right'
-                    }}>
-                      <h3 style={{ color: '#ffffff', margin: 0 }}>
-                        Total: ${getCartTotal().toFixed(2)}
-                      </h3>
-                    </div>
-                  </div>
-                )}
-
-                <div className="cart-actions" style={{
-                  display: 'flex',
-                  gap: '1rem',
-                  marginTop: '1.5rem'
-                }}>
-                  <button 
-                    onClick={() => setShowCart(false)}
-                    style={{
-                      flex: 1,
-                      padding: '1rem',
-                      border: '1px solid rgba(255,255,255,0.3)',
-                      background: 'transparent',
-                      color: '#ffffff',
-                      borderRadius: '12px',
-                      cursor: 'pointer',
-                      fontSize: '1rem',
-                      fontWeight: '600',
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.background = 'rgba(255,255,255,0.1)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = 'transparent';
-                    }}
-                  >
-                    Continue Shopping
-                  </button>
-                  {cartItems.length > 0 && (
-                    <button 
-                      onClick={() => {
-                        navigate('/checkout');
-                        setShowCart(false);
-                      }}
-                      style={{
-                        flex: 1,
-                        padding: '1rem',
-                        border: 'none',
-                        background: 'linear-gradient(45deg, #28a745, #20c997)',
-                        color: '#ffffff',
-                        borderRadius: '12px',
-                        cursor: 'pointer',
-                        fontSize: '1rem',
-                        fontWeight: '600',
-                        transition: 'all 0.3s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.transform = 'translateY(-2px)';
-                        e.target.style.boxShadow = '0 6px 20px rgba(40, 167, 69, 0.4)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.transform = 'translateY(0)';
-                        e.target.style.boxShadow = 'none';
-                      }}
-                    >
-                      Checkout
-                    </button>
-                  )}
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.nav>
     </header>
   );
