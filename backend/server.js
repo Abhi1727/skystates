@@ -14,6 +14,7 @@ const enrollmentRoutes = require('./routes/enrollments');
 const { router: paymentRoutes, webhookHandler } = require('./routes/payments');
 const adminDesignRoutes = require('./routes/admin-design');
 const couponRoutes = require('./routes/coupons');
+const refundRoutes = require('./routes/refunds');
 
 // Initialize Express app
 const app = express();
@@ -64,6 +65,7 @@ app.use('/api/enrollments', enrollmentRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/admin', adminDesignRoutes);
 app.use('/api/coupons', couponRoutes);
+app.use('/api/refunds', refundRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

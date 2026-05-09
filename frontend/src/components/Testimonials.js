@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import './HomepageTheme.css';
 
 const Testimonials = () => {
   const testimonials = [
@@ -32,12 +33,9 @@ const Testimonials = () => {
             fontSize: '2.5rem',
             fontWeight: '700',
             marginBottom: '50px',
-            textAlign: 'center',
-            background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
+            textAlign: 'center'
           }}
+          className="heading-gradient"
         >
           What Our Students Have To Say
         </motion.h2>
@@ -105,7 +103,7 @@ const Testimonials = () => {
                       width: '50px',
                       height: '50px',
                       borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      background: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',

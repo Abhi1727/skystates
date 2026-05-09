@@ -6,14 +6,19 @@ import LogoCarousel from './LogoCarousel';
 import FloatingRegisterButton from './FloatingRegisterButton';
 import ProgramFeatures from './ProgramFeatures';
 import BatchCountdownTimer from './BatchCountdownTimer';
+import useDynamicCounter from '../hooks/useDynamicCounter';
+import './HomepageTheme.css';
 
 const DataScienceAI = () => {
   const navigate = useNavigate();
   const { addToCart, isInCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
   const [activeModule, setActiveModule] = useState(null);
+  
+  // Use dynamic counter for students (start at 3501, increment 3-5 daily)
+  const { counter: students } = useDynamicCounter('dataScience', 3501, 3, 5);
+  
   const [stats, setStats] = useState({
-    students: 0,
     placement: 0,
     salary: 0
   });
@@ -25,7 +30,7 @@ const DataScienceAI = () => {
     type: 'full_program'
   };
 
-  // Animated counter effect
+  // Animated counter effect for static stats only
   useEffect(() => {
     const animateCounter = (target, duration, callback) => {
       let start = 0;
@@ -41,7 +46,6 @@ const DataScienceAI = () => {
       }, 16);
     };
 
-    animateCounter(5000, 2000, (val) => setStats(prev => ({ ...prev, students: val })));
     animateCounter(95, 1500, (val) => setStats(prev => ({ ...prev, placement: val })));
     animateCounter(150, 1800, (val) => setStats(prev => ({ ...prev, salary: val })));
   }, []);
@@ -49,12 +53,11 @@ const DataScienceAI = () => {
   return (
     <div className="product-page">
       {/* Enhanced Hero Section with Gradient Background */}
-      <section className="product-hero" style={{
+      <section className="product-hero section-gradient-1" style={{
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
         overflow: 'hidden'
       }}>
         <BatchCountdownTimer />
@@ -109,14 +112,14 @@ const DataScienceAI = () => {
                 fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
                 fontWeight: '800', 
                 marginBottom: '24px',
-                color: '#ffffff',
+                color: '#1e293b',
                 lineHeight: '1.1',
                 letterSpacing: '-0.02em'
               }}>
                 Become a
                 <span style={{ 
                   display: 'block',
-                  background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                  background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -128,12 +131,12 @@ const DataScienceAI = () => {
               
               <p style={{ 
                 fontSize: '1.3rem', 
-                color: 'rgba(255, 255, 255, 0.9)', 
+                color: '#64748b', 
                 marginBottom: '32px',
                 lineHeight: '1.6'
               }}>
                 Master Python, Machine Learning & AI with Microsoft Azure certification. 
-                <span style={{ color: '#ffd700', fontWeight: '600' }}> Zero to job-ready in 6 months</span>
+                <span style={{ color: '#3b82f6', fontWeight: '600' }}> Zero to job-ready in 6 months</span>
               </p>
 
               {/* Trust Indicators - All in one line */}
@@ -147,29 +150,29 @@ const DataScienceAI = () => {
                   gap: '30px',
                   marginBottom: '40px',
                   padding: '16px 24px',
-                  background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%)',
+                  background: 'rgba(59, 130, 246, 0.1)',
                   borderRadius: '20px',
-                  border: '1px solid rgba(102, 126, 234, 0.3)',
-                  boxShadow: '0 8px 24px rgba(102, 126, 234, 0.2)'
+                  border: '1px solid rgba(59, 130, 246, 0.2)',
+                  boxShadow: '0 8px 24px rgba(59, 130, 246, 0.15)'
                 }}
               >
                 <span style={{ 
                   fontSize: '1.1rem', 
-                  color: '#ffffff',
+                  color: '#1e293b',
                   fontWeight: '600',
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
                 }}>🎓 Microsoft Certified</span>
                 <span style={{ 
                   fontSize: '1.1rem', 
-                  color: '#ffffff',
+                  color: '#1e293b',
                   fontWeight: '600',
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
-                }}>💼 100% Job Guarantee</span>
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                }}>💼 100% Job Assistance</span>
                 <span style={{ 
                   fontSize: '1.1rem', 
-                  color: '#ffffff',
+                  color: '#1e293b',
                   fontWeight: '600',
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
                 }}>⏰ 6 Months Program</span>
               </motion.div>
 
@@ -178,21 +181,13 @@ const DataScienceAI = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
+                className="glass-card-premium"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05))',
-                  backdropFilter: 'blur(20px)',
                   padding: '20px 32px',
-                  borderRadius: '20px',
                   marginBottom: '40px',
-                  border: '1px solid rgba(59, 130, 246, 0.2)',
                   display: 'inline-block',
                   position: 'relative',
                   overflow: 'hidden'
-                }}
-                whileHover={{ 
-                  scale: 1.02,
-                  borderColor: 'rgba(59, 130, 246, 0.3)',
-                  boxShadow: '0 8px 32px rgba(59, 130, 246, 0.15)'
                 }}
               >
                 {/* Modern accent line */}
@@ -216,7 +211,7 @@ const DataScienceAI = () => {
                   <span style={{ 
                     fontSize: '18px', 
                     fontWeight: '600',
-                    color: 'rgba(255, 255, 255, 0.9)',
+                    color: '#1e293b',
                     letterSpacing: '0.5px'
                   }}>
                     $
@@ -224,7 +219,7 @@ const DataScienceAI = () => {
                   <span style={{ 
                     fontSize: '32px', 
                     fontWeight: '800',
-                    color: '#ffffff',
+                    color: '#1e293b',
                     letterSpacing: '-0.03em',
                     textShadow: '0 2px 4px rgba(0,0,0,0.1)'
                   }}>
@@ -233,7 +228,7 @@ const DataScienceAI = () => {
                   <span style={{ 
                     fontSize: '14px', 
                     fontWeight: '400',
-                    color: 'rgba(255, 255, 255, 0.7)',
+                    color: '#64748b',
                     letterSpacing: '0.3px'
                   }}>
                     total
@@ -243,7 +238,7 @@ const DataScienceAI = () => {
                 {/* Value proposition */}
                 <div style={{
                   fontSize: '12px',
-                  color: 'rgba(255, 255, 255, 0.6)',
+                  color: '#64748b',
                   marginTop: '4px',
                   letterSpacing: '0.2px',
                   textTransform: 'uppercase',
@@ -268,29 +263,20 @@ const DataScienceAI = () => {
               {/* CTA Buttons */}
               <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', alignItems: 'center', paddingBottom: '15px' }}>
                 <motion.button
-                  whileHover={{ scale: 1.02, boxShadow: '0 15px 40px rgba(255, 215, 0, 0.4)' }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
                     const added = addToCart(programData);
                     if (added) navigate('/checkout');
                   }}
+                  className="btn-gradient-primary"
                   style={{
-                    background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
-                    color: '#1a1f36',
-                    padding: '18px 40px',
-                    border: 'none',
-                    borderRadius: '50px',
-                    fontSize: '18px',
-                    fontWeight: '700',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 10px 30px rgba(255, 215, 0, 0.3)',
                     position: 'relative',
                     overflow: 'hidden'
                   }}
                 >
                   <span style={{ position: 'relative', zIndex: 1 }}>
-                    🚀 Enroll Now
+                    🚀 Pay Now
                   </span>
                   <motion.div
                     style={{
@@ -308,8 +294,9 @@ const DataScienceAI = () => {
                   />
                 </motion.button>
                 
-                <motion.button
-                  whileHover={{ scale: 1.02, boxShadow: '0 15px 40px rgba(40, 167, 69, 0.3)' }}
+                {/* Register Now button commented out to disable registration functionality */}
+                {/* <motion.button
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
                     const added = addToCart({
@@ -320,17 +307,8 @@ const DataScienceAI = () => {
                     });
                     if (added) navigate('/checkout');
                   }}
+                  className="btn-gradient-secondary"
                   style={{
-                    background: 'linear-gradient(135deg, #28a745, #32c997)',
-                    color: 'white',
-                    padding: '18px 40px',
-                    border: 'none',
-                    borderRadius: '50px',
-                    fontSize: '16px',
-                    fontWeight: '700',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 10px 30px rgba(40, 167, 69, 0.3)',
                     position: 'relative',
                     overflow: 'hidden'
                   }}
@@ -352,7 +330,7 @@ const DataScienceAI = () => {
                       transition: { duration: 0.6 }
                     }}
                   />
-                </motion.button>
+                </motion.button> */}
                 
                 {/* Commented out Download Syllabus button
                 <motion.button
@@ -389,32 +367,27 @@ const DataScienceAI = () => {
               }}
             >
               <motion.div
+                className="glass-card-premium"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '24px',
                   padding: '40px',
                   textAlign: 'center',
-                  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
                   width: '100%',
                   maxWidth: '400px'
                 }}
-                whileHover={{ scale: 1.05, boxShadow: '0 25px 70px rgba(0, 0, 0, 0.4)' }}
               >
                 <motion.div
                   style={{
                     width: '100px',
                     height: '100px',
-                    background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                    background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 24px',
                     fontSize: '40px',
-                    color: '#1a1f36',
-                    boxShadow: '0 15px 30px rgba(255, 215, 0, 0.4)'
+                    color: 'white',
+                    boxShadow: '0 15px 30px rgba(59, 130, 246, 0.4)'
                   }}
                   animate={{ rotateY: isHovered ? 3600 : 0 }}
                   transition={{ duration: 0.3, ease: "linear", repeat: isHovered ? Infinity : 0 }}
@@ -428,14 +401,14 @@ const DataScienceAI = () => {
                   fontSize: '24px',
                   fontWeight: '700',
                   marginBottom: '24px',
-                  color: '#ffffff'
+                  color: '#1e293b'
                 }}>
                   Program Highlights
                 </h3>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   {[
-                    { number: stats.students, label: 'Students Enrolled', icon: '👥' },
+                    { number: students, label: 'Students Enrolled', icon: '👥' },
                     { number: `${stats.placement}%`, label: 'Placement Rate', icon: '🎯' },
                     { number: `${stats.salary}%`, label: 'Avg Salary Hike', icon: '📈' }
                   ].map((stat, index) => (
@@ -446,25 +419,25 @@ const DataScienceAI = () => {
                         alignItems: 'center',
                         gap: '16px',
                         padding: '16px',
-                        background: 'rgba(255, 255, 255, 0.05)',
+                        background: 'rgba(59, 130, 246, 0.05)',
                         borderRadius: '16px',
-                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                        border: '1px solid rgba(59, 130, 246, 0.1)'
                       }}
-                      whileHover={{ scale: 1.02, background: 'rgba(255, 255, 255, 0.1)' }}
+                      whileHover={{ scale: 1.02, background: 'rgba(59, 130, 246, 0.1)' }}
                     >
                       <span style={{ fontSize: '24px' }}>{stat.icon}</span>
                       <div style={{ textAlign: 'left' }}>
                         <div style={{
                           fontSize: '24px',
                           fontWeight: '700',
-                          color: '#ffd700',
+                          color: '#3b82f6',
                           lineHeight: '1'
                         }}>
                           {stat.number}
                         </div>
                         <div style={{
                           fontSize: '14px',
-                          color: 'rgba(255, 255, 255, 0.8)'
+                          color: '#64748b'
                         }}>
                           {stat.label}
                         </div>
@@ -643,7 +616,7 @@ const DataScienceAI = () => {
                     {career.title}
                     <span style={{
                       fontSize: '0.8rem',
-                      background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                      background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                       color: '#1a1f36',
                       padding: '4px 12px',
                       borderRadius: '20px',

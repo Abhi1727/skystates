@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import './HomepageTheme.css';
 
 const ProgramFeatures = ({ 
   programName, 
@@ -8,7 +9,7 @@ const ProgramFeatures = ({
   features = [], 
   title = "Program Excellence",
   subtitle = "Discover What Makes Our Program Stand Out",
-  backgroundGradient = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  backgroundGradient = "section-gradient-1",
   showCTA = true 
 }) => {
   const navigate = useNavigate();
@@ -19,9 +20,9 @@ const ProgramFeatures = ({
       icon: '🎯',
       title: '100% Job Assistance',
       description: 'Through our in-house recruitment agency with over 250 hiring partners',
-      color: '#ffd700',
-      bgGradient: 'linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 237, 78, 0.1))',
-      borderColor: 'rgba(255, 215, 0, 0.3)',
+      color: '#3b82f6',
+      bgGradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.1))',
+      borderColor: 'rgba(59, 130, 246, 0.3)',
       delay: 0
     },
     {
@@ -158,10 +159,10 @@ const ProgramFeatures = ({
           <div style={{
             width: '100px',
             height: '4px',
-            background: 'linear-gradient(90deg, #ffd700, #ffed4e)',
+            background: 'linear-gradient(90deg, #3b82f6, #60a5fa)',
             margin: '30px auto',
             borderRadius: '2px',
-            boxShadow: '0 4px 20px rgba(255, 215, 0, 0.4)'
+            boxShadow: '0 4px 20px rgba(59, 130, 246, 0.3)'
           }} />
         </motion.div>
 
@@ -350,13 +351,13 @@ const ProgramFeatures = ({
             <motion.button
               whileHover={{ 
                 scale: 1.05,
-                boxShadow: '0 15px 40px rgba(255, 215, 0, 0.4)'
+                boxShadow: '0 15px 40px rgba(59, 130, 246, 0.3)'
               }}
               whileTap={{ scale: 0.95 }}
               onClick={handleEnrollClick}
               style={{
-                background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
-                color: '#1a1f36',
+                background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
+                color: 'white',
                 padding: '16px 40px',
                 border: 'none',
                 borderRadius: '50px',
@@ -364,7 +365,7 @@ const ProgramFeatures = ({
                 fontWeight: '700',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                boxShadow: '0 10px 30px rgba(255, 215, 0, 0.3)',
+                boxShadow: '0 10px 30px rgba(59, 130, 246, 0.25)',
                 position: 'relative',
                 overflow: 'hidden'
               }}

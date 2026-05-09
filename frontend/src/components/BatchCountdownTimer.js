@@ -51,7 +51,7 @@ const BatchCountdownTimer = () => {
   const TimeUnit = ({ value, label }) => (
     <div style={{ textAlign: 'center' }}>
       <div style={{
-        background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
+        background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
         color: 'white',
         fontSize: '18px',
         fontWeight: '800',
@@ -75,25 +75,36 @@ const BatchCountdownTimer = () => {
   );
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      style={{
-        position: 'absolute',
-        top: '20px',
-        right: '20px',
-        background: 'rgba(0, 0, 0, 0.8)',
-        backdropFilter: 'blur(10px)',
-        padding: '15px 25px',
-        borderRadius: '15px',
-        border: '2px solid rgba(255, 255, 255, 0.2)',
-        zIndex: 10,
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
-      }}
-    >
+    <>
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .batch-countdown-timer {
+              top: 140px !important;
+            }
+          }
+        `}
+      </style>
+      <motion.div
+        className="batch-countdown-timer"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        style={{
+          position: 'absolute',
+          top: '160px',
+          right: '20px',
+          background: 'rgba(0, 0, 0, 0.8)',
+          backdropFilter: 'blur(10px)',
+          padding: '15px 25px',
+          borderRadius: '15px',
+          border: '2px solid rgba(255, 255, 255, 0.2)',
+          zIndex: 10,
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+        }}
+      >
       <div style={{
-        color: '#ffd700',
+        color: '#3b82f6',
         fontSize: '12px',
         fontWeight: '600',
         textAlign: 'center',
@@ -114,6 +125,7 @@ const BatchCountdownTimer = () => {
         <TimeUnit value={timeLeft.seconds} label="s" />
       </div>
     </motion.div>
+    </>
   );
 };
 

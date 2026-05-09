@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import axios from 'axios';
-import LiquidChrome from './LiquidChrome';
+import './HomepageTheme.css';
 
-// Professional color palette
+// Professional color palette - Updated to match home page blue theme
 const colors = {
-  primary: '#1a1f36',
-  primaryLight: '#2d3748',
-  accent: '#667eea',
-  accentLight: '#a78bfa',
+  primary: '#3b82f6',
+  primaryLight: '#60a5fa',
+  accent: '#3b82f6',
+  accentLight: '#60a5fa',
   success: '#10b981',
   warning: '#f59e0b',
   danger: '#ef4444',
@@ -247,8 +247,8 @@ const Jobs = () => {
         }}
         whileHover={{ 
           y: -8,
-          boxShadow: `0 20px 60px ${colors.accent}30`,
-          borderColor: colors.accent,
+          boxShadow: `0 20px 60px ${colors.primary}30`,
+          borderColor: colors.primary,
           filter: 'blur(0px) !important',
           transition: { duration: 0.3, ease: "easeOut" }
         }}
@@ -262,7 +262,7 @@ const Jobs = () => {
             left: 0,
             right: 0,
             height: '4px',
-            background: `linear-gradient(90deg, ${colors.accent}, ${colors.accentLight})`,
+            background: `linear-gradient(90deg, ${colors.primary}, ${colors.primaryLight})`,
             opacity: 0,
             transition: 'opacity 0.3s ease'
           }}
@@ -285,7 +285,7 @@ const Jobs = () => {
                 marginBottom: '8px',
                 lineHeight: '1.3'
               }}
-              whileHover={{ color: colors.accent }}
+              whileHover={{ color: colors.primary }}
               transition={{ duration: 0.2 }}
             >
               {job.title}
@@ -337,10 +337,10 @@ const Jobs = () => {
               fontSize: '14px',
               fontWeight: '500'
             }}
-            whileHover={{ color: colors.accent }}
+            whileHover={{ color: colors.primary }}
             transition={{ duration: 0.2 }}
           >
-            <span style={{ color: colors.accent }}>📍</span>
+            <span style={{ color: colors.primary }}>📍</span>
             {job.location}
           </motion.div>
           <motion.div 
@@ -353,10 +353,10 @@ const Jobs = () => {
               fontSize: '14px',
               fontWeight: '500'
             }}
-            whileHover={{ color: colors.accent }}
+            whileHover={{ color: colors.primary }}
             transition={{ duration: 0.2 }}
           >
-            <span style={{ color: colors.accent }}>⏰</span>
+            <span style={{ color: colors.primary }}>⏰</span>
             {job.type}
           </motion.div>
           <motion.div 
@@ -369,10 +369,10 @@ const Jobs = () => {
               fontSize: '14px',
               fontWeight: '500'
             }}
-            whileHover={{ color: colors.accent }}
+            whileHover={{ color: colors.primary }}
             transition={{ duration: 0.2 }}
           >
-            <span style={{ color: colors.accent }}>🎯</span>
+            <span style={{ color: colors.primary }}>🎯</span>
             {job.experience}
           </motion.div>
         </div>
@@ -388,16 +388,16 @@ const Jobs = () => {
               key={tagIndex} 
               className="job-tag" 
               style={{
-                background: `${colors.accent}10`,
-                color: colors.accent,
+                background: `${colors.primary}10`,
+                color: colors.primary,
                 padding: '6px 12px',
                 borderRadius: '20px',
                 fontSize: '12px',
                 fontWeight: '600',
-                border: `1px solid ${colors.accent}30`
+                border: `1px solid ${colors.primary}30`
               }}
               whileHover={{ 
-                background: colors.accent,
+                background: colors.primary,
                 color: 'white',
                 scale: 1.05
               }}
@@ -475,9 +475,9 @@ const Jobs = () => {
               }}
               whileHover={{ 
                 scale: 1.05,
-                backgroundColor: `${colors.accent}10`,
-                borderColor: colors.accent,
-                color: colors.accent
+                backgroundColor: `${colors.primary}10`,
+                borderColor: colors.primary,
+                color: colors.primary
               }}
               whileTap={{ scale: 0.95 }}
               style={{
@@ -513,16 +513,15 @@ const Jobs = () => {
   return (
     <div className="jobs-container page-transition" style={{ padding: '40px 0' }}>
       <div className="container">
-        {/* Jobs Hero Section */}
+        {/* Jobs Hero Section - Matching Home Page Theme */}
         <motion.div 
-          className="jobs-hero" 
+          className="jobs-hero gradient-primary" 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{
             position: 'relative',
-            background: `linear-gradient(135deg, ${colors.primary} 0%, ${colors.primaryLight} 100%)`,
-            color: 'white',
+            color: colors.neutral900,
             padding: '100px 0',
             textAlign: 'center',
             borderRadius: '20px',
@@ -531,88 +530,101 @@ const Jobs = () => {
             minHeight: '450px'
           }}
         >
-          {/* LiquidChrome Background Animation */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 1,
-            opacity: 0.6
-          }}>
-            <LiquidChrome
-              speed={0.2}
-              amplitude={0.3}
-              frequencyX={3}
-              frequencyY={3}
-              interactive
-            />
-          </div>
-          
-          {/* Subtle geometric pattern overlay */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: `radial-gradient(circle at 20% 50%, ${colors.accent}20 0%, transparent 50%), radial-gradient(circle at 80% 80%, ${colors.accentLight}10 0%, transparent 50%)`,
-            zIndex: 1
-          }} />
-          
-          {/* Content */}
+          {/* Glass Card Container */}
           <motion.div 
-            style={{ position: 'relative', zIndex: 2 }}
+            className="glass-card"
+            style={{
+              maxWidth: '800px',
+              margin: '0 auto',
+              padding: '60px 40px',
+              position: 'relative',
+              zIndex: 2
+            }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <motion.h1 
-              style={{ 
-                fontSize: '56px', 
-                fontWeight: '800', 
+            {/* Professional Badge */}
+            <motion.div 
+              className="glass-card"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 20px',
+                borderRadius: '30px',
                 marginBottom: '24px',
-                background: `linear-gradient(135deg, #ffffff 0%, ${colors.accentLight} 100%)`,
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                lineHeight: '1.1'
+                border: `2px solid ${colors.primary}30`,
+                maxWidth: 'fit-content'
               }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Live Job Opportunities
-            </motion.h1>
-            <motion.p 
+              <span style={{ fontSize: '16px' }}>💼</span>
+              <span style={{ 
+                color: colors.primary, 
+                fontSize: '14px', 
+                fontWeight: '700', 
+                letterSpacing: '1px' 
+              }}>
+                CAREER OPPORTUNITIES
+              </span>
+            </motion.div>
+
+            <motion.h1 
+              className="heading-gradient"
               style={{ 
-                fontSize: '20px', 
-                opacity: 0.9,
-                maxWidth: '700px',
-                margin: '0 auto 40px',
-                lineHeight: '1.6',
-                color: colors.neutral50
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+                fontWeight: '900', 
+                marginBottom: '24px',
+                lineHeight: '1.1',
+                letterSpacing: '-0.02em'
               }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
+              Live Job
+              <span style={{ display: 'block', fontWeight: '900' }}>Opportunities</span>
+              <span style={{ 
+                display: 'block', 
+                fontSize: 'clamp(1.2rem, 3vw, 1.6rem)', 
+                color: colors.primary, 
+                fontWeight: '700', 
+                marginTop: '8px' 
+              }}>
+                ⚡ Your Career Starts Here
+              </span>
+            </motion.h1>
+            
+            <motion.p 
+              style={{ 
+                fontSize: '1.2rem', 
+                marginBottom: '32px',
+                lineHeight: '1.6',
+                fontWeight: '500',
+                color: colors.neutral500
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
               Discover curated opportunities from leading tech companies. Your next career move starts here.
             </motion.p>
             
-            {/* Stats Pills */}
+            {/* Stats Pills - Glass Morphism Style */}
             <motion.div 
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                gap: '24px',
+                gap: '16px',
                 marginTop: '40px',
                 flexWrap: 'wrap'
               }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
             >
               {[
                 { icon: '💼', label: '150+ Active Jobs', delay: 0.1 },
@@ -621,30 +633,31 @@ const Jobs = () => {
               ].map((stat, index) => (
                 <motion.div
                   key={index}
+                  className="value-pill"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.6 + stat.delay }}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    y: -3,
-                    backgroundColor: `${colors.accent}20`,
-                    transition: { duration: 0.2, ease: "easeOut" }
-                  }}
+                  transition={{ duration: 0.6, delay: 0.7 + stat.delay }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '10px',
-                    background: 'rgba(255,255,255,0.08)',
+                    gap: '8px',
+                    background: 'rgba(255, 255, 255, 0.8)',
+                    backdropFilter: 'blur(20px)',
+                    border: `1px solid ${colors.neutral100}`,
                     padding: '12px 20px',
                     borderRadius: '25px',
-                    backdropFilter: 'blur(10px)',
-                    border: `1px solid rgba(255,255,255,0.15)`,
                     cursor: 'pointer',
                     transition: 'all 0.3s ease'
                   }}
+                  whileHover={{ 
+                    scale: 1.05, 
+                    y: -3,
+                    borderColor: colors.primary,
+                    boxShadow: `0 10px 25px ${colors.primary}20`
+                  }}
                 >
                   <motion.span 
-                    style={{ fontSize: '1.3rem' }}
+                    style={{ fontSize: '1.2rem' }}
                     animate={{ 
                       y: [0, -2, 0],
                     }}
@@ -657,7 +670,14 @@ const Jobs = () => {
                   >
                     {stat.icon}
                   </motion.span>
-                  <span style={{ fontSize: '15px', fontWeight: '500' }}>{stat.label}</span>
+                  <span style={{ 
+                    fontSize: '0.9rem', 
+                    color: colors.neutral900, 
+                    fontWeight: '600',
+                    whiteSpace: 'nowrap'
+                  }}>
+                    {stat.label}
+                  </span>
                 </motion.div>
               ))}
             </motion.div>
@@ -789,8 +809,8 @@ const Jobs = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 whileFocus={{ 
                   scale: 1.02,
-                  borderColor: colors.accent,
-                  boxShadow: `0 0 0 3px ${colors.accent}20`
+                  borderColor: colors.primary,
+                  boxShadow: `0 0 0 3px ${colors.primary}20`
                 }}
                 style={{
                   padding: '14px 16px',
@@ -825,8 +845,8 @@ const Jobs = () => {
                 onChange={(e) => setLocation(e.target.value)}
                 whileFocus={{ 
                   scale: 1.02,
-                  borderColor: colors.accent,
-                  boxShadow: `0 0 0 3px ${colors.accent}20`
+                  borderColor: colors.primary,
+                  boxShadow: `0 0 0 3px ${colors.primary}20`
                 }}
                 style={{
                   padding: '14px 16px',
@@ -869,8 +889,8 @@ const Jobs = () => {
                 onChange={(e) => setJobType(e.target.value)}
                 whileFocus={{ 
                   scale: 1.02,
-                  borderColor: colors.accent,
-                  boxShadow: `0 0 0 3px ${colors.accent}20`
+                  borderColor: colors.primary,
+                  boxShadow: `0 0 0 3px ${colors.primary}20`
                 }}
                 style={{
                   padding: '14px 16px',
@@ -912,8 +932,8 @@ const Jobs = () => {
                 onChange={(e) => setExperience(e.target.value)}
                 whileFocus={{ 
                   scale: 1.02,
-                  borderColor: colors.accent,
-                  boxShadow: `0 0 0 3px ${colors.accent}20`
+                  borderColor: colors.primary,
+                  boxShadow: `0 0 0 3px ${colors.primary}20`
                 }}
                 style={{
                   padding: '14px 16px',
@@ -1059,7 +1079,7 @@ const Jobs = () => {
               disabled={currentPage === 1}
               whileHover={{ 
                 scale: currentPage === 1 ? 1 : 1.05,
-                backgroundColor: currentPage === 1 ? colors.neutral100 : colors.accent,
+                backgroundColor: currentPage === 1 ? colors.neutral100 : colors.primary,
                 color: currentPage === 1 ? colors.neutral500 : 'white'
               }}
               whileTap={{ scale: 0.95 }}
@@ -1085,17 +1105,17 @@ const Jobs = () => {
                 className={page === currentPage ? 'active' : ''}
                 whileHover={{ 
                   scale: page === currentPage ? 1 : 1.05,
-                  backgroundColor: page === currentPage ? colors.accent : colors.neutral50,
+                  backgroundColor: page === currentPage ? colors.primary : colors.neutral50,
                   color: page === currentPage ? 'white' : colors.neutral900
                 }}
                 whileTap={{ scale: 0.95 }}
                 style={{
                   padding: '12px 16px',
                   border: page === currentPage 
-                    ? `2px solid ${colors.accent}` 
+                    ? `2px solid ${colors.primary}` 
                     : `2px solid ${colors.neutral100}`,
                   background: page === currentPage 
-                    ? colors.accent 
+                    ? colors.primary 
                     : 'white',
                   color: page === currentPage 
                     ? 'white' 
@@ -1117,7 +1137,7 @@ const Jobs = () => {
               disabled={currentPage === totalPages}
               whileHover={{ 
                 scale: currentPage === totalPages ? 1 : 1.05,
-                backgroundColor: currentPage === totalPages ? colors.neutral100 : colors.accent,
+                backgroundColor: currentPage === totalPages ? colors.neutral100 : colors.primary,
                 color: currentPage === totalPages ? colors.neutral500 : 'white'
               }}
               whileTap={{ scale: 0.95 }}

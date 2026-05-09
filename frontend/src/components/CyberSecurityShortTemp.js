@@ -1117,7 +1117,8 @@ const CyberSecurity = () => {
                 <p style={{ color: '#666', marginBottom: '15px' }}>
                   Registration Fee
                 </p>
-                <button 
+                {/* Register Now button commented out to disable registration functionality */}
+                {/* <button 
                   onClick={() => {
                     // Redirect to checkout with registration data
                     navigate('/checkout', { 
@@ -1143,7 +1144,7 @@ const CyberSecurity = () => {
                     transition: 'background 0.3s'
                   }}>
                   Register Now
-                </button>
+                </button> */}
               </div>
             </div>
             

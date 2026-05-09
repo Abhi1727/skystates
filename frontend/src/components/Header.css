@@ -1,5 +1,248 @@
-/* Cart modal: centered overlay and professional popup */
+/* 3D Modern Header Styles */
 
+/* Animated gradient background */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Floating geometric patterns */
+@keyframes float1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(10px) rotate(240deg);
+  }
+}
+
+@keyframes float2 {
+  0%, 100% {
+    transform: translateX(0px) translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateX(15px) translateY(-15px) rotate(90deg);
+  }
+  50% {
+    transform: translateX(-10px) translateY(10px) rotate(180deg);
+  }
+  75% {
+    transform: translateX(5px) translateY(-5px) rotate(270deg);
+  }
+}
+
+@keyframes float3 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(30px, -20px) scale(1.1);
+  }
+}
+
+/* Shimmer animation for light theme */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 3D theme custom properties */
+:root {
+  --nav-primary: #3b82f6;
+  --nav-primary-light: #60a5fa;
+  --nav-secondary: #8b5cf6;
+  --nav-accent: #06b6d4;
+  --nav-text-primary: #1e293b;
+  --nav-text-secondary: #64748b;
+  --nav-text-muted: #94a3b8;
+  --nav-border: rgba(59, 130, 246, 0.2);
+  --nav-glass-bg: rgba(255, 255, 255, 0.25);
+  --nav-glass-border: rgba(255, 255, 255, 0.18);
+  --nav-shadow-3d: 0 8px 32px rgba(31, 38, 135, 0.37);
+  --nav-shadow-hover: 0 16px 48px rgba(31, 38, 135, 0.5);
+}
+
+/* Fallback for browsers that don't support CSS variables */
+@supports not (color: var(--nav-primary)) {
+  .nav-3d-container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+  }
+  
+  .nav-menu a,
+  .nav-menu .dropdown-toggle {
+    color: #1e293b;
+  }
+  
+  .nav-item-3d:hover::before {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  }
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(20px)) {
+  .nav-3d-container {
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  .dropdown-3d {
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  .cart-modal {
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+}
+
+/* Simplified Header - No Background Elements */
+
+/* 3D Navigation Styles */
+.nav-3d-container {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  -moz-backdrop-filter: blur(20px);
+  border: 1px solid var(--nav-glass-border);
+  box-shadow: var(--nav-shadow-3d);
+  -webkit-box-shadow: var(--nav-shadow-3d);
+  -moz-box-shadow: var(--nav-shadow-3d);
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive Navigation Container */
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 20px;
+  min-height: 35px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Brand Section - 10% */
+.nav-brand {
+  flex: 0 0 10%;
+  min-width: 120px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Navigation Menu - 80% */
+.nav-menu {
+  flex: 0 0 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 8px;
+  position: relative;
+  z-index: 4;
+}
+
+.nav-menu li {
+  flex-shrink: 0;
+}
+
+/* Action Items - 10% */
+.nav-actions {
+  flex: 0 0 10%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  min-width: 120px;
+}
+
+/* Navigation Item Spacing */
+.nav-menu .dropdown-toggle,
+.nav-menu li a {
+  padding: 6px 8px !important;
+  margin: 0 2px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.4s ease;
+}
+
+.nav-item-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item-3d::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(139, 92, 246, 0.1) 100%
+  );
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.nav-item-3d:hover::before {
+  opacity: 1;
+}
+
+.nav-item-3d:hover {
+  transform: translateY(-8px) rotateX(5deg);
+  box-shadow: var(--nav-shadow-hover);
+}
+
+/* 3D Dropdown Styles */
+.dropdown-3d {
+  background: var(--nav-glass-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  -moz-backdrop-filter: blur(25px);
+  border: 1px solid var(--nav-glass-border);
+  box-shadow: var(--nav-shadow-3d);
+  -webkit-box-shadow: var(--nav-shadow-3d);
+  -moz-box-shadow: var(--nav-shadow-3d);
+  transform-origin: top center;
+  transform: perspective(1000px) rotateX(-10deg);
+  -webkit-transform: perspective(1000px) rotateX(-10deg);
+  -moz-transform: perspective(1000px) rotateX(-10deg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-3d:hover {
+  transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+  box-shadow: var(--nav-shadow-hover);
+}
+
+/* 3D Cart Modal */
 .cart-modal-overlay {
   position: fixed !important;
   inset: 0 !important;
@@ -7,7 +250,9 @@
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  background: rgba(0, 0, 0, 0.5) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   z-index: 10000 !important;
   display: flex !important;
   align-items: center !important;
@@ -17,19 +262,29 @@
 }
 
 .cart-modal {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  border-radius: 16px !important;
-  padding: 1.5rem 1.75rem !important;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  ) !important;
+  backdrop-filter: blur(30px) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 20px !important;
+  padding: 2rem 2.25rem !important;
   width: 100% !important;
   max-width: 420px !important;
   max-height: 85vh !important;
   overflow: auto !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset !important;
   margin: auto !important;
   display: flex !important;
   flex-direction: column !important;
   box-sizing: border-box !important;
+  transform: perspective(1000px) rotateX(2deg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .cart-modal .cart-header {
@@ -41,10 +296,14 @@
 }
 
 .cart-modal .cart-header h2 {
-  color: #ffffff !important;
-  font-size: 1.25rem !important;
-  font-weight: 700 !important;
+  background: linear-gradient(135deg, var(--nav-primary), var(--nav-secondary)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  font-size: 1.4rem !important;
+  font-weight: 800 !important;
   margin: 0 !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
 .cart-modal .cart-items {
@@ -53,7 +312,155 @@
   overflow-y: auto !important;
 }
 
-.cart-modal .cart-actions {
-  flex-shrink: 0 !important;
-  margin-top: 1.25rem !important;
+/* Mobile-first Responsive Breakpoints */
+
+/* Large Desktop (1200px and up) */
+@media (min-width: 1200px) {
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .nav-menu {
+    gap: 12px;
+  }
+  
+  .nav-menu .dropdown-toggle,
+  .nav-menu li a {
+    padding: 14px 20px !important;
+    font-size: 16px;
+  }
+}
+
+/* Medium Desktop (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .nav-menu {
+    gap: 6px;
+  }
+  
+  .nav-menu .dropdown-toggle,
+  .nav-menu li a {
+    padding: 10px 12px !important;
+    font-size: 14px;
+  }
+  
+  .nav-actions {
+    gap: 8px;
+  }
+}
+
+/* Tablet (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .nav-container {
+    padding: 0 15px;
+    min-height: 30px;
+  }
+  
+  .nav-brand {
+    flex: 0 0 15%;
+    min-width: 100px;
+  }
+  
+  .nav-menu {
+    flex: 0 0 70%;
+    gap: 4px;
+  }
+  
+  .nav-menu .dropdown-toggle,
+  .nav-menu li a {
+    padding: 10px 12px !important;
+    font-size: 13px;
+  }
+  
+  .nav-actions {
+    flex: 0 0 15%;
+    min-width: 100px;
+    gap: 6px;
+  }
+  
+  .nav-actions button {
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* Mobile (767px and below) */
+@media (max-width: 767px) {
+  .nav-container {
+    padding: 0 15px;
+    min-height: 30px;
+  }
+  
+  .nav-brand {
+    flex: 1 1 auto;
+    min-width: auto;
+    justify-content: flex-start;
+  }
+  
+  .nav-menu {
+    display: none !important;
+  }
+  
+  .nav-actions {
+    display: none !important;
+  }
+  
+  .mobile-menu-toggle {
+    display: flex !important;
+    flex: 0 0 auto;
+  }
+  
+  .nav-brand h1 {
+    font-size: 24px;
+  }
+  
+  .nav-3d-container {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+  
+  .nav-item-3d:hover {
+    transform: translateY(-4px) rotateX(2deg);
+  }
+  
+  .dropdown-3d {
+    transform: perspective(800px) rotateX(-5deg);
+  }
+  
+  .cart-modal {
+    transform: none;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+  }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 10px;
+    min-height: 25px;
+  }
+  
+  .nav-brand h1 {
+    font-size: 20px;
+  }
+  
+  .mobile-menu-toggle {
+    padding: 8px;
+    font-size: 18px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .geometric-shape {
+    animation: none;
+  }
+  
+  .nav-item-3d,
+  .dropdown-3d,
+  .cart-modal {
+    transition: none;
+    transform: none;
+  }
 }

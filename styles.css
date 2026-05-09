@@ -290,7 +290,7 @@ body {
 
 /* Programs Section */
 .programs {
-    padding: 80px 0;
+    padding: 56px 0;
     background: #f8f9fa;
 }
 
@@ -304,8 +304,8 @@ body {
 
 .programs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 21px;
 }
 
 .program-card {
@@ -315,6 +315,7 @@ body {
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
+    padding: 11px;
 }
 
 .program-card:hover {
@@ -328,57 +329,59 @@ body {
 
 .popular-badge {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 11px;
+    right: 11px;
     background: #007bff;
     color: white;
-    padding: 5px 10px;
+    padding: 4px 7px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 8px;
     font-weight: 600;
     z-index: 10;
 }
 
 .program-image {
-    height: 200px;
+    height: 140px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 48px;
+    font-size: 34px;
 }
 
 .program-card h3 {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
-    margin: 20px;
+    margin: 14px;
     color: #333;
 }
 
 .program-card p {
     color: #666;
-    font-size: 14px;
-    margin: 0 20px 20px;
+    font-size: 10px;
+    margin: 0 14px 14px;
 }
 
 .program-price {
-    font-size: 24px;
+    font-size: 17px;
     font-weight: 700;
     color: #007bff;
-    margin: 20px;
+    margin: 14px;
 }
 
 .btn-primary {
     display: inline-block;
     background: #007bff;
     color: white;
-    padding: 12px 24px;
+    padding: 8px 17px;
     border-radius: 5px;
     text-decoration: none;
     font-weight: 500;
     transition: background 0.3s;
-    margin: 20px;
+    margin: 14px;
+    font-size: 10px;
+    min-width: 105px;
 }
 
 .btn-primary:hover {
@@ -605,5 +608,10 @@ body {
     .auth-links {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    .programs-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
     }
 }

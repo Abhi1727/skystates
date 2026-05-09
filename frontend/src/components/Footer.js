@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -30,6 +31,10 @@ const Footer = () => {
       type: "links"
     },
     {
+      title: "Account",
+      type: "login"
+    },
+    {
       title: "Contact Info",
       links: [
         { 
@@ -51,8 +56,8 @@ const Footer = () => {
     <footer 
       className="footer" 
       style={{
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
-        color: '#ffffff',
+        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%)',
+        color: '#1e293b',
         padding: '80px 0 40px',
         position: 'relative',
         overflow: 'hidden'
@@ -89,9 +94,10 @@ const Footer = () => {
                 fontSize: '1.2rem',
                 fontWeight: '600',
                 marginBottom: '20px',
-                color: '#ffffff',
+                color: '#1e293b',
                 fontFamily: 'Space Grotesk, sans-serif',
-                letterSpacing: '-0.02em'
+                letterSpacing: '-0.02em',
+                textShadow: '0 1px 2px rgba(0,0,0,0.1)'
               }}>
                 {section.title}
               </h3>
@@ -100,8 +106,9 @@ const Footer = () => {
                 <p style={{
                   fontSize: '0.95rem',
                   lineHeight: '1.6',
-                  color: '#b8c5d6',
-                  marginBottom: '20px'
+                  color: '#64748b',
+                  marginBottom: '20px',
+                  textShadow: '0 1px 1px rgba(255,255,255,0.8)'
                 }}>
                   {section.content}
                 </p>
@@ -117,19 +124,30 @@ const Footer = () => {
                     <li key={linkIndex} style={{ marginBottom: '12px' }}>
                       <a
                         href={link.href}
+                        aria-label={`Navigate to ${link.name}`}
                         style={{
-                          color: '#b8c5d6',
+                          color: '#64748b',
                           textDecoration: 'none',
                           fontSize: '0.95rem',
                           transition: 'all 0.3s ease',
-                          display: 'inline-block'
+                          display: 'inline-block',
+                          textShadow: '0 1px 1px rgba(255,255,255,0.8)'
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.color = '#1e293b';
+                          e.target.style.outline = '2px solid #3b82f6';
+                          e.target.style.outlineOffset = '2px';
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.color = '#64748b';
+                          e.target.style.outline = 'none';
                         }}
                         onMouseEnter={(e) => {
-                          e.target.style.color = '#ffffff';
+                          e.target.style.color = '#1e293b';
                           e.target.style.transform = 'translateX(5px)';
                         }}
                         onMouseLeave={(e) => {
-                          e.target.style.color = '#b8c5d6';
+                          e.target.style.color = '#64748b';
                           e.target.style.transform = 'translateX(0)';
                         }}
                       >
@@ -138,6 +156,50 @@ const Footer = () => {
                     </li>
                   ))}
                 </ul>
+              )}
+
+              {section.type === 'login' && (
+                <div style={{ marginTop: '10px' }}>
+                  <Link 
+                    to="/login" 
+                    aria-label="Login to your account"
+                    className="login-btn"
+                    style={{
+                      color: 'white',
+                      padding: '12px 24px',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '25px',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      transition: 'all 0.4s ease',
+                      display: 'inline-block',
+                      background: 'linear-gradient(135deg, var(--nav-primary, #3b82f6) 0%, var(--nav-secondary, #8b5cf6) 100%)',
+                      cursor: 'pointer',
+                      boxShadow: 'rgba(59, 130, 246, 0.4) 0px 8px 24px',
+                      backdropFilter: 'blur(10px)',
+                      transformStyle: 'preserve-3d',
+                      transform: 'translateY(-3px) rotateX(8deg) scale(1.05)'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.outline = '2px solid #ffffff';
+                      e.target.style.outlineOffset = '2px';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.outline = 'none';
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-3px) rotateX(8deg) scale(1.05)';
+                      e.target.style.boxShadow = 'rgba(59, 130, 246, 0.4) 0px 8px 24px';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0) rotateX(0deg) scale(1)';
+                      e.target.style.boxShadow = 'rgba(59, 130, 246, 0.3) 0px 4px 16px';
+                    }}
+                  >
+                    Login
+                  </Link>
+                </div>
               )}
 
               {section.type === 'contact' && (
@@ -150,21 +212,32 @@ const Footer = () => {
                     <li key={linkIndex} style={{ marginBottom: '16px' }}>
                       <a
                         href={link.href}
+                        aria-label={link.icon === 'fas fa-envelope' ? `Send email to ${link.name}` : `Call ${link.name}`}
                         style={{
-                          color: '#b8c5d6',
+                          color: '#64748b',
                           textDecoration: 'none',
                           fontSize: '0.95rem',
                           transition: 'all 0.3s ease',
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '12px'
+                          gap: '12px',
+                          textShadow: '0 1px 1px rgba(255,255,255,0.8)'
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.color = '#1e293b';
+                          e.target.style.outline = '2px solid #3b82f6';
+                          e.target.style.outlineOffset = '2px';
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.color = '#64748b';
+                          e.target.style.outline = 'none';
                         }}
                         onMouseEnter={(e) => {
-                          e.target.style.color = '#ffffff';
+                          e.target.style.color = '#1e293b';
                           e.target.style.transform = 'translateX(5px)';
                         }}
                         onMouseLeave={(e) => {
-                          e.target.style.color = '#b8c5d6';
+                          e.target.style.color = '#64748b';
                           e.target.style.transform = 'translateX(0)';
                         }}
                       >
@@ -196,9 +269,10 @@ const Footer = () => {
           }}
         >
           <p style={{
-            color: '#b8c5d6',
+            color: '#64748b',
             fontSize: '0.9rem',
-            margin: 0
+            margin: 0,
+            textShadow: '0 1px 1px rgba(255,255,255,0.8)'
           }}>
             &copy; {currentYear} Sky States. All rights reserved.
           </p>
@@ -210,17 +284,28 @@ const Footer = () => {
           }}>
             <a
               href="/privacy"
+              aria-label="View Privacy Policy"
               style={{
-                color: '#b8c5d6',
+                color: '#64748b',
                 textDecoration: 'none',
                 fontSize: '0.85rem',
-                transition: 'color 0.3s ease'
+                transition: 'color 0.3s ease',
+                textShadow: '0 1px 1px rgba(255,255,255,0.8)'
+              }}
+              onFocus={(e) => {
+                e.target.style.color = '#1e293b';
+                e.target.style.outline = '2px solid #3b82f6';
+                e.target.style.outlineOffset = '2px';
+              }}
+              onBlur={(e) => {
+                e.target.style.color = '#64748b';
+                e.target.style.outline = 'none';
               }}
               onMouseEnter={(e) => {
-                e.target.style.color = '#ffffff';
+                e.target.style.color = '#1e293b';
               }}
               onMouseLeave={(e) => {
-                e.target.style.color = '#b8c5d6';
+                e.target.style.color = '#64748b';
               }}
             >
               Privacy Policy
@@ -228,16 +313,17 @@ const Footer = () => {
             <a
               href="/terms"
               style={{
-                color: '#b8c5d6',
+                color: '#64748b',
                 textDecoration: 'none',
                 fontSize: '0.85rem',
-                transition: 'color 0.3s ease'
+                transition: 'color 0.3s ease',
+                textShadow: '0 1px 1px rgba(255,255,255,0.8)'
               }}
               onMouseEnter={(e) => {
-                e.target.style.color = '#ffffff';
+                e.target.style.color = '#1e293b';
               }}
               onMouseLeave={(e) => {
-                e.target.style.color = '#b8c5d6';
+                e.target.style.color = '#64748b';
               }}
             >
               Terms of Service
@@ -245,16 +331,17 @@ const Footer = () => {
             <a
               href="/refund-returns"
               style={{
-                color: '#b8c5d6',
+                color: '#64748b',
                 textDecoration: 'none',
                 fontSize: '0.85rem',
-                transition: 'color 0.3s ease'
+                transition: 'color 0.3s ease',
+                textShadow: '0 1px 1px rgba(255,255,255,0.8)'
               }}
               onMouseEnter={(e) => {
-                e.target.style.color = '#ffffff';
+                e.target.style.color = '#1e293b';
               }}
               onMouseLeave={(e) => {
-                e.target.style.color = '#b8c5d6';
+                e.target.style.color = '#64748b';
               }}
             >
               Refund Policy

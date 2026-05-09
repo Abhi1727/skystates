@@ -165,7 +165,7 @@ const TestimonialsSection = () => {
 
   return (
     <section className="gradient-medium" style={{
-      padding: '100px 0',
+      padding: '60px 0',
       position: 'relative',
       overflow: 'hidden'
     }}>
@@ -205,7 +205,7 @@ const TestimonialsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '80px' }}
+          style={{ textAlign: 'center', marginBottom: '40px' }}
         >
           <h2 className="heading-gradient" style={{
             fontSize: 'clamp(2.5rem, 5vw, 4rem)',
@@ -220,7 +220,7 @@ const TestimonialsSection = () => {
             fontSize: '1.2rem',
             marginBottom: '40px',
             maxWidth: '600px',
-            margin: '0 auto 40px',
+            margin: '0 auto 20px',
             lineHeight: '1.6'
           }}>
             Hear from our successful graduates who transformed their careers with Sky States
@@ -236,7 +236,7 @@ const TestimonialsSection = () => {
               display: 'flex',
               justifyContent: 'center',
               gap: '32px',
-              marginTop: '48px',
+              marginTop: '20px',
               flexWrap: 'wrap'
             }}
           >
@@ -313,7 +313,7 @@ const TestimonialsSection = () => {
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '20px',
-              color: '#ffd700',
+              color: '#3b82f6',
               zIndex: 10,
               transition: 'all 0.3s ease',
               opacity: isAnimating ? 0.5 : 1
@@ -344,7 +344,7 @@ const TestimonialsSection = () => {
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '20px',
-              color: '#ffd700',
+              color: '#3b82f6',
               zIndex: 10,
               transition: 'all 0.3s ease',
               opacity: isAnimating ? 0.5 : 1
@@ -407,7 +407,7 @@ const TestimonialsSection = () => {
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 background: i === currentIndex 
-                  ? 'linear-gradient(135deg, #ff6b35, #ffd700)' 
+                  ? 'linear-gradient(135deg, #3b82f6, #1e3a8a)' 
                   : 'rgba(255, 255, 255, 0.3)',
                 opacity: i === currentIndex ? 1 : 0.5
               }}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../config';
+import './HomepageTheme.css';
 
 const LoginRegister = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -142,9 +143,8 @@ const LoginRegister = () => {
   return (
     <div className="login-register">
       {/* Hero Section */}
-      <section className="page-hero" style={{
-        background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
-        color: 'white',
+      <section className="page-hero section-gradient-1" style={{
+        color: '#1e293b',
         padding: '80px 0',
         textAlign: 'center'
       }}>
@@ -338,8 +338,9 @@ const LoginRegister = () => {
               <button
                 type="submit"
                 disabled={loading}
+                className={loading ? '' : 'btn-gradient-primary'}
                 style={{
-                  background: loading ? '#6c757d' : 'linear-gradient(135deg, rgb(29, 78, 216) 0%, rgb(30, 64, 175) 50%, rgb(23, 37, 84) 100%)',
+                  background: loading ? '#6c757d' : '',
                   color: 'white',
                   padding: '15px 30px',
                   border: 'none',
@@ -371,9 +372,8 @@ const LoginRegister = () => {
               </p>
               <button
                 onClick={toggleForm}
+                className="btn-gradient-secondary"
                 style={{
-                  background: 'linear-gradient(135deg, rgb(29, 78, 216) 0%, rgb(30, 64, 175) 50%, rgb(23, 37, 84) 100%)',
-                  color: 'white',
                   padding: '10px 20px',
                   border: 'none',
                   borderRadius: '5px',

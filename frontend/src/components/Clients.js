@@ -20,7 +20,7 @@ const Clients = () => {
 
   return (
     <section style={{
-      padding: '80px 0',
+      padding: '30px 0',
       background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'
     }}>
       <div style={{
@@ -34,7 +34,7 @@ const Clients = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '60px' }}
+          style={{ textAlign: 'center', marginBottom: '40px' }}
         >
           <h2 style={{
             fontSize: '14px',
@@ -72,7 +72,7 @@ const Clients = () => {
           viewport={{ once: true }}
           style={{
             position: 'relative',
-            marginBottom: '40px'
+            marginBottom: '20px'
           }}
         >
           <Marquee 
@@ -89,7 +89,7 @@ const Clients = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  margin: '0 30px',
+                  margin: '0 20px',
                   padding: '15px',
                   background: 'white',
                   borderRadius: '12px',

@@ -116,14 +116,14 @@ const FloatingEnrollButton = () => {
           fontSize: '0.85rem',
           fontWeight: '700',
           whiteSpace: 'nowrap',
-          border: '2px solid rgba(255, 215, 0, 0.4)',
-          boxShadow: '0 10px 30px rgba(255, 107, 53, 0.3)'
+          border: '2px solid rgba(59, 130, 246, 0.4)',
+          boxShadow: '0 10px 30px rgba(59, 130, 246, 0.25)'
         }}
       >
         <motion.span
           animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
-          style={{ color: '#ffd700' }}
+          style={{ color: '#3b82f6' }}
         >
           ⚡ Limited Time Offer!
         </motion.span>
@@ -135,7 +135,7 @@ const FloatingEnrollButton = () => {
           height: '0',
           borderLeft: '8px solid transparent',
           borderRight: '8px solid transparent',
-          borderTop: '8px solid #ffd700'
+          borderTop: '8px solid #3b82f6'
         }} />
       </motion.div>
     </motion.div>

@@ -6,17 +6,19 @@
   right: 0;
   width: 100%;
   z-index: 9999;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #e2e8f0;
   transition: all 0.3s ease;
 }
 
 /* Header scrolled state */
 .header.scrolled {
-  background: rgba(26, 26, 46, 0.95) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(15px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 /* Main content padding to account for fixed header */
@@ -27,9 +29,11 @@ main {
 }
 
 /* Hero section specific adjustments */
-.hero {
+.hero,
+.product-hero,
+.page-hero {
   margin-top: 0 !important; /* Remove margin to start right after navbar */
-  padding-top: 190px !important; /* 140px + 50px extra spacing */
+  /* padding-top removed - handled by inline styles for better control */
   min-height: 100vh !important; /* Full viewport height */
 }
 
@@ -39,20 +43,16 @@ main {
 .product-detail-page,
 .course-page,
 .program-page {
-  padding-top: 105px !important; /* Reduced by 5px to eliminate space */
+  padding-top: 0 !important; /* Remove padding to prevent double spacing with hero section */
 }
 
 /* Short term program pages */
 .short-term-program,
 .short-term-course {
-  padding-top: 105px !important; /* Reduced by 5px to eliminate space */
+  padding-top: 0 !important; /* Remove padding to prevent double spacing with hero section */
 }
 
 @media (max-width: 768px) {
-  .hero {
-    padding-top: 170px !important; /* 120px + 50px extra spacing for mobile */
-  }
-  
   .product-page,
   .programs,
   .product-detail-page,
@@ -60,7 +60,7 @@ main {
   .program-page,
   .short-term-program,
   .short-term-course {
-    padding-top: 85px !important; /* Reduced by 5px to eliminate space on mobile */
+    padding-top: 0 !important; /* Remove padding to prevent double spacing with hero section */
   }
 }
 
@@ -76,8 +76,10 @@ main {
     top: 140px;
     left: 0;
     right: 0;
-    background: rgba(26, 26, 46, 0.98);
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(15px);
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     z-index: 9998;
     max-height: calc(100vh - 140px);
     overflow-y: auto;
@@ -161,8 +163,8 @@ section {
   max-width: 100%;
   overflow-x: hidden;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+  gap: 12px;
   padding: 20px 0;
 }
 
@@ -193,7 +195,7 @@ body.smooth-scroll-enabled {
 /* Enhanced smooth scrolling */
 html.smooth-scroll-enabled,
 body.smooth-scroll-enabled {
-  scroll-padding-top: 80px; /* Account for fixed header */
+  scroll-padding-top: 140px; /* Account for fixed header */
 }
 
 /* Smooth scroll for all elements */

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import './HomepageTheme.css';
 
 const DevOps = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -32,13 +33,12 @@ const DevOps = () => {
 
   return (
     <div className="product-page">
-      {/* Enhanced Hero Section with Gradient Background */}
-      <section className="product-hero" style={{
+      {/* Enhanced Hero Section with Blue Theme Gradient */}
+      <section className="product-hero section-gradient-1" style={{
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
         overflow: 'hidden'
       }}>
 
@@ -99,7 +99,7 @@ const DevOps = () => {
                 Become a
                 <span style={{ 
                   display: 'block',
-                  background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                  background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -158,7 +158,7 @@ const DevOps = () => {
                   whileHover={{ scale: 1.05, boxShadow: '0 15px 40px rgba(255, 215, 0, 0.4)' }}
                   whileTap={{ scale: 0.95 }}
                   style={{
-                    background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                    background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                     color: '#1a1f36',
                     padding: '18px 40px',
                     border: 'none',
@@ -243,7 +243,7 @@ const DevOps = () => {
                   style={{
                     width: '100px',
                     height: '100px',
-                    background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                    background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
@@ -251,7 +251,7 @@ const DevOps = () => {
                     margin: '0 auto 24px',
                     fontSize: '40px',
                     color: '#1a1f36',
-                    boxShadow: '0 15px 30px rgba(255, 215, 0, 0.4)'
+                    boxShadow: '0 15px 30px rgba(59, 130, 246, 0.4)'
                   }}
                   animate={{ rotateY: isHovered ? 3600 : 0 }}
                   transition={{ duration: 0.3, ease: "linear", repeat: isHovered ? Infinity : 0 }}
@@ -294,7 +294,7 @@ const DevOps = () => {
                         <div style={{
                           fontSize: '24px',
                           fontWeight: '700',
-                          color: '#ff9f40',
+                          color: '#3b82f6',
                           lineHeight: '1'
                         }}>
                           {stat.number}
@@ -465,8 +465,8 @@ const DevOps = () => {
                     {career.title}
                     <span style={{
                       fontSize: '0.8rem',
-                      background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
-                      color: '#1a1f36',
+                      background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
+                      color: '#ffffff',
                       padding: '4px 12px',
                       borderRadius: '20px',
                       fontWeight: '600'
@@ -1003,7 +1003,7 @@ const DevOps = () => {
                   width: '60px',
                   height: '60px',
                   margin: '0 auto 15px',
-                  background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
+                  background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
@@ -1065,7 +1065,9 @@ const DevOps = () => {
                 <p style={{ color: '#666', marginBottom: '15px' }}>
                   Registration Fee
                 </p>
-                <button 
+                {/* Register Now button commented out to disable registration functionality */}
+                {/* {/* Register Now button commented out to disable registration functionality */}
+                {/* <button 
                   onClick={() => {
                     // Redirect to checkout with registration data
                     navigate('/checkout', { 
@@ -1091,7 +1093,7 @@ const DevOps = () => {
                     transition: 'background 0.3s'
                   }}>
                   Register Now
-                </button>
+                </button> */}
               </div>
             </div>
             

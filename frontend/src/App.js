@@ -12,6 +12,8 @@ import DataScienceAIShortTerm from './components/DataScienceAIShortTerm';
 import CyberSecurityShortTerm from './components/CyberSecurityShortTerm';
 import DevOpsShortTerm from './components/DevOpsShortTerm';
 import RefundReturns from './components/RefundReturns';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsAndConditions from './components/TermsAndConditions';
 import Checkout from './components/checkout/Checkout';
 import LoginRegister from './components/LoginRegister';
 import AdminDashboard from './components/admin/AdminDashboard';
@@ -41,6 +43,8 @@ function App() {
               <Route path="/product/cyber-security-and-ethical-hacking-short-term-program" element={<CyberSecurityShortTerm />} />
               <Route path="/product/devops-and-cloud-computing-short-term-program" element={<DevOpsShortTerm />} />
               <Route path="/refund-returns" element={<RefundReturns />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/login" element={<LoginRegister />} />
               <Route path="/sign-up" element={<LoginRegister />} />

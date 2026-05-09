@@ -6,8 +6,8 @@ import './HomepageTheme.css';
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
-  // Lightning bolt animation component
-  const LightningBolt = ({ size = 24, color = '#ff6b35' }) => (
+  // Professional accent animation component
+  const LightningBolt = ({ size = 24, color = '#3b82f6' }) => (
     <motion.svg
       width={size}
       height={size}
@@ -28,7 +28,7 @@ const Hero = () => {
   );
 
   const stats = [
-    { number: "5000+", label: "Students", color: "#ffd700", icon: "fa-users" },
+    { number: "5000+", label: "Students", color: "#3b82f6", icon: "fa-users" },
     { number: "95%", label: "Placement Rate", color: "#28a745", icon: "fa-chart-line" },
     { number: "50+", label: "Expert Faculty", color: "#e74c3c", icon: "fa-chalkboard-teacher" },
     { number: "100+", label: "Hiring Partners", color: "#3498db", icon: "fa-handshake" },
@@ -56,25 +56,48 @@ const Hero = () => {
       <section className="hero gradient-primary" style={{
       position: 'relative',
       overflow: 'hidden',
-      minHeight: '100vh',
+      minHeight: '28vh',
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'flex-start',
+      paddingTop: '90px'
     }}>
-      {/* Animated Lightning Background Pattern */}
-      <div className="pattern-overlay" style={{
+      {/* 3D Video Background */}
+      {/* <video
+        key="hero-video"
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          zIndex: 1,
+          opacity: 0.6
+        }}
+      >
+        <source src="/videos/Traveling%20Speed%20of%20Light%20Backwards%20-%20Free%20HD%20Animation.mp4?v=2" type="video/mp4" />
+        <source src="/videos/Traveling Speed of Light Backwards - Free HD Animation.mp4?v=2" type="video/mp4" />
+      </video> */}
+
+      {/* Animated Lightning Background Pattern - REMOVED TO SHOW VIDEO */}
+      {/* <div className="pattern-overlay" style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 1
-      }} />
+        zIndex: 2
+      }} /> */}
 
-      {/* Floating Lightning Elements */}
+      {/* Floating Professional Elements */}
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="floating-lightning"
+          className="floating-accent"
           style={{
             position: 'absolute',
             fontSize: `${20 + i * 5}px`,
@@ -92,7 +115,7 @@ const Hero = () => {
             ease: "easeInOut"
           }}
         >
-          <LightningBolt size={30 + i * 10} color="#ffffff" />
+          <LightningBolt size={30 + i * 10} color="#3b82f6" />
         </motion.div>
       ))}
 
@@ -120,37 +143,42 @@ const Hero = () => {
       
       <div className="container" style={{ position: 'relative', zIndex: 2, width: '100%' }}>
         <div className="hero-content" style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '60px',
-          alignItems: 'center'
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center'
         }}>
           {/* Left Content - Speed Focused */}
           <motion.div 
             className="hero-left"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ color: 'white' }}
+            style={{ 
+              color: '#1e293b',
+              maxWidth: '800px',
+              width: '100%'
+            }}
           >
-            {/* Fast Track Badge */}
+            {/* Professional Learning Badge */}
             <motion.div
               className="glass-card"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: '8px',
                 padding: '10px 20px',
                 borderRadius: '30px',
-                marginBottom: '24px',
-                border: '2px solid rgba(255, 215, 0, 0.3)',
-                maxWidth: 'fit-content'
+                marginBottom: '16px',
+                border: '2px solid rgba(59, 130, 246, 0.3)',
+                margin: '0 auto 10px auto'
               }}
               whileHover={{ scale: 1.05 }}
             >
-              <LightningBolt size={20} color="#ffd700" />
-              <span style={{ color: '#ffd700', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
-                FAST TRACK LEARNING
+              <LightningBolt size={20} color="#3b82f6" />
+              <span style={{ color: '#3b82f6', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
+                PROFESSIONAL LEARNING
               </span>
               <motion.div
                 style={{
@@ -168,7 +196,7 @@ const Hero = () => {
             <h1 className="heading-gradient" style={{
               fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
               fontWeight: '900',
-              marginBottom: '24px',
+              marginBottom: '7px',
               lineHeight: '1.1',
               letterSpacing: '-0.02em'
             }}>
@@ -180,7 +208,7 @@ const Hero = () => {
               <span style={{
                 display: 'block',
                 fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-                color: '#ffd700',
+                color: '#3b82f6',
                 fontWeight: '700',
                 marginTop: '8px'
               }}>
@@ -190,24 +218,26 @@ const Hero = () => {
             
             <p className="subtitle-enhanced" style={{
               fontSize: '1.4rem',
-              marginBottom: '32px',
+              marginBottom: '10px',
               lineHeight: '1.6',
               fontWeight: '500'
             }}>
-              Achieve Success with <span className="gold-text">Lightning-Fast</span> Skill Development
+              Achieve Success with <span className="blue-text">Professional</span> Skill Development
             </p>
 
             {/* Value Proposition Pills */}
             <div style={{
               display: 'flex',
               gap: '15px',
-              marginBottom: '40px'
+              marginBottom: '12px',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
             }}>
               {[
-                { icon: '⚡', text: '2x Faster Learning', color: '#ff6b35' },
-                { icon: '🎯', text: 'Personalized for You', color: '#f7931e' },
-                { icon: '👨‍🏫', text: '1-on-1 Mentor Support', color: '#ff9558' },
-                { icon: '💼', text: 'Job Guarantee', color: '#ffa500' }
+                { icon: '🎯', text: 'Expert-Led Learning', color: '#3b82f6' },
+                { icon: '📚', text: 'Industry Curriculum', color: '#60a5fa' },
+                { icon: '👨‍🏫', text: '1-on-1 Mentor Support', color: '#3b82f6' },
+                // { icon: '💼', text: 'Career Advancement', color: '#2563eb' }
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -221,7 +251,7 @@ const Hero = () => {
                   <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
                   <span style={{ 
                     fontSize: '0.9rem', 
-                    color: '#ffffff', 
+                    color: '#1e293b', 
                     fontWeight: '600',
                     whiteSpace: 'nowrap'
                   }}>
@@ -239,16 +269,17 @@ const Hero = () => {
               viewport={{ once: true }}
               style={{
                 display: 'flex',
-                gap: '30px',
-                marginBottom: '40px',
-                justifyContent: 'center'
+                gap: '20px',
+                marginBottom: '12px',
+                justifyContent: 'center',
+                flexWrap: 'wrap'
               }}
             >
               {[
-                { icon: '🎓', text: 'Industry Certified', color: '#28a745' },
-                { icon: '💼', text: '100% Job Assistance', color: '#007bff' },
-                { icon: '⭐', text: '4.9/5 Rating', color: '#ffc107' },
-                { icon: '👥', text: '5000+ Students', color: '#17a2b8' }
+                { icon: '🎓', text: 'Industry Certified', color: '#10b981' },
+                { icon: '💼', text: 'Career Support', color: '#3b82f6' },
+                { icon: '⭐', text: '4.9/5 Rating', color: '#f59e0b' },
+                { icon: '👥', text: '5000+ Students', color: '#3b82f6' }
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -263,13 +294,14 @@ const Hero = () => {
                   }}
                 >
                   <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
-                  <span style={{ fontSize: '0.9rem', color: 'white' }}>{item.text}</span>
+                  <span style={{ fontSize: '0.9rem', color: '#1e293b' }}>{item.text}</span>
                 </motion.div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Visual Elements */}
+          {/* Right Content - Visual Elements - COMMENTED OUT */}
+          {/*
           <motion.div
             className="hero-right"
             initial={{ opacity: 0, x: 50 }}
@@ -282,84 +314,6 @@ const Hero = () => {
               justifyContent: 'center'
             }}
           >
-            {/* Main Visual Card - Premium Glassmorphism */}
-            <motion.div
-              className="glass-card-premium"
-              whileHover={{ scale: 1.02 }}
-              style={{
-                textAlign: 'center',
-                marginBottom: '40px',
-                width: '100%',
-                maxWidth: '400px'
-              }}
-            >
-              {/* Live indicator */}
-              <motion.div
-                style={{
-                  position: 'absolute',
-                  top: '15px',
-                  right: '15px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  background: 'rgba(0, 255, 0, 0.2)',
-                  padding: '6px 12px',
-                  borderRadius: '20px',
-                  border: '1px solid rgba(0, 255, 0, 0.4)'
-                }}
-                animate={{ opacity: [0.8, 1, 0.8] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <div style={{
-                  width: '8px',
-                  height: '8px',
-                  background: '#00ff00',
-                  borderRadius: '50%',
-                  boxShadow: '0 0 10px #00ff00'
-                }} />
-                <span style={{
-                  color: '#00ff00',
-                  fontSize: '11px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>
-                  Live Now
-                </span>
-              </motion.div>
-
-              <div style={{
-                width: '120px',
-                height: '120px',
-                background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto 20px',
-                fontSize: '48px',
-                color: 'white',
-                boxShadow: '0 15px 30px rgba(255, 107, 53, 0.4)',
-                position: 'relative'
-              }}>
-                <LightningBolt size={50} color="#ffffff" />
-              </div>
-              <h3 className="gold-text" style={{
-                fontSize: '24px',
-                fontWeight: '700',
-                marginBottom: '10px'
-              }}>
-                Industry-Recognized
-              </h3>
-              <p className="subtitle-enhanced" style={{
-                fontSize: '16px',
-                marginBottom: '0'
-              }}>
-                Certificates & Job Placement
-              </p>
-            </motion.div>
-
-            {/* Sliding Stats Cards */}
             <div style={{ width: '100%', maxWidth: '600px', overflow: 'hidden', marginBottom: '40px' }}>
               <Marquee
                 gradient={false}
@@ -392,7 +346,7 @@ const Hero = () => {
                     </div>
                     <div style={{
                       fontSize: '15px',
-                      color: 'white',
+                      color: '#1e293b',
                       fontWeight: '500',
                       display: 'flex',
                       alignItems: 'center',
@@ -407,7 +361,6 @@ const Hero = () => {
               </Marquee>
             </div>
 
-            {/* Enhanced Explore Programs Button */}
             <motion.button
               className="btn-gradient-primary"
               whileHover={{ 
@@ -423,11 +376,12 @@ const Hero = () => {
               }}
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <LightningBolt size={20} color="#1a1f36" />
+                <LightningBolt size={20} color="#ffffff" />
                 Explore Programs
               </span>
             </motion.button>
           </motion.div>
+          */}
         </div>
       </div>
 
@@ -438,7 +392,7 @@ const Hero = () => {
         left: '0',
         right: '0',
         bottom: '0',
-        zIndex: 1,
+        zIndex: 3,
         opacity: 0.1,
         pointerEvents: 'none'
       }}>
@@ -448,7 +402,7 @@ const Hero = () => {
           left: '5%',
           width: '200px',
           height: '200px',
-          background: 'radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
           borderRadius: '50%'
         }}></div>
         <div style={{
@@ -457,7 +411,7 @@ const Hero = () => {
           right: '10%',
           width: '300px',
           height: '300px',
-          background: 'radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
           borderRadius: '50%'
         }}></div>
       </div>

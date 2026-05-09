@@ -5,6 +5,7 @@ import { useCart } from '../contexts/CartContext';
 import LogoCarousel from './LogoCarousel';
 import FloatingRegisterButton from './FloatingRegisterButton';
 import BatchCountdownTimer from './BatchCountdownTimer';
+import './HomepageTheme.css';
 
 // OLD CODE COMMENTED OUT:
 // import React from 'react';
@@ -88,7 +89,7 @@ const DataScienceAIShortTerm = () => {
   }, []);
 
   // Lightning bolt animation component
-  const LightningBolt = ({ size = 24, color = '#ff6b35' }) => (
+  const LightningBolt = ({ size = 24, color = '#3b82f6' }) => (
     <motion.svg
       width={size}
       height={size}
@@ -137,33 +138,16 @@ const DataScienceAIShortTerm = () => {
           50% { transform: translateY(-20px); }
         }
       `}</style>
-      {/* Enhanced Hero Section with Orange/Amber Speed Gradient */}
-      <section className="product-hero" style={{
+      {/* Enhanced Hero Section with Blue Theme Gradient */}
+      <section className="product-hero section-gradient-1" style={{
         position: 'relative',
-        minHeight: '100vh',
+        minHeight: '80vh',
         display: 'flex',
         alignItems: 'center',
-        background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #ff9558 50%, #ffa500 75%, #ff6b35 100%)',
-        overflow: 'hidden',
-        animation: 'gradientShift 8s ease infinite'
+        overflow: 'hidden'
       }}>
         <BatchCountdownTimer />
-        {/* Animated Lightning Background Pattern */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: `repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 10px,
-            rgba(255, 255, 255, 0.03) 10px,
-            rgba(255, 255, 255, 0.03) 20px
-          )`,
-          animation: 'slidePattern 20s linear infinite'
-        }} />
+        {/* Background Pattern - REMOVED to rely on section-gradient-1 CSS class */}
 
         {/* Floating Speed Elements */}
         {[...Array(6)].map((_, i) => (
@@ -172,8 +156,8 @@ const DataScienceAIShortTerm = () => {
             style={{
               position: 'absolute',
               fontSize: `${20 + i * 5}px`,
-              opacity: 0.1 + i * 0.02,
-              color: '#ffffff',
+              opacity: 0.05 + i * 0.01,
+              color: '#3b82f6',
               top: `${10 + i * 15}%`,
               left: `${5 + i * 15}%`,
               animation: `float ${3 + i * 0.5}s ease-in-out infinite`,
@@ -189,78 +173,18 @@ const DataScienceAIShortTerm = () => {
               ease: "easeInOut"
             }}
           >
-            <LightningBolt size={30 + i * 10} color="#ffffff" />
+            <LightningBolt size={30 + i * 10} color="#3b82f6" />
           </motion.div>
         ))}
 
-        {/* Urgency Countdown Timer - COMMENTED OUT */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          style={{
-            position: 'absolute',
-            top: '20px',
-            right: '20px',
-            background: 'rgba(0, 0, 0, 0.8)',
-            backdropFilter: 'blur(10px)',
-            padding: '15px 25px',
-            borderRadius: '15px',
-            border: '2px solid rgba(255, 255, 255, 0.2)',
-            zIndex: 10
-          }}
-        >
-          <div style={{
-            color: '#ffd700',
-            fontSize: '12px',
-            fontWeight: '600',
-            textAlign: 'center',
-            marginBottom: '10px',
-            textTransform: 'uppercase',
-            letterSpacing: '1px'
-          }}>
-            ⚡ Limited Time Offer
-          </div>
-          <div style={{
-            display: 'flex',
-            gap: '10px',
-            alignItems: 'center'
-          }}>
-            {Object.entries(countdown).map(([unit, value]) => (
-              <div key={unit} style={{ textAlign: 'center' }}>
-                <div style={{
-                  background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
-                  color: '#ffffff',
-                  fontSize: '18px',
-                  fontWeight: '800',
-                  padding: '8px 6px',
-                  borderRadius: '8px',
-                  minWidth: '35px',
-                  textShadow: '0 2px 4px rgba(0,0,0,0.3)'
-                }}>
-                  {String(value).padStart(2, '0')}
-                </div>
-                <div style={{
-                  color: '#ffffff',
-                  fontSize: '9px',
-                  fontWeight: '500',
-                  marginTop: '4px',
-                  textTransform: 'uppercase'
-                }}>
-                  {unit.slice(0, 1)}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div> */}
 
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '60px',
+            gridTemplateColumns: '1.2fr 0.8fr',
+            gap: '40px',
             alignItems: 'center',
-            maxWidth: '1200px',
+            maxWidth: '1400px',
             margin: '0 auto'
           }}>
             {/* Left Content - Speed Focused */}
@@ -275,18 +199,18 @@ const DataScienceAIShortTerm = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  background: 'rgba(0, 0, 0, 0.3)',
+                  background: 'rgba(255, 255, 255, 0.8)',
                   backdropFilter: 'blur(15px)',
                   padding: '10px 20px',
                   borderRadius: '30px',
-                  marginBottom: '24px',
+                  marginBottom: '16px',
                   border: '2px solid rgba(255, 255, 255, 0.3)',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
                 }}
                 whileHover={{ scale: 1.05, boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}
               >
-                <LightningBolt size={20} color="#ffd700" />
-                <span style={{ color: '#ffd700', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
+                <LightningBolt size={20} color="#3b82f6" />
+                <span style={{ color: '#3b82f6', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
                   FAST TRACK LEARNING
                 </span>
                 <motion.div
@@ -306,27 +230,25 @@ const DataScienceAIShortTerm = () => {
                 fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', 
                 fontWeight: '900', 
                 marginBottom: '24px',
-                color: '#ffffff',
+                color: '#1e293b',
                 lineHeight: '1.1',
-                letterSpacing: '-0.02em',
-                textShadow: '0 4px 20px rgba(0,0,0,0.3)'
+                letterSpacing: '-0.02em'
               }}>
                 Become a
                 <span style={{ 
                   display: 'block',
-                  background: 'linear-gradient(135deg, #ffffff, #ffd700)',
+                  background: 'linear-gradient(135deg, #1e293b, #3b82f6)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
-                  fontWeight: '900',
-                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
+                  fontWeight: '900'
                 }}>
                   Data Science Expert
                 </span>
                 <span style={{
                   display: 'block',
                   fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-                  color: '#ffd700',
+                  color: '#3b82f6',
                   fontWeight: '700',
                   marginTop: '8px'
                 }}>
@@ -336,26 +258,26 @@ const DataScienceAIShortTerm = () => {
               
               <p style={{ 
                 fontSize: '1.4rem', 
-                color: 'rgba(255, 255, 255, 0.95)', 
-                marginBottom: '32px',
+                color: '#64748b', 
+                marginBottom: '20px',
                 lineHeight: '1.6',
                 fontWeight: '500'
               }}>
-                Master Python, Machine Learning & AI with <span style={{ color: '#ffd700', fontWeight: '700' }}>lightning-fast</span> skill development
+                Master Python, Machine Learning & AI with <span style={{ color: '#3b82f6', fontWeight: '700' }}>professional</span> skill development
               </p>
 
               {/* Value Proposition Pills */}
               <div style={{
                 display: 'flex',
-                gap: '15px',
-                marginBottom: '40px',
+                gap: '12px',
+                marginBottom: '24px',
                 flexWrap: 'wrap'
               }}>
                 {[
-                  { icon: '⚡', text: '2x Faster Learning', color: '#ff6b35' },
-                  { icon: '🎯', text: 'Personalized for You', color: '#f7931e' },
-                  { icon: '�‍🏫', text: '1-on-1 Mentor Support', color: '#ff9558' },
-                  { icon: '💼', text: 'Job Guarantee', color: '#ffa500' }
+                  { icon: '⚡', text: '2x Faster Learning', color: '#3b82f6' },
+                  { icon: '🎯', text: 'Personalized for You', color: '#60a5fa' },
+                  { icon: '👨‍🏫', text: '1-on-1 Mentor Support', color: '#2563eb' },
+                  { icon: '💼', text: 'Job Assistance', color: '#1e40af' }
                 ].map((item, index) => (
                   <motion.div
                     key={index}
@@ -372,15 +294,15 @@ const DataScienceAIShortTerm = () => {
                     }}
                     whileHover={{ 
                       scale: 1.05, 
-                      background: 'rgba(0, 0, 0, 0.4)',
+                      background: 'rgba(255, 255, 255, 0.9)',
                       borderColor: item.color
                     }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
-                    <span style={{ 
+                  <span style={{ 
                       fontSize: '0.9rem', 
-                      color: '#ffffff', 
+                      color: '#1e293b', 
                       fontWeight: '600',
                       whiteSpace: 'nowrap'
                     }}>
@@ -396,28 +318,33 @@ const DataScienceAIShortTerm = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 style={{
-                  background: 'rgba(0, 0, 0, 0.3)',
+                  background: 'rgba(255, 255, 255, 0.95)',
                   backdropFilter: 'blur(20px)',
-                  padding: '25px',
+                  padding: window.innerWidth <= 480 ? '20px' : '25px',
                   borderRadius: '20px',
                   marginBottom: '40px',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  boxShadow: '0 15px 35px rgba(0,0,0,0.3)'
+                  border: '1px solid rgba(59, 130, 246, 0.2)',
+                  boxShadow: '0 15px 35px rgba(0,0,0,0.15)',
+                  position: 'relative',
+                  zIndex: 100,
+                  transition: 'all 0.3s ease'
                 }}
-                whileHover={{ scale: 1.02, boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}
+                whileHover={{ scale: 1.02, boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}
               >
                 <div style={{
                   display: 'flex',
-                  alignItems: 'center',
+                  alignItems: window.innerWidth <= 480 ? 'flex-start' : 'center',
                   gap: '10px',
-                  marginBottom: '20px'
+                  marginBottom: '20px',
+                  flexDirection: window.innerWidth <= 480 ? 'column' : 'row'
                 }}>
-                  <LightningBolt size={24} color="#ffd700" />
+                  <LightningBolt size={24} color="#3b82f6" />
                   <h3 style={{
-                    fontSize: '1.2rem',
+                    fontSize: window.innerWidth <= 480 ? '1.1rem' : '1.2rem',
                     fontWeight: '700',
-                    color: '#ffffff',
-                    margin: 0
+                    color: '#1e293b',
+                    margin: 0,
+                    textAlign: window.innerWidth <= 480 ? 'center' : 'left'
                   }}>
                     Personalize Your Learning Path
                   </h3>
@@ -427,7 +354,7 @@ const DataScienceAIShortTerm = () => {
                 <div style={{ marginBottom: '20px' }}>
                   <label style={{
                     display: 'block',
-                    color: 'rgba(255, 255, 255, 0.8)',
+                    color: '#64748b',
                     fontSize: '0.9rem',
                     fontWeight: '500',
                     marginBottom: '8px'
@@ -436,26 +363,39 @@ const DataScienceAIShortTerm = () => {
                   </label>
                   <div style={{
                     display: 'flex',
-                    gap: '10px',
-                    flexWrap: 'wrap'
+                    gap: window.innerWidth <= 480 ? '8px' : '10px',
+                    flexWrap: 'wrap',
+                    justifyContent: window.innerWidth <= 480 ? 'center' : 'flex-start'
                   }}>
                     {['beginner', 'intermediate', 'advanced'].map((level) => (
                       <motion.button
                         key={level}
                         onClick={() => setSkillLevel(level)}
                         style={{
-                          padding: '8px 16px',
-                          border: skillLevel === level ? '2px solid #ffd700' : '1px solid rgba(255, 255, 255, 0.3)',
-                          background: skillLevel === level ? 'rgba(255, 215, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)',
-                          color: skillLevel === level ? '#ffd700' : '#ffffff',
+                          padding: window.innerWidth <= 480 ? '6px 12px' : '8px 16px',
+                          border: skillLevel === level ? '2px solid #3b82f6' : '1px solid rgba(59, 130, 246, 0.3)',
+                          background: skillLevel === level ? 'rgba(59, 130, 246, 0.2)' : 'rgba(59, 130, 246, 0.1)',
+                          color: skillLevel === level ? '#3b82f6' : '#1e293b',
                           borderRadius: '20px',
-                          fontSize: '0.85rem',
+                          fontSize: window.innerWidth <= 480 ? '0.8rem' : '0.85rem',
                           fontWeight: '600',
                           cursor: 'pointer',
-                          transition: 'all 0.3s ease'
+                          transition: 'all 0.3s ease',
+                          minWidth: window.innerWidth <= 480 ? '80px' : 'auto',
+                          textAlign: 'center'
                         }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ 
+                          scale: 1.05,
+                          boxShadow: '0 5px 15px rgba(59, 130, 246, 0.3)',
+                          transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ 
+                          scale: 0.95,
+                          transition: { duration: 0.1 }
+                        }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
                       >
                         {level.charAt(0).toUpperCase() + level.slice(1)}
                       </motion.button>
@@ -467,7 +407,7 @@ const DataScienceAIShortTerm = () => {
                 <div>
                   <label style={{
                     display: 'block',
-                    color: 'rgba(255, 255, 255, 0.8)',
+                    color: '#64748b',
                     fontSize: '0.9rem',
                     fontWeight: '500',
                     marginBottom: '8px'
@@ -476,8 +416,9 @@ const DataScienceAIShortTerm = () => {
                   </label>
                   <div style={{
                     display: 'flex',
-                    gap: '10px',
-                    flexWrap: 'wrap'
+                    gap: window.innerWidth <= 480 ? '8px' : '10px',
+                    flexWrap: 'wrap',
+                    justifyContent: window.innerWidth <= 480 ? 'center' : 'flex-start'
                   }}>
                     {[
                       { id: 'fast-track', label: '⚡ Fast Track', desc: '3 Months' },
@@ -488,24 +429,36 @@ const DataScienceAIShortTerm = () => {
                         key={path.id}
                         onClick={() => setSelectedPath(path.id)}
                         style={{
-                          padding: '10px 16px',
-                          border: selectedPath === path.id ? '2px solid #ffd700' : '1px solid rgba(255, 255, 255, 0.3)',
-                          background: selectedPath === path.id ? 'rgba(255, 215, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)',
-                          color: selectedPath === path.id ? '#ffd700' : '#ffffff',
+                          padding: window.innerWidth <= 480 ? '8px 12px' : '10px 16px',
+                          border: selectedPath === path.id ? '2px solid #3b82f6' : '1px solid rgba(59, 130, 246, 0.3)',
+                          background: selectedPath === path.id ? 'rgba(59, 130, 246, 0.2)' : 'rgba(59, 130, 246, 0.1)',
+                          color: selectedPath === path.id ? '#3b82f6' : '#1e293b',
                           borderRadius: '20px',
-                          fontSize: '0.85rem',
+                          fontSize: window.innerWidth <= 480 ? '0.8rem' : '0.85rem',
                           fontWeight: '600',
                           cursor: 'pointer',
                           transition: 'all 0.3s ease',
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '6px'
+                          gap: '6px',
+                          minWidth: window.innerWidth <= 480 ? '90px' : 'auto',
+                          justifyContent: 'center'
                         }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ 
+                          scale: 1.05,
+                          boxShadow: '0 5px 15px rgba(59, 130, 246, 0.3)',
+                          transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ 
+                          scale: 0.95,
+                          transition: { duration: 0.1 }
+                        }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 0.15 }}
                       >
                         <span>{path.label}</span>
-                        <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>{path.desc}</span>
+                        <span style={{ fontSize: window.innerWidth <= 480 ? '0.7rem' : '0.75rem', opacity: 0.8 }}>{path.desc}</span>
                       </motion.button>
                     ))}
                   </div>
@@ -518,19 +471,19 @@ const DataScienceAIShortTerm = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
+                  background: 'rgba(255, 255, 255, 0.9)',
                   backdropFilter: 'blur(20px)',
                   padding: '25px 35px',
                   borderRadius: '25px',
                   marginBottom: '40px',
-                  border: '2px solid rgba(255, 215, 0, 0.3)',
+                  border: '2px solid rgba(59, 130, 246, 0.3)',
                   boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
                   position: 'relative',
                   overflow: 'hidden'
                 }}
                 whileHover={{ 
                   scale: 1.02,
-                  borderColor: 'rgba(255, 215, 0, 0.5)',
+                  borderColor: 'rgba(59, 130, 246, 0.5)',
                   boxShadow: '0 25px 70px rgba(0,0,0,0.5)'
                 }}
               >
@@ -541,7 +494,7 @@ const DataScienceAIShortTerm = () => {
                   left: '-100%',
                   width: '100%',
                   height: '2px',
-                  background: 'linear-gradient(90deg, transparent, #ffd700, transparent)',
+                  background: 'linear-gradient(90deg, transparent, #3b82f6, transparent)',
                   animation: 'speedLine 2s linear infinite'
                 }} />
                 
@@ -550,7 +503,7 @@ const DataScienceAIShortTerm = () => {
                   position: 'absolute',
                   top: '10px',
                   right: '10px',
-                  background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
+                  background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                   color: '#ffffff',
                   padding: '4px 10px',
                   borderRadius: '12px',
@@ -574,7 +527,7 @@ const DataScienceAIShortTerm = () => {
                   <span style={{ 
                     fontSize: '20px', 
                     fontWeight: '700',
-                    color: 'rgba(255, 255, 255, 0.9)',
+                    color: '#1e293b',
                     letterSpacing: '0.5px'
                   }}>
                     $
@@ -582,17 +535,15 @@ const DataScienceAIShortTerm = () => {
                   <span style={{ 
                     fontSize: '38px', 
                     fontWeight: '900',
-                    color: '#ffd700',
-                    letterSpacing: '-0.03em',
-                    textShadow: '0 2px 8px rgba(255, 215, 0, 0.4)',
-                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
+                    color: '#3b82f6',
+                    letterSpacing: '-0.03em'
                   }}>
                     6,499
                   </span>
                   <span style={{ 
                     fontSize: '16px', 
                     fontWeight: '400',
-                    color: 'rgba(255, 255, 255, 0.7)',
+                    color: '#64748b',
                     letterSpacing: '0.3px'
                   }}>
                     total
@@ -602,14 +553,14 @@ const DataScienceAIShortTerm = () => {
                 {/* Speed value proposition */}
                 <div style={{
                   fontSize: '13px',
-                  color: 'rgba(255, 255, 255, 0.8)',
+                  color: '#64748b',
                   letterSpacing: '0.3px',
                   fontWeight: '600',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px'
                 }}>
-                  <LightningBolt size={14} color="#ffd700" />
+                  <LightningBolt size={14} color="#3b82f6" />
                   Fast Track Program - Complete in 4 Months
                 </div>
               </motion.div>
@@ -619,8 +570,8 @@ const DataScienceAIShortTerm = () => {
                 <motion.button
                   whileHover={{ 
                     scale: 1.05, 
-                    boxShadow: '0 20px 50px rgba(255, 215, 0, 0.5)',
-                    background: 'linear-gradient(135deg, #ffed4e, #ffd700)'
+                    boxShadow: '0 20px 50px rgba(59, 130, 246, 0.5)',
+                    background: 'linear-gradient(135deg, #60a5fa, #3b82f6)'
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
@@ -628,8 +579,8 @@ const DataScienceAIShortTerm = () => {
                     if (added) navigate('/checkout');
                   }}
                   style={{
-                    background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
-                    color: '#1a1f36',
+                    background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
+                    color: '#ffffff',
                     padding: '20px 45px',
                     border: 'none',
                     borderRadius: '50px',
@@ -637,7 +588,7 @@ const DataScienceAIShortTerm = () => {
                     fontWeight: '800',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    boxShadow: '0 15px 40px rgba(255, 215, 0, 0.4)',
+                    boxShadow: '0 15px 40px rgba(59, 130, 246, 0.4)',
                     position: 'relative',
                     overflow: 'hidden',
                     textTransform: 'uppercase',
@@ -645,8 +596,8 @@ const DataScienceAIShortTerm = () => {
                   }}
                 >
                   <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <LightningBolt size={20} color="#1a1f36" />
-                    Enroll Now
+                    <LightningBolt size={20} color="#ffffff" />
+                    Pay Now
                   </span>
                   <motion.div
                     style={{
@@ -664,8 +615,8 @@ const DataScienceAIShortTerm = () => {
                   />
                 </motion.button>
                 
-                {/* Register Now Button */}
-                <motion.button
+                {/* Register Now Button commented out to disable registration functionality */}
+                {/* <motion.button
                   whileHover={{ 
                     scale: 1.05,
                     background: '#0056b3'
@@ -696,7 +647,7 @@ const DataScienceAIShortTerm = () => {
                   }}
                 >
                   Register Now
-                </motion.button>
+                </motion.button> */}
                 
                 {/* Mentor Chat Button */}
                 {/* Commented out Talk to Mentor button - not required
@@ -704,7 +655,7 @@ const DataScienceAIShortTerm = () => {
                   whileHover={{ 
                     scale: 1.05, 
                     backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                    borderColor: '#ffd700'
+                    borderColor: '#3b82f6'
                   }}
                   whileTap={{ scale: 0.95 }}
                   style={{
@@ -769,13 +720,13 @@ const DataScienceAIShortTerm = () => {
               {/* Mentor Support Card */}
               <motion.div
                 style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
+                  background: 'rgba(255, 255, 255, 0.9)',
                   backdropFilter: 'blur(20px)',
-                  border: '2px solid rgba(255, 215, 0, 0.3)',
+                  border: '2px solid rgba(59, 130, 246, 0.3)',
                   borderRadius: '25px',
                   padding: '30px',
                   textAlign: 'center',
-                  boxShadow: '0 25px 60px rgba(0, 0, 0, 0.4)',
+                  boxShadow: '0 25px 60px rgba(0, 0, 0, 0.1)',
                   width: '100%',
                   maxWidth: '400px',
                   position: 'relative'
@@ -822,7 +773,7 @@ const DataScienceAIShortTerm = () => {
                   style={{
                     width: '100px',
                     height: '100px',
-                    background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
+                    background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
@@ -830,7 +781,7 @@ const DataScienceAIShortTerm = () => {
                     margin: '0 auto 20px',
                     fontSize: '40px',
                     color: '#ffffff',
-                    boxShadow: '0 15px 30px rgba(255, 107, 53, 0.4)',
+                    boxShadow: '0 15px 30px rgba(59, 130, 246, 0.4)',
                     position: 'relative'
                   }}
                   animate={{ rotateY: isHovered ? 360 : 0 }}
@@ -868,15 +819,14 @@ const DataScienceAIShortTerm = () => {
                   fontSize: '1.4rem',
                   fontWeight: '800',
                   marginBottom: '15px',
-                  color: '#ffffff',
-                  textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+                  color: '#1e293b'
                 }}>
                   Expert Mentor Support
                 </h3>
                 
                 <p style={{
                   fontSize: '0.95rem',
-                  color: 'rgba(255, 255, 255, 0.8)',
+                  color: '#64748b',
                   marginBottom: '20px',
                   lineHeight: '1.5'
                 }}>
@@ -892,25 +842,25 @@ const DataScienceAIShortTerm = () => {
                     <motion.div
                       key={index}
                       style={{
-                        background: 'rgba(255, 215, 0, 0.1)',
+                        background: 'rgba(59, 130, 246, 0.1)',
                         padding: '12px',
                         borderRadius: '15px',
-                        border: '1px solid rgba(255, 215, 0, 0.2)'
+                        border: '1px solid rgba(59, 130, 246, 0.2)'
                       }}
-                      whileHover={{ scale: 1.05, background: 'rgba(255, 215, 0, 0.15)' }}
+                      whileHover={{ scale: 1.05, background: 'rgba(59, 130, 246, 0.15)' }}
                     >
                       <div style={{ fontSize: '18px', marginBottom: '4px' }}>{stat.icon}</div>
                       <div style={{
                         fontSize: '16px',
                         fontWeight: '700',
-                        color: '#ffd700',
+                        color: '#3b82f6',
                         marginBottom: '2px'
                       }}>
                         {stat.value}
                       </div>
                       <div style={{
                         fontSize: '10px',
-                        color: 'rgba(255, 255, 255, 0.7)',
+                        color: '#64748b',
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px'
                       }}>
@@ -926,7 +876,7 @@ const DataScienceAIShortTerm = () => {
                   whileTap={{ scale: 0.95 }}
                   style={{
                     width: '100%',
-                    background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
+                    background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                     color: '#ffffff',
                     border: 'none',
                     borderRadius: '15px',
@@ -944,14 +894,14 @@ const DataScienceAIShortTerm = () => {
               </motion.div>
 
               {/* Efficiency Progress Card */}
-              <motion.div
+              {/* <motion.div
                 style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
+                  background: 'rgba(255, 255, 255, 0.9)',
                   backdropFilter: 'blur(20px)',
-                  border: '2px solid rgba(255, 215, 0, 0.3)',
+                  border: '2px solid rgba(59, 130, 246, 0.3)',
                   borderRadius: '25px',
                   padding: '25px',
-                  boxShadow: '0 25px 60px rgba(0, 0, 0, 0.4)',
+                  boxShadow: '0 25px 60px rgba(0, 0, 0, 0.1)',
                   width: '100%',
                   maxWidth: '400px'
                 }}
@@ -961,16 +911,15 @@ const DataScienceAIShortTerm = () => {
                   fontSize: '1.2rem',
                   fontWeight: '800',
                   marginBottom: '20px',
-                  color: '#ffffff',
+                  color: '#64748b',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '10px'
                 }}>
-                  <LightningBolt size={20} color="#ffd700" />
+                  <LightningBolt size={20} color="#3b82f6" />
                   Rapid Progress Tracker
                 </h3>
 
-                {/* Animated Progress Bar */}
                 <div style={{ marginBottom: '20px' }}>
                   <div style={{
                     display: 'flex',
@@ -980,7 +929,7 @@ const DataScienceAIShortTerm = () => {
                   }}>
                     <span style={{
                       fontSize: '12px',
-                      color: 'rgba(255, 255, 255, 0.8)',
+                      color: '#64748b',
                       fontWeight: '600',
                       textTransform: 'uppercase',
                       letterSpacing: '0.5px'
@@ -989,7 +938,7 @@ const DataScienceAIShortTerm = () => {
                     </span>
                     <span style={{
                       fontSize: '14px',
-                      color: '#ffd700',
+                      color: '#3b82f6',
                       fontWeight: '700'
                     }}>
                       {progress}%
@@ -998,7 +947,7 @@ const DataScienceAIShortTerm = () => {
                   <div style={{
                     width: '100%',
                     height: '8px',
-                    background: 'rgba(255, 255, 255, 0.1)',
+                    background: 'rgba(59, 130, 246, 0.1)',
                     borderRadius: '10px',
                     overflow: 'hidden',
                     position: 'relative'
@@ -1006,9 +955,9 @@ const DataScienceAIShortTerm = () => {
                     <motion.div
                       style={{
                         height: '100%',
-                        background: 'linear-gradient(90deg, #ff6b35, #ffa500, #ffd700)',
+                        background: 'linear-gradient(90deg, #3b82f6, #60a5fa, #2563eb)',
                         borderRadius: '10px',
-                        boxShadow: '0 0 20px rgba(255, 215, 0, 0.5)'
+                        boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)'
                       }}
                       initial={{ width: '0%' }}
                       animate={{ width: `${progress}%` }}
@@ -1017,12 +966,11 @@ const DataScienceAIShortTerm = () => {
                   </div>
                 </div>
 
-                {/* Efficiency Stats */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                   {[
-                    { number: stats.students, label: 'Fast Learners', icon: '🚀', color: '#ff6b35' },
-                    { number: `${stats.placement}%`, label: 'Quick Placement', icon: '⚡', color: '#ffa500' },
-                    { number: `${stats.completionTime}M`, label: 'Avg Completion', icon: '⏱️', color: '#ffd700' }
+                    { number: stats.students, label: 'Fast Learners', icon: '🚀', color: '#3b82f6' },
+                    { number: `${stats.placement}%`, label: 'Quick Placement', icon: '⚡', color: '#60a5fa' },
+                    { number: `${stats.completionTime}M`, label: 'Avg Completion', icon: '⏱️', color: '#2563eb' }
                   ].map((stat, index) => (
                     <motion.div
                       key={index}
@@ -1031,20 +979,19 @@ const DataScienceAIShortTerm = () => {
                         alignItems: 'center',
                         gap: '15px',
                         padding: '15px',
-                        background: 'rgba(255, 255, 255, 0.05)',
+                        background: 'rgba(59, 130, 246, 0.05)',
                         borderRadius: '15px',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        border: '1px solid rgba(59, 130, 246, 0.1)',
                         transition: 'all 0.3s ease'
                       }}
                       whileHover={{ 
                         scale: 1.02, 
-                        background: 'rgba(255, 255, 255, 0.1)',
+                        background: 'rgba(59, 130, 246, 0.1)',
                         borderColor: stat.color
                       }}
                     >
                       <div style={{
-                        fontSize: '24px',
-                        filter: `drop-shadow(0 0 10px ${stat.color})`
+                        fontSize: '24px'
                       }}>
                         {stat.icon}
                       </div>
@@ -1060,7 +1007,7 @@ const DataScienceAIShortTerm = () => {
                         </div>
                         <div style={{
                           fontSize: '11px',
-                          color: 'rgba(255, 255, 255, 0.7)',
+                          color: '#64748b',
                           textTransform: 'uppercase',
                           letterSpacing: '0.5px',
                           fontWeight: '600'
@@ -1068,7 +1015,6 @@ const DataScienceAIShortTerm = () => {
                           {stat.label}
                         </div>
                       </div>
-                      {/* Speed indicator */}
                       <motion.div
                         animate={{ rotate: [0, 360] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -1082,7 +1028,7 @@ const DataScienceAIShortTerm = () => {
                     </motion.div>
                   ))}
                 </div>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </div>
         </div>
@@ -1091,7 +1037,7 @@ const DataScienceAIShortTerm = () => {
       {/* Skill Assessment & Personalization Section */}
       <section style={{ 
         padding: '100px 0', 
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
         position: 'relative',
         overflow: 'hidden'
       }}>
@@ -1106,8 +1052,8 @@ const DataScienceAIShortTerm = () => {
             45deg,
             transparent,
             transparent 30px,
-            rgba(255, 107, 53, 0.03) 30px,
-            rgba(255, 107, 53, 0.03) 60px
+            rgba(59, 130, 246, 0.03) 30px,
+            rgba(59, 130, 246, 0.03) 60px
           )`
         }} />
 
@@ -1124,16 +1070,16 @@ const DataScienceAIShortTerm = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '10px',
-                background: 'rgba(255, 107, 53, 0.1)',
+                background: 'rgba(59, 130, 246, 0.1)',
                 padding: '10px 20px',
                 borderRadius: '30px',
                 marginBottom: '20px',
-                border: '2px solid rgba(255, 107, 53, 0.3)'
+                border: '2px solid rgba(59, 130, 246, 0.3)'
               }}
               whileHover={{ scale: 1.05 }}
             >
-              <LightningBolt size={20} color="#ff6b35" />
-              <span style={{ color: '#ff6b35', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
+              <LightningBolt size={20} color="#3b82f6" />
+              <span style={{ color: '#3b82f6', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
                 ADAPTIVE LEARNING
               </span>
             </motion.div>
@@ -1142,17 +1088,16 @@ const DataScienceAIShortTerm = () => {
               fontSize: '3rem', 
               fontWeight: '800', 
               marginBottom: '20px',
-              background: 'linear-gradient(135deg, #ff6b35 0%, #ffd700 100%)',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              textShadow: '0 4px 20px rgba(255, 107, 53, 0.3)'
+              backgroundClip: 'text'
             }}>
               Personalized for Your Success
             </h2>
             <p style={{ 
               fontSize: '1.3rem', 
-              color: 'rgba(255, 255, 255, 0.8)', 
+              color: '#64748b', 
               maxWidth: '700px', 
               margin: '0 auto',
               lineHeight: '1.6'
@@ -1179,14 +1124,14 @@ const DataScienceAIShortTerm = () => {
                 backdropFilter: 'blur(20px)',
                 borderRadius: '25px',
                 padding: '40px',
-                border: '2px solid rgba(255, 107, 53, 0.3)',
+                border: '2px solid rgba(59, 130, 246, 0.3)',
                 boxShadow: '0 25px 60px rgba(0,0,0,0.4)',
                 position: 'relative',
                 overflow: 'hidden'
               }}
               whileHover={{ 
                 scale: 1.02, 
-                borderColor: 'rgba(255, 107, 53, 0.5)',
+                borderColor: 'rgba(59, 130, 246, 0.5)',
                 boxShadow: '0 30px 70px rgba(0,0,0,0.5)'
               }}
             >
@@ -1196,20 +1141,20 @@ const DataScienceAIShortTerm = () => {
                 left: '0',
                 right: '0',
                 height: '3px',
-                background: 'linear-gradient(90deg, #ff6b35, #ffa500, #ffd700)'
+                background: 'linear-gradient(90deg, #3b82f6, #60a5fa, #2563eb)'
               }} />
               
               <div style={{
                 width: '60px',
                 height: '60px',
-                background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
+                background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '20px',
                 fontSize: '24px',
-                boxShadow: '0 10px 25px rgba(255, 107, 53, 0.4)'
+                boxShadow: '0 10px 25px rgba(59, 130, 246, 0.4)'
               }}>
                 🎯
               </div>
@@ -1237,7 +1182,7 @@ const DataScienceAIShortTerm = () => {
                 whileTap={{ scale: 0.95 }}
                 style={{
                   width: '100%',
-                  background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
+                  background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                   color: '#ffffff',
                   border: 'none',
                   borderRadius: '15px',
@@ -1270,14 +1215,14 @@ const DataScienceAIShortTerm = () => {
                 backdropFilter: 'blur(20px)',
                 borderRadius: '25px',
                 padding: '40px',
-                border: '2px solid rgba(255, 165, 0, 0.3)',
+                border: '2px solid rgba(59, 130, 246, 0.3)',
                 boxShadow: '0 25px 60px rgba(0,0,0,0.4)',
                 position: 'relative',
                 overflow: 'hidden'
               }}
               whileHover={{ 
                 scale: 1.02, 
-                borderColor: 'rgba(255, 165, 0, 0.5)',
+                borderColor: 'rgba(59, 130, 246, 0.5)',
                 boxShadow: '0 30px 70px rgba(0,0,0,0.5)'
               }}
             >
@@ -1287,20 +1232,20 @@ const DataScienceAIShortTerm = () => {
                 left: '0',
                 right: '0',
                 height: '3px',
-                background: 'linear-gradient(90deg, #ffa500, #ffd700, #ff6b35)'
+                background: 'linear-gradient(90deg, #60a5fa, #2563eb, #3b82f6)'
               }} />
               
               <div style={{
                 width: '60px',
                 height: '60px',
-                background: 'linear-gradient(135deg, #ffa500, #ffd700)',
+                background: 'linear-gradient(135deg, #60a5fa, #2563eb)',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '20px',
                 fontSize: '24px',
-                boxShadow: '0 10px 25px rgba(255, 165, 0, 0.4)'
+                boxShadow: '0 10px 25px rgba(59, 130, 246, 0.4)'
               }}>
                 🛤️
               </div>
@@ -1325,10 +1270,10 @@ const DataScienceAIShortTerm = () => {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '25px' }}>
                 {[
-                  { label: '3 Months', desc: 'Fast Track', color: '#ff6b35' },
-                  { label: '4 Months', desc: 'Regular', color: '#ffa500' },
-                  { label: '6 Months', desc: 'Flexible', color: '#ffd700' },
-                  { label: 'Weekend', desc: 'Available', color: '#ff9558' }
+                  { label: '3 Months', desc: 'Fast Track', color: '#3b82f6' },
+                  { label: '4 Months', desc: 'Regular', color: '#60a5fa' },
+                  { label: '6 Months', desc: 'Flexible', color: '#2563eb' },
+                  { label: 'Weekend', desc: 'Available', color: '#1e40af' }
                 ].map((path, index) => (
                   <motion.div
                     key={index}
@@ -1370,7 +1315,7 @@ const DataScienceAIShortTerm = () => {
                 whileTap={{ scale: 0.95 }}
                 style={{
                   width: '100%',
-                  background: 'linear-gradient(135deg, #ffa500, #ffd700)',
+                  background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                   color: '#1a1f36',
                   border: 'none',
                   borderRadius: '15px',
@@ -1409,11 +1354,11 @@ const DataScienceAIShortTerm = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '10px',
-                background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
+                background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                 padding: '10px 20px',
                 borderRadius: '30px',
                 marginBottom: '20px',
-                boxShadow: '0 8px 25px rgba(255, 107, 53, 0.3)'
+                boxShadow: '0 8px 25px rgba(59, 130, 246, 0.3)'
               }}
               whileHover={{ scale: 1.05 }}
             >
@@ -1427,7 +1372,7 @@ const DataScienceAIShortTerm = () => {
               fontSize: '3rem', 
               fontWeight: '800', 
               marginBottom: '20px',
-              background: 'linear-gradient(135deg, #ff6b35 0%, #1a1f36 100%)',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #1a1f36 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -1457,7 +1402,7 @@ const DataScienceAIShortTerm = () => {
             <div style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr 1fr',
-              background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
+              background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
               padding: '25px',
               gap: '20px'
             }}>
@@ -1493,7 +1438,7 @@ const DataScienceAIShortTerm = () => {
               {[
                 { feature: 'Duration', traditional: '2-4 Years', online: '6-12 Months', fastTrack: '3-4 Months', icon: '⏱️' },
                 { feature: '1-on-1 Mentorship', traditional: 'Limited', online: 'No', fastTrack: 'Daily', icon: '👨‍🏫' },
-                { feature: 'Job Guarantee', traditional: 'No', online: 'No', fastTrack: '100%', icon: '💼' },
+                { feature: 'Job Assistance', traditional: 'No', online: 'No', fastTrack: '100%', icon: '💼' },
                 { feature: 'Practical Projects', traditional: 'Few', online: 'Some', fastTrack: '20+ Projects', icon: '🚀' },
                 { feature: 'Career Support', traditional: 'Basic', online: 'None', fastTrack: 'Lifetime', icon: '🎯' },
                 { feature: 'Time to First Job', traditional: '6-12 Months', online: '12+ Months', fastTrack: '2-3 Months', icon: '⚡' }
@@ -1509,7 +1454,7 @@ const DataScienceAIShortTerm = () => {
                     alignItems: 'center',
                     background: index % 2 === 0 ? '#fafafa' : 'white'
                   }}
-                  whileHover={{ background: 'rgba(255, 107, 53, 0.05)' }}
+                  whileHover={{ background: 'rgba(59, 130, 246, 0.05)' }}
                 >
                   <div style={{
                     display: 'flex',
@@ -1530,7 +1475,7 @@ const DataScienceAIShortTerm = () => {
                   </div>
                   <div style={{
                     fontSize: '14px',
-                    color: '#ff6b35',
+                    color: '#3b82f6',
                     fontWeight: '700',
                     textAlign: 'center',
                     position: 'relative'
@@ -1563,7 +1508,7 @@ const DataScienceAIShortTerm = () => {
       {/* Career Outcomes Section */}
       <section style={{ 
         padding: '100px 0', 
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
         position: 'relative',
         overflow: 'hidden'
       }}>
@@ -1574,7 +1519,7 @@ const DataScienceAIShortTerm = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%)`
+          backgroundImage: `radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)`
         }} />
 
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
@@ -1590,16 +1535,16 @@ const DataScienceAIShortTerm = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '10px',
-                background: 'rgba(255, 215, 0, 0.1)',
+                background: 'rgba(59, 130, 246, 0.1)',
                 padding: '10px 20px',
                 borderRadius: '30px',
                 marginBottom: '20px',
-                border: '2px solid rgba(255, 215, 0, 0.3)'
+                border: '2px solid rgba(59, 130, 246, 0.3)'
               }}
               whileHover={{ scale: 1.05 }}
             >
-              <LightningBolt size={20} color="#ffd700" />
-              <span style={{ color: '#ffd700', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
+              <LightningBolt size={20} color="#3b82f6" />
+              <span style={{ color: '#3b82f6', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
                 CAREER READY IN MONTHS
               </span>
             </motion.div>
@@ -1608,7 +1553,7 @@ const DataScienceAIShortTerm = () => {
               fontSize: '3rem', 
               fontWeight: '800', 
               marginBottom: '20px',
-              background: 'linear-gradient(135deg, #ffd700 0%, #ffffff 100%)',
+              background: 'linear-gradient(135deg, #1e293b 0%, #3b82f6 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -1617,7 +1562,7 @@ const DataScienceAIShortTerm = () => {
             </h2>
             <p style={{ 
               fontSize: '1.3rem', 
-              color: 'rgba(255, 255, 255, 0.8)', 
+              color: '#64748b', 
               maxWidth: '700px', 
               margin: '0 auto',
               lineHeight: '1.6'
@@ -1635,10 +1580,10 @@ const DataScienceAIShortTerm = () => {
             margin: '0 auto 60px'
           }}>
             {[
-              { number: '95%', label: 'Placement Rate', desc: 'Within 3 months', icon: '🎯', color: '#ff6b35' },
-              { number: '150%', label: 'Average Salary Hike', desc: 'Post completion', icon: '📈', color: '#ffa500' },
-              { number: '5000+', label: 'Alumni Network', desc: 'Growing daily', icon: '👥', color: '#ffd700' },
-              { number: '4.8/5', label: 'Student Rating', desc: 'Average feedback', icon: '⭐', color: '#ff9558' }
+              { number: '95%', label: 'Placement Rate', desc: 'Within 3 months', icon: '🎯', color: '#3b82f6' },
+              { number: '150%', label: 'Average Salary Hike', desc: 'Post completion', icon: '📈', color: '#60a5fa' },
+              { number: '5000+', label: 'Alumni Network', desc: 'Growing daily', icon: '👥', color: '#2563eb' },
+              { number: '4.8/5', label: 'Student Rating', desc: 'Average feedback', icon: '⭐', color: '#1e40af' }
             ].map((metric, index) => (
               <motion.div
                 key={index}
@@ -1647,13 +1592,13 @@ const DataScienceAIShortTerm = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
+                  background: 'rgba(255, 255, 255, 0.9)',
                   backdropFilter: 'blur(20px)',
                   borderRadius: '20px',
                   padding: '30px',
                   textAlign: 'center',
-                  border: '2px solid rgba(255, 215, 0, 0.2)',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                  border: '2px solid rgba(59, 130, 246, 0.2)',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
                   position: 'relative',
                   overflow: 'hidden'
                 }}
@@ -1675,8 +1620,7 @@ const DataScienceAIShortTerm = () => {
                 <motion.div
                   style={{
                     fontSize: '40px',
-                    marginBottom: '15px',
-                    filter: `drop-shadow(0 0 20px ${metric.color})`
+                    marginBottom: '15px'
                   }}
                   animate={{ 
                     scale: [1, 1.1, 1],
@@ -1705,7 +1649,7 @@ const DataScienceAIShortTerm = () => {
                 <div style={{
                   fontSize: '1.1rem',
                   fontWeight: '700',
-                  color: '#ffffff',
+                  color: '#1e293b',
                   marginBottom: '5px'
                 }}>
                   {metric.label}
@@ -1713,7 +1657,7 @@ const DataScienceAIShortTerm = () => {
                 
                 <div style={{
                   fontSize: '0.9rem',
-                  color: 'rgba(255, 255, 255, 0.6)',
+                  color: '#64748b',
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px'
                 }}>
@@ -1730,11 +1674,11 @@ const DataScienceAIShortTerm = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             style={{
-              background: 'rgba(255, 215, 0, 0.1)',
+              background: 'rgba(59, 130, 246, 0.1)',
               backdropFilter: 'blur(20px)',
               borderRadius: '25px',
               padding: '40px',
-              border: '2px solid rgba(255, 215, 0, 0.3)',
+              border: '2px solid rgba(59, 130, 246, 0.3)',
               textAlign: 'center',
               maxWidth: '800px',
               margin: '0 auto'
@@ -1744,13 +1688,13 @@ const DataScienceAIShortTerm = () => {
               fontSize: '1.8rem',
               fontWeight: '800',
               marginBottom: '30px',
-              color: '#ffffff',
+              color: '#1e293b',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '15px'
             }}>
-              <LightningBolt size={24} color="#ffd700" />
+              <LightningBolt size={24} color="#3b82f6" />
               Quick Completion Badges
             </h3>
             
@@ -1761,23 +1705,24 @@ const DataScienceAIShortTerm = () => {
               flexWrap: 'wrap'
             }}>
               {[
-                { name: 'Fast Learner', icon: '🚀', color: '#ff6b35' },
-                { name: 'Skill Master', icon: '🏆', color: '#ffa500' },
-                { name: 'Project Pro', icon: '💡', color: '#ffd700' },
-                { name: 'Career Ready', icon: '🎯', color: '#ff9558' },
-                { name: 'Mentor Favorite', icon: '⭐', color: '#ff6b35' }
+                { name: 'Fast Learner', icon: '🚀', color: '#3b82f6' },
+                { name: 'Skill Master', icon: '🏆', color: '#60a5fa' },
+                { name: 'Project Pro', icon: '💡', color: '#2563eb' },
+                { name: 'Career Ready', icon: '🎯', color: '#1e40af' },
+                { name: 'Mentor Favorite', icon: '⭐', color: '#3b82f6' }
               ].map((badge, index) => (
                 <motion.div
                   key={index}
                   style={{
-                    background: 'rgba(0, 0, 0, 0.3)',
+                    background: 'rgba(255, 255, 255, 0.9)',
                     padding: '15px 20px',
                     borderRadius: '20px',
                     border: `2px solid ${badge.color}`,
                     display: 'flex',
                     alignItems: 'center',
                     gap: '10px',
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
                   }}
                   whileHover={{ 
                     scale: 1.1, 
@@ -1935,7 +1880,7 @@ const DataScienceAIShortTerm = () => {
                     {career.title}
                     <span style={{
                       fontSize: '0.8rem',
-                      background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
+                      background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                       color: '#1a1f36',
                       padding: '4px 12px',
                       borderRadius: '20px',

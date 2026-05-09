@@ -28,7 +28,7 @@ const Home = () => {
     { component: <InteractiveLearningJourney />, shade: 'gradient-light' }, // Interactive Learning Journey
     // { component: <EnhancedCourseComparison />, shade: 'gradient-medium' }, // Enhanced Course Comparison
     { component: <PopularCertificates />, shade: 'gradient-medium' }, // Popular Certificates with medium gradient
-    { component: <Features />, shade: 'gradient-darker' } // Features section with darkest gradient
+    // { component: <Features />, shade: 'gradient-darker' } // Features section with darkest gradient
   ];
 
   return (
@@ -58,10 +58,10 @@ const Home = () => {
       })}
       
       {/* Additional Engagement Components */}
-      <TestimonialsSection />
-      <EnhancedTestimonials />
-      <Clients />
-      <Newsletter />
+      {/* <div style={{ margin: '40px 0' }}><TestimonialsSection /></div> */}
+      <div style={{ margin: '20px 0' }}><EnhancedTestimonials /></div>
+      <div style={{ margin: '20px 0' }}><Clients /></div>
+      <div style={{ margin: '20px 0' }}><Newsletter /></div>
       {/* <GamificationWidget /> */}
       {/* <LiveActivityFeed /> */}
       {/* <SmartScarcityIndicators /> */}

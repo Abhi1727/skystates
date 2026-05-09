@@ -5,10 +5,8 @@ import { useCart } from '../contexts/CartContext';
 import LogoCarousel from './LogoCarousel';
 import FloatingRegisterButton from './FloatingRegisterButton';
 import BatchCountdownTimer from './BatchCountdownTimer';
+import './HomepageTheme.css';
 
-// OLD CODE COMMENTED OUT:
-// import React from 'react';
-// import FloatingRegisterButton from './FloatingRegisterButton';
 
 const DevOpsShortTerm = () => {
   const navigate = useNavigate();
@@ -88,7 +86,7 @@ const DevOpsShortTerm = () => {
   }, []);
 
   // Lightning bolt animation component
-  const LightningBolt = ({ size = 24, color = '#ff6b35' }) => (
+  const LightningBolt = ({ size = 24, color = '#3b82f6' }) => (
     <motion.svg
       width={size}
       height={size}
@@ -137,33 +135,16 @@ const DevOpsShortTerm = () => {
           50% { transform: translateY(-20px); }
         }
       `}</style>
-      {/* Enhanced Hero Section with Orange/Amber Speed Gradient */}
-      <section className="product-hero" style={{
+      {/* Enhanced Hero Section with Blue Theme Gradient */}
+      <section className="product-hero section-gradient-1" style={{
         position: 'relative',
-        minHeight: '100vh',
+        minHeight: '80vh',
         display: 'flex',
         alignItems: 'center',
-        background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #ff9558 50%, #ffa500 75%, #ff6b35 100%)',
-        overflow: 'hidden',
-        animation: 'gradientShift 8s ease infinite'
+        overflow: 'hidden'
       }}>
         <BatchCountdownTimer />
-        {/* Animated Lightning Background Pattern */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: `repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 10px,
-            rgba(255, 255, 255, 0.03) 10px,
-            rgba(255, 255, 255, 0.03) 20px
-          )`,
-          animation: 'slidePattern 20s linear infinite'
-        }} />
+        {/* Background Pattern - REMOVED to rely on section-gradient-1 CSS class */}
 
         {/* Floating Speed Elements */}
         {[...Array(6)].map((_, i) => (
@@ -172,8 +153,8 @@ const DevOpsShortTerm = () => {
             style={{
               position: 'absolute',
               fontSize: `${20 + i * 5}px`,
-              opacity: 0.1 + i * 0.02,
-              color: '#ffffff',
+              opacity: 0.05 + i * 0.01,
+              color: '#3b82f6',
               top: `${10 + i * 15}%`,
               left: `${5 + i * 15}%`,
               animation: `float ${3 + i * 0.5}s ease-in-out infinite`,
@@ -196,10 +177,10 @@ const DevOpsShortTerm = () => {
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '60px',
+            gridTemplateColumns: '1.2fr 0.8fr',
+            gap: '40px',
             alignItems: 'center',
-            maxWidth: '1200px',
+            maxWidth: '1400px',
             margin: '0 auto'
           }}>
             {/* Left Content - Speed Focused */}
@@ -214,18 +195,18 @@ const DevOpsShortTerm = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  background: 'rgba(0, 0, 0, 0.3)',
+                  background: 'rgba(255, 255, 255, 0.8)',
                   backdropFilter: 'blur(15px)',
                   padding: '10px 20px',
                   borderRadius: '30px',
-                  marginBottom: '24px',
+                  marginBottom: '16px',
                   border: '2px solid rgba(255, 255, 255, 0.3)',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
                 }}
                 whileHover={{ scale: 1.05, boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}
               >
-                <LightningBolt size={20} color="#ffd700" />
-                <span style={{ color: '#ffd700', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
+                <LightningBolt size={20} color="#3b82f6" />
+                <span style={{ color: '#3b82f6', fontSize: '14px', fontWeight: '700', letterSpacing: '1px' }}>
                   FAST TRACK LEARNING
                 </span>
                 <motion.div
@@ -245,27 +226,25 @@ const DevOpsShortTerm = () => {
                 fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', 
                 fontWeight: '900', 
                 marginBottom: '24px',
-                color: '#ffffff',
+                color: '#1e293b',
                 lineHeight: '1.1',
-                letterSpacing: '-0.02em',
-                textShadow: '0 4px 20px rgba(0,0,0,0.3)'
+                letterSpacing: '-0.02em'
               }}>
                 Become a
                 <span style={{ 
                   display: 'block',
-                  background: 'linear-gradient(135deg, #ffffff, #ffd700)',
+                  background: 'linear-gradient(135deg, #1e293b, #3b82f6)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
-                  fontWeight: '900',
-                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
+                  fontWeight: '900'
                 }}>
                   DevOps Expert
                 </span>
                 <span style={{
                   display: 'block',
                   fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-                  color: '#ffd700',
+                  color: '#3b82f6',
                   fontWeight: '700',
                   marginTop: '8px'
                 }}>
@@ -275,26 +254,26 @@ const DevOpsShortTerm = () => {
               
               <p style={{ 
                 fontSize: '1.4rem', 
-                color: 'rgba(255, 255, 255, 0.95)', 
-                marginBottom: '32px',
+                color: '#64748b', 
+                marginBottom: '20px',
                 lineHeight: '1.6',
                 fontWeight: '500'
               }}>
-                Master cloud computing, CI/CD & automation with <span style={{ color: '#ffd700', fontWeight: '700' }}>lightning-fast</span> skill development
+                Master cloud computing, CI/CD & automation with <span style={{ color: '#3b82f6', fontWeight: '700' }}>professional</span> skill development
               </p>
 
               {/* Value Proposition Pills */}
               <div style={{
                 display: 'flex',
-                gap: '15px',
-                marginBottom: '40px',
+                gap: '12px',
+                marginBottom: '24px',
                 flexWrap: 'wrap'
               }}>
                 {[
-                  { icon: '⚡', text: '2x Faster Deployment', color: '#ff6b35' },
-                  { icon: '☁️', text: 'Cloud Ready Skills', color: '#f7931e' },
-                  { icon: '�', text: 'CI/CD Mastery', color: '#ff9558' },
-                  { icon: '⚙️', text: 'Automation Expert', color: '#ffa500' }
+                  { icon: '🎯', text: 'Expert Deployment', color: '#3b82f6' },
+                  { icon: '☁️', text: 'Cloud Ready Skills', color: '#2563eb' },
+                  { icon: '⚙️', text: 'CI/CD Mastery', color: '#1e3a8a' },
+                  { icon: '🚀', text: 'Automation Expert', color: '#1d4ed8' }
                 ].map((item, index) => (
                   <motion.div
                     key={index}
@@ -311,7 +290,7 @@ const DevOpsShortTerm = () => {
                     }}
                     whileHover={{ 
                       scale: 1.05, 
-                      background: 'rgba(0, 0, 0, 0.4)',
+                      background: 'rgba(255, 255, 255, 0.9)',
                       borderColor: item.color
                     }}
                     whileTap={{ scale: 0.95 }}
@@ -319,7 +298,7 @@ const DevOpsShortTerm = () => {
                     <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
                     <span style={{ 
                       fontSize: '0.9rem', 
-                      color: '#ffffff', 
+                      color: '#1e293b', 
                       fontWeight: '600',
                       whiteSpace: 'nowrap'
                     }}>
@@ -335,28 +314,33 @@ const DevOpsShortTerm = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 style={{
-                  background: 'rgba(0, 0, 0, 0.3)',
+                  background: 'rgba(255, 255, 255, 0.95)',
                   backdropFilter: 'blur(20px)',
-                  padding: '25px',
+                  padding: window.innerWidth <= 480 ? '20px' : '25px',
                   borderRadius: '20px',
                   marginBottom: '40px',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  boxShadow: '0 15px 35px rgba(0,0,0,0.3)'
+                  border: '1px solid rgba(59, 130, 246, 0.2)',
+                  boxShadow: '0 15px 35px rgba(0,0,0,0.15)',
+                  position: 'relative',
+                  zIndex: 100,
+                  transition: 'all 0.3s ease'
                 }}
                 whileHover={{ scale: 1.02, boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}
               >
                 <div style={{
                   display: 'flex',
-                  alignItems: 'center',
+                  alignItems: window.innerWidth <= 480 ? 'flex-start' : 'center',
                   gap: '10px',
-                  marginBottom: '20px'
+                  marginBottom: '20px',
+                  flexDirection: window.innerWidth <= 480 ? 'column' : 'row'
                 }}>
-                  <LightningBolt size={24} color="#ffd700" />
+                  <LightningBolt size={24} color="#3b82f6" />
                   <h3 style={{
-                    fontSize: '1.2rem',
+                    fontSize: window.innerWidth <= 480 ? '1.1rem' : '1.2rem',
                     fontWeight: '700',
-                    color: '#ffffff',
-                    margin: 0
+                    color: '#1e293b',
+                    margin: 0,
+                    textAlign: window.innerWidth <= 480 ? 'center' : 'left'
                   }}>
                     Personalize Your Learning Path
                   </h3>
@@ -366,7 +350,7 @@ const DevOpsShortTerm = () => {
                 <div style={{ marginBottom: '20px' }}>
                   <label style={{
                     display: 'block',
-                    color: 'rgba(255, 255, 255, 0.8)',
+                    color: '#64748b',
                     fontSize: '0.9rem',
                     fontWeight: '500',
                     marginBottom: '8px'
@@ -375,26 +359,39 @@ const DevOpsShortTerm = () => {
                   </label>
                   <div style={{
                     display: 'flex',
-                    gap: '10px',
-                    flexWrap: 'wrap'
+                    gap: window.innerWidth <= 480 ? '8px' : '10px',
+                    flexWrap: 'wrap',
+                    justifyContent: window.innerWidth <= 480 ? 'center' : 'flex-start'
                   }}>
                     {['beginner', 'intermediate', 'advanced'].map((level) => (
                       <motion.button
                         key={level}
                         onClick={() => setSkillLevel(level)}
                         style={{
-                          padding: '8px 16px',
-                          border: skillLevel === level ? '2px solid #ffd700' : '1px solid rgba(255, 255, 255, 0.3)',
-                          background: skillLevel === level ? 'rgba(255, 215, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)',
-                          color: skillLevel === level ? '#ffd700' : '#ffffff',
+                          padding: window.innerWidth <= 480 ? '6px 12px' : '8px 16px',
+                          border: skillLevel === level ? '2px solid #3b82f6' : '1px solid rgba(59, 130, 246, 0.3)',
+                          background: skillLevel === level ? 'rgba(59, 130, 246, 0.2)' : 'rgba(59, 130, 246, 0.1)',
+                          color: skillLevel === level ? '#3b82f6' : '#1e293b',
                           borderRadius: '20px',
-                          fontSize: '0.85rem',
+                          fontSize: window.innerWidth <= 480 ? '0.8rem' : '0.85rem',
                           fontWeight: '600',
                           cursor: 'pointer',
-                          transition: 'all 0.3s ease'
+                          transition: 'all 0.3s ease',
+                          minWidth: window.innerWidth <= 480 ? '80px' : 'auto',
+                          textAlign: 'center'
                         }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ 
+                          scale: 1.05,
+                          boxShadow: '0 5px 15px rgba(59, 130, 246, 0.3)',
+                          transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ 
+                          scale: 0.95,
+                          transition: { duration: 0.1 }
+                        }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
                       >
                         {level.charAt(0).toUpperCase() + level.slice(1)}
                       </motion.button>
@@ -406,7 +403,7 @@ const DevOpsShortTerm = () => {
                 <div>
                   <label style={{
                     display: 'block',
-                    color: 'rgba(255, 255, 255, 0.8)',
+                    color: '#64748b',
                     fontSize: '0.9rem',
                     fontWeight: '500',
                     marginBottom: '8px'
@@ -415,8 +412,9 @@ const DevOpsShortTerm = () => {
                   </label>
                   <div style={{
                     display: 'flex',
-                    gap: '10px',
-                    flexWrap: 'wrap'
+                    gap: window.innerWidth <= 480 ? '8px' : '10px',
+                    flexWrap: 'wrap',
+                    justifyContent: window.innerWidth <= 480 ? 'center' : 'flex-start'
                   }}>
                     {[
                       { id: 'fast-track', label: '⚡ Fast Track', desc: '3 Months' },
@@ -427,21 +425,33 @@ const DevOpsShortTerm = () => {
                         key={path.id}
                         onClick={() => setSelectedPath(path.id)}
                         style={{
-                          padding: '10px 16px',
-                          border: selectedPath === path.id ? '2px solid #ffd700' : '1px solid rgba(255, 255, 255, 0.3)',
-                          background: selectedPath === path.id ? 'rgba(255, 215, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)',
-                          color: selectedPath === path.id ? '#ffd700' : '#ffffff',
+                          padding: window.innerWidth <= 480 ? '8px 12px' : '10px 16px',
+                          border: selectedPath === path.id ? '2px solid #3b82f6' : '1px solid rgba(59, 130, 246, 0.3)',
+                          background: selectedPath === path.id ? 'rgba(59, 130, 246, 0.2)' : 'rgba(59, 130, 246, 0.1)',
+                          color: selectedPath === path.id ? '#3b82f6' : '#1e293b',
                           borderRadius: '20px',
-                          fontSize: '0.85rem',
+                          fontSize: window.innerWidth <= 480 ? '0.8rem' : '0.85rem',
                           fontWeight: '600',
                           cursor: 'pointer',
                           transition: 'all 0.3s ease',
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '6px'
+                          gap: '6px',
+                          minWidth: window.innerWidth <= 480 ? '90px' : 'auto',
+                          justifyContent: 'center'
                         }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ 
+                          scale: 1.05,
+                          boxShadow: '0 5px 15px rgba(59, 130, 246, 0.3)',
+                          transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ 
+                          scale: 0.95,
+                          transition: { duration: 0.1 }
+                        }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 0.15 }}
                       >
                         <span>{path.label}</span>
                         <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>{path.desc}</span>
@@ -456,19 +466,19 @@ const DevOpsShortTerm = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
+                  background: 'rgba(255, 255, 255, 0.9)',
                   backdropFilter: 'blur(20px)',
                   padding: '25px 35px',
                   borderRadius: '25px',
                   marginBottom: '40px',
-                  border: '2px solid rgba(255, 215, 0, 0.3)',
+                  border: '2px solid rgba(59, 130, 246, 0.3)',
                   boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
                   position: 'relative',
                   overflow: 'hidden'
                 }}
                 whileHover={{ 
                   scale: 1.02,
-                  borderColor: 'rgba(255, 215, 0, 0.5)',
+                  borderColor: 'rgba(59, 130, 246, 0.5)',
                   boxShadow: '0 25px 70px rgba(0,0,0,0.5)'
                 }}
               >
@@ -479,7 +489,7 @@ const DevOpsShortTerm = () => {
                   left: '-100%',
                   width: '100%',
                   height: '2px',
-                  background: 'linear-gradient(90deg, transparent, #ffd700, transparent)',
+                  background: 'linear-gradient(90deg, transparent, #3b82f6, transparent)',
                   animation: 'speedLine 2s linear infinite'
                 }} />
                 
@@ -488,7 +498,7 @@ const DevOpsShortTerm = () => {
                   position: 'absolute',
                   top: '10px',
                   right: '10px',
-                  background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
+                  background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                   color: '#ffffff',
                   padding: '4px 10px',
                   borderRadius: '12px',
@@ -512,7 +522,7 @@ const DevOpsShortTerm = () => {
                   <span style={{ 
                     fontSize: '20px', 
                     fontWeight: '700',
-                    color: 'rgba(255, 255, 255, 0.9)',
+                    color: '#1e293b',
                     letterSpacing: '0.5px'
                   }}>
                     $
@@ -520,17 +530,15 @@ const DevOpsShortTerm = () => {
                   <span style={{ 
                     fontSize: '38px', 
                     fontWeight: '900',
-                    color: '#ffd700',
-                    letterSpacing: '-0.03em',
-                    textShadow: '0 2px 8px rgba(255, 215, 0, 0.4)',
-                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
+                    color: '#3b82f6',
+                    letterSpacing: '-0.03em'
                   }}>
                     6,499
                   </span>
                   <span style={{ 
                     fontSize: '16px', 
                     fontWeight: '400',
-                    color: 'rgba(255, 255, 255, 0.7)',
+                    color: '#64748b',
                     letterSpacing: '0.3px'
                   }}>
                     total
@@ -540,14 +548,14 @@ const DevOpsShortTerm = () => {
                 {/* Speed value proposition */}
                 <div style={{
                   fontSize: '13px',
-                  color: 'rgba(255, 255, 255, 0.8)',
+                  color: '#64748b',
                   letterSpacing: '0.3px',
                   fontWeight: '600',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px'
                 }}>
-                  <LightningBolt size={14} color="#ffd700" />
+                  <LightningBolt size={14} color="#3b82f6" />
                   Fast Track Program - Complete in 4 Months
                 </div>
               </motion.div>
@@ -557,8 +565,8 @@ const DevOpsShortTerm = () => {
                 <motion.button
                   whileHover={{ 
                     scale: 1.05, 
-                    boxShadow: '0 20px 50px rgba(255, 215, 0, 0.5)',
-                    background: 'linear-gradient(135deg, #ffed4e, #ffd700)'
+                    boxShadow: '0 20px 50px rgba(59, 130, 246, 0.5)',
+                    background: 'linear-gradient(135deg, #60a5fa, #3b82f6)'
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
@@ -566,8 +574,8 @@ const DevOpsShortTerm = () => {
                     if (added) navigate('/checkout');
                   }}
                   style={{
-                    background: 'linear-gradient(135deg, #ffd700, #ffed4e)',
-                    color: '#1a1f36',
+                    background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
+                    color: '#ffffff',
                     padding: '20px 45px',
                     border: 'none',
                     borderRadius: '50px',
@@ -575,7 +583,7 @@ const DevOpsShortTerm = () => {
                     fontWeight: '800',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    boxShadow: '0 15px 40px rgba(255, 215, 0, 0.4)',
+                    boxShadow: '0 15px 40px rgba(59, 130, 246, 0.4)',
                     position: 'relative',
                     overflow: 'hidden',
                     textTransform: 'uppercase',
@@ -583,8 +591,8 @@ const DevOpsShortTerm = () => {
                   }}
                 >
                   <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <LightningBolt size={20} color="#1a1f36" />
-                    Enroll Now
+                    <LightningBolt size={20} color="#ffffff" />
+                    Pay Now
                   </span>
                   <motion.div
                     style={{
@@ -602,60 +610,6 @@ const DevOpsShortTerm = () => {
                   />
                 </motion.button>
                 
-                {/* Register Now Button */}
-                <motion.button
-                  whileHover={{ 
-                    scale: 1.05,
-                    background: '#e55a2e'
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => {
-                    const added = addToCart({
-                      name: 'Registration fee for DevOps and Cloud Computing Short Term Program',
-                      price: '499.00',
-                      duration: '4 Months',
-                      type: 'registration'
-                    });
-                    if (added) navigate('/checkout');
-                  }}
-                  style={{
-                    background: '#ff6b35',
-                    color: 'white',
-                    padding: '20px 35px',
-                    border: 'none',
-                    borderRadius: '50px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 10px 25px rgba(255, 107, 53, 0.3)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}
-                >
-                  Register Now
-                </motion.button>
-                
-                {/* Commented out Download Syllabus button
-                <motion.button
-                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
-                  whileTap={{ scale: 0.95 }}
-                  style={{
-                    background: 'transparent',
-                    color: 'white',
-                    padding: '18px 40px',
-                    border: '2px solid rgba(255, 255, 255, 0.8)',
-                    borderRadius: '50px',
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    backdropFilter: 'blur(10px)'
-                  }}
-                >
-                  📅 Download Syllabus
-                </motion.button>
-                */}
               </div>
             </motion.div>
 
@@ -674,13 +628,13 @@ const DevOpsShortTerm = () => {
               {/* Mentor Support Card */}
               <motion.div
                 style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
+                  background: 'rgba(255, 255, 255, 0.9)',
                   backdropFilter: 'blur(20px)',
-                  border: '2px solid rgba(255, 215, 0, 0.3)',
+                  border: '2px solid rgba(59, 130, 246, 0.3)',
                   borderRadius: '25px',
                   padding: '30px',
                   textAlign: 'center',
-                  boxShadow: '0 25px 60px rgba(0, 0, 0, 0.4)',
+                  boxShadow: '0 25px 60px rgba(0, 0, 0, 0.1)',
                   width: '100%',
                   maxWidth: '400px',
                   position: 'relative'
@@ -727,7 +681,7 @@ const DevOpsShortTerm = () => {
                   style={{
                     width: '100px',
                     height: '100px',
-                    background: 'linear-gradient(135deg, #ff6b35, #ffa500)',
+                    background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
@@ -735,7 +689,7 @@ const DevOpsShortTerm = () => {
                     margin: '0 auto 20px',
                     fontSize: '40px',
                     color: '#ffffff',
-                    boxShadow: '0 15px 30px rgba(255, 107, 53, 0.4)',
+                    boxShadow: '0 15px 30px rgba(59, 130, 246, 0.4)',
                     position: 'relative'
                   }}
                   animate={{ rotateY: isHovered ? 360 : 0 }}
@@ -773,15 +727,14 @@ const DevOpsShortTerm = () => {
                   fontSize: '1.4rem',
                   fontWeight: '800',
                   marginBottom: '15px',
-                  color: '#ffffff',
-                  textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+                  color: '#1e293b'
                 }}>
                   Expert Mentor Support
                 </h3>
                 
                 <p style={{
                   fontSize: '0.95rem',
-                  color: 'rgba(255, 255, 255, 0.8)',
+                  color: '#64748b',
                   marginBottom: '20px',
                   lineHeight: '1.5'
                 }}>
@@ -797,25 +750,25 @@ const DevOpsShortTerm = () => {
                     <motion.div
                       key={index}
                       style={{
-                        background: 'rgba(255, 215, 0, 0.1)',
+                        background: 'rgba(59, 130, 246, 0.1)',
                         padding: '12px',
                         borderRadius: '15px',
-                        border: '1px solid rgba(255, 215, 0, 0.2)'
+                        border: '1px solid rgba(59, 130, 246, 0.2)'
                       }}
-                      whileHover={{ scale: 1.05, background: 'rgba(255, 215, 0, 0.15)' }}
+                      whileHover={{ scale: 1.05, background: 'rgba(59, 130, 246, 0.15)' }}
                     >
                       <div style={{ fontSize: '18px', marginBottom: '4px' }}>{stat.icon}</div>
                       <div style={{
                         fontSize: '16px',
                         fontWeight: '700',
-                        color: '#ffd700',
+                        color: '#3b82f6',
                         marginBottom: '2px'
                       }}>
                         {stat.value}
                       </div>
                       <div style={{
                         fontSize: '10px',
-                        color: 'rgba(255, 255, 255, 0.7)',
+                        color: '#64748b',
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px'
                       }}>
@@ -827,11 +780,11 @@ const DevOpsShortTerm = () => {
               </motion.div>
 
               {/* Efficiency Progress Card */}
-              <motion.div
+              {/* <motion.div
                 style={{
                   background: 'rgba(0, 0, 0, 0.4)',
                   backdropFilter: 'blur(20px)',
-                  border: '2px solid rgba(255, 215, 0, 0.3)',
+                  border: '2px solid rgba(59, 130, 246, 0.3)',
                   borderRadius: '25px',
                   padding: '25px',
                   boxShadow: '0 25px 60px rgba(0, 0, 0, 0.4)',
@@ -849,11 +802,10 @@ const DevOpsShortTerm = () => {
                   alignItems: 'center',
                   gap: '10px'
                 }}>
-                  <LightningBolt size={20} color="#ffd700" />
+                  <LightningBolt size={20} color="#3b82f6" />
                   Rapid Progress Tracker
                 </h3>
 
-                {/* Animated Progress Bar */}
                 <div style={{ marginBottom: '20px' }}>
                   <div style={{
                     display: 'flex',
@@ -889,7 +841,7 @@ const DevOpsShortTerm = () => {
                     <motion.div
                       style={{
                         height: '100%',
-                        background: 'linear-gradient(90deg, #ff6b35, #ffa500, #ffd700)',
+                        background: 'linear-gradient(90deg, #3b82f6, #ffa500, #ffd700)',
                         borderRadius: '10px',
                         boxShadow: '0 0 20px rgba(255, 215, 0, 0.5)'
                       }}
@@ -900,10 +852,9 @@ const DevOpsShortTerm = () => {
                   </div>
                 </div>
 
-                {/* Efficiency Stats */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                   {[
-                    { number: stats.students, label: 'Cloud Platforms Mastered', icon: '☁️', color: '#ff6b35' },
+                    { number: stats.students, label: 'Cloud Platforms Mastered', icon: '☁️', color: '#3b82f6' },
                     { number: `${stats.placement}%`, label: 'Deployment Speed', icon: '🚀', color: '#ffa500' },
                     { number: `${stats.completionTime}M`, label: 'Automation Projects', icon: '⚙️', color: '#ffd700' }
                   ].map((stat, index) => (
@@ -926,8 +877,7 @@ const DevOpsShortTerm = () => {
                       }}
                     >
                       <div style={{
-                        fontSize: '24px',
-                        filter: `drop-shadow(0 0 10px ${stat.color})`
+                        fontSize: '24px'
                       }}>
                         {stat.icon}
                       </div>
@@ -951,7 +901,6 @@ const DevOpsShortTerm = () => {
                           {stat.label}
                         </div>
                       </div>
-                      {/* Speed indicator */}
                       <motion.div
                         animate={{ rotate: [0, 360] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -965,7 +914,7 @@ const DevOpsShortTerm = () => {
                     </motion.div>
                   ))}
                 </div>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </div>
         </div>
@@ -988,7 +937,7 @@ const DevOpsShortTerm = () => {
               fontSize: '3rem', 
               fontWeight: '800', 
               marginBottom: '20px',
-              background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #f7931e 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -1095,7 +1044,7 @@ const DevOpsShortTerm = () => {
                     {career.title}
                     <span style={{
                       fontSize: '0.8rem',
-                      background: 'linear-gradient(135deg, #ff6b35, #f7931e)',
+                      background: 'linear-gradient(135deg, #3b82f6, #f7931e)',
                       color: 'white',
                       padding: '4px 12px',
                       borderRadius: '20px',
@@ -1118,7 +1067,7 @@ const DevOpsShortTerm = () => {
                     <h4 style={{
                       fontSize: '0.9rem',
                       fontWeight: '600',
-                      color: '#ff6b35',
+                      color: '#3b82f6',
                       marginBottom: '10px',
                       textTransform: 'uppercase',
                       letterSpacing: '1px'
@@ -1133,7 +1082,7 @@ const DevOpsShortTerm = () => {
                       {career.skills.map((skill, skillIndex) => (
                         <span key={skillIndex} style={{
                           background: 'rgba(255, 107, 53, 0.1)',
-                          color: '#ff6b35',
+                          color: '#3b82f6',
                           padding: '6px 12px',
                           borderRadius: '15px',
                           fontSize: '0.85rem',
@@ -1179,7 +1128,7 @@ const DevOpsShortTerm = () => {
                     }}
                     style={{
                       width: '100%',
-                      background: 'linear-gradient(135deg, #ff6b35, #f7931e)',
+                      background: 'linear-gradient(135deg, #3b82f6, #f7931e)',
                       color: 'white',
                       border: 'none',
                       borderRadius: '12px',
@@ -1265,7 +1214,7 @@ const DevOpsShortTerm = () => {
                   alignItems: 'flex-start',
                   gap: '10px'
                 }}>
-                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <i className="fas fa-check-circle" style={{ color: '#3b82f6', marginTop: '3px' }}></i>
                   <span style={{ color: '#666', fontSize: '16px' }}>
                     Industry-recognized certificate by Sky States
                   </span>
@@ -1276,7 +1225,7 @@ const DevOpsShortTerm = () => {
                   alignItems: 'flex-start',
                   gap: '10px'
                 }}>
-                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <i className="fas fa-check-circle" style={{ color: '#3b82f6', marginTop: '3px' }}></i>
                   <span style={{ color: '#666', fontSize: '16px' }}>
                     Dedicated live sessions by faculty of industry experts
                   </span>
@@ -1287,7 +1236,7 @@ const DevOpsShortTerm = () => {
                   alignItems: 'flex-start',
                   gap: '10px'
                 }}>
-                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <i className="fas fa-check-circle" style={{ color: '#3b82f6', marginTop: '3px' }}></i>
                   <span style={{ color: '#666', fontSize: '16px' }}>
                     Lifetime access to self-paced learning content
                   </span>
@@ -1339,7 +1288,7 @@ const DevOpsShortTerm = () => {
                   alignItems: 'flex-start',
                   gap: '10px'
                 }}>
-                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <i className="fas fa-check-circle" style={{ color: '#3b82f6', marginTop: '3px' }}></i>
                   <span style={{ color: '#666', fontSize: '16px' }}>
                     Content and certificate by Microsoft
                   </span>
@@ -1350,7 +1299,7 @@ const DevOpsShortTerm = () => {
                   alignItems: 'flex-start',
                   gap: '10px'
                 }}>
-                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <i className="fas fa-check-circle" style={{ color: '#3b82f6', marginTop: '3px' }}></i>
                   <span style={{ color: '#666', fontSize: '16px' }}>
                     Professional-level training from Microsoft
                   </span>
@@ -1361,7 +1310,7 @@ const DevOpsShortTerm = () => {
                   alignItems: 'flex-start',
                   gap: '10px'
                 }}>
-                  <i className="fas fa-check-circle" style={{ color: '#ff6b35', marginTop: '3px' }}></i>
+                  <i className="fas fa-check-circle" style={{ color: '#3b82f6', marginTop: '3px' }}></i>
                   <span style={{ color: '#666', fontSize: '16px' }}>
                     LinkedIn profile Shareable certificate
                   </span>

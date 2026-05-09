@@ -19,6 +19,7 @@ import {
   Heart,
   Share2
 } from 'lucide-react';
+import './HomepageTheme.css';
 
 const EnhancedCourseComparison = () => {
   const [selectedCourses, setSelectedCourses] = useState([]);
@@ -119,7 +120,7 @@ const EnhancedCourseComparison = () => {
         'Live hacking labs',
         'Real-world scenarios',
         'Industry expert mentors',
-        'Job guarantee program'
+        'Job assistance program'
       ],
       emi: '₹6,250/month',
       scholarship: 'Up to 25% available'
@@ -282,7 +283,7 @@ const EnhancedCourseComparison = () => {
   return (
     <div style={{
       padding: '80px 20px',
-      background: 'linear-gradient(135deg, #fef3c7 0%, #fed7aa 50%, #ffedd5 100%)',
+      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f1f3f5 100%)',
       position: 'relative',
       overflow: 'hidden'
     }}>
@@ -310,7 +311,7 @@ const EnhancedCourseComparison = () => {
             fontWeight: '800',
             color: '#1f2937',
             marginBottom: '20px',
-            background: 'linear-gradient(135deg, #f97316, #fb923c)',
+            background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
@@ -642,7 +643,7 @@ const EnhancedCourseComparison = () => {
 
                 {/* Value Score */}
                 <div style={{
-                  background: 'linear-gradient(135deg, #fef3c7, #fed7aa)',
+                  background: 'linear-gradient(135deg, #f8f9fa, #e9ecef)',
                   padding: '15px',
                   borderRadius: '12px',
                   textAlign: 'center',
@@ -687,7 +688,7 @@ const EnhancedCourseComparison = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowComparison(true)}
                 style={{
-                  background: 'linear-gradient(135deg, #f97316, #fb923c)',
+                  background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                   color: 'white',
                   border: 'none',
                   padding: '15px 40px',

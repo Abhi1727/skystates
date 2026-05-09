@@ -204,8 +204,8 @@ const InteractiveLearningJourney = () => {
 
   return (
     <div style={{
-      padding: '60px 20px',
-      background: 'linear-gradient(135deg, #fef3c7 0%, #fed7aa 50%, #ffedd5 100%)',
+      padding: '25px 20px',
+      background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #e2e8f0 100%)',
       position: 'relative',
       overflow: 'hidden'
     }}>
@@ -217,7 +217,7 @@ const InteractiveLearningJourney = () => {
         right: 0,
         bottom: 0,
         opacity: 0.1,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f97316' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
       }} />
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
@@ -226,14 +226,14 @@ const InteractiveLearningJourney = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '50px' }}
+          style={{ textAlign: 'center', marginBottom: '30px' }}
         >
           <h2 style={{
             fontSize: '2.5rem',
             fontWeight: '800',
-            color: '#1f2937',
+            color: '#1e293b',
             marginBottom: '15px',
-            background: 'linear-gradient(135deg, #f97316, #fb923c)',
+            background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
@@ -242,7 +242,7 @@ const InteractiveLearningJourney = () => {
           </h2>
           <p style={{
             fontSize: '1.2rem',
-            color: '#6b7280',
+            color: '#64748b',
             maxWidth: '600px',
             margin: '0 auto'
           }}>
@@ -255,7 +255,7 @@ const InteractiveLearningJourney = () => {
           display: 'flex',
           justifyContent: 'center',
           gap: '15px',
-          marginBottom: '40px',
+          marginBottom: '20px',
           flexWrap: 'wrap'
         }}>
           {Object.keys(learningPaths).map(path => (
@@ -267,8 +267,8 @@ const InteractiveLearningJourney = () => {
               style={{
                 padding: '12px 24px',
                 background: selectedPath === path ? 
-                  'linear-gradient(135deg, #f97316, #fb923c)' : 'white',
-                color: selectedPath === path ? 'white' : '#374151',
+                  'linear-gradient(135deg, #3b82f6, #60a5fa)' : 'white',
+                color: selectedPath === path ? 'white' : '#1e293b',
                 border: selectedPath === path ? 'none' : '2px solid #e5e7eb',
                 borderRadius: '25px',
                 fontSize: '0.95rem',
@@ -276,7 +276,7 @@ const InteractiveLearningJourney = () => {
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 boxShadow: selectedPath === path ? 
-                  '0 8px 25px rgba(249, 115, 22, 0.3)' : '0 2px 10px rgba(0, 0, 0, 0.1)'
+                  '0 8px 25px rgba(59, 130, 246, 0.3)' : '0 2px 10px rgba(0, 0, 0, 0.1)'
               }}
             >
               {learningPaths[path].title}
@@ -292,41 +292,41 @@ const InteractiveLearningJourney = () => {
           style={{
             background: 'white',
             borderRadius: '20px',
-            padding: '30px',
-            marginBottom: '40px',
+            padding: '20px',
+            marginBottom: '20px',
             boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
           }}
         >
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '25px',
-            marginBottom: '25px'
+            gap: '16px',
+            marginBottom: '15px'
           }}>
             <div>
               <div style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '5px' }}>
                 <Clock size={16} style={{ display: 'inline', marginRight: '5px' }} />
                 Duration
               </div>
-              <div style={{ fontSize: '1.3rem', fontWeight: '700', color: '#1f2937' }}>
+              <div style={{ fontSize: '1.3rem', fontWeight: '700', color: '#1e293b' }}>
                 {currentPath.duration}
               </div>
             </div>
             <div>
-              <div style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '5px' }}>
+              <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '5px' }}>
                 <Target size={16} style={{ display: 'inline', marginRight: '5px' }} />
                 Difficulty
               </div>
-              <div style={{ fontSize: '1.3rem', fontWeight: '700', color: '#1f2937' }}>
+              <div style={{ fontSize: '1.3rem', fontWeight: '700', color: '#1e293b' }}>
                 {currentPath.difficulty}
               </div>
             </div>
             <div>
-              <div style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '5px' }}>
+              <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '5px' }}>
                 <TrendingUp size={16} style={{ display: 'inline', marginRight: '5px' }} />
                 Time Saved
               </div>
-              <div style={{ fontSize: '1.3rem', fontWeight: '700', color: '#10b981' }}>
+              <div style={{ fontSize: '1.3rem', fontWeight: '700', color: '#3b82f6' }}>
                 {calculateTimeSaved()}
               </div>
             </div>
@@ -335,7 +335,7 @@ const InteractiveLearningJourney = () => {
                 <Award size={16} style={{ display: 'inline', marginRight: '5px' }} />
                 Certificates
               </div>
-              <div style={{ fontSize: '1.3rem', fontWeight: '700', color: '#f59e0b' }}>
+              <div style={{ fontSize: '1.3rem', fontWeight: '700', color: '#60a5fa' }}>
                 {currentPath.milestones.length}
               </div>
             </div>
@@ -343,7 +343,7 @@ const InteractiveLearningJourney = () => {
 
           {/* Skills */}
           <div>
-            <div style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '10px' }}>
+            <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '10px' }}>
               <Star size={16} style={{ display: 'inline', marginRight: '5px' }} />
               Skills You'll Master
             </div>
@@ -352,8 +352,8 @@ const InteractiveLearningJourney = () => {
                 <span
                   key={skill}
                   style={{
-                    background: 'linear-gradient(135deg, #fef3c7, #fed7aa)',
-                    color: '#92400e',
+                    background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)',
+                    color: '#1e40af',
                     padding: '6px 12px',
                     borderRadius: '15px',
                     fontSize: '0.85rem',
@@ -386,7 +386,7 @@ const InteractiveLearningJourney = () => {
               transition={{ duration: 1, ease: "easeOut" }}
               style={{
                 height: '100%',
-                background: 'linear-gradient(90deg, #f97316, #fb923c)',
+                background: 'linear-gradient(90deg, #3b82f6, #60a5fa)',
                 borderRadius: '2px'
               }}
             />
@@ -431,7 +431,7 @@ const InteractiveLearningJourney = () => {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      margin: '0 auto 15px',
+                      margin: '0 auto 10px',
                       border: '4px solid white',
                       boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
                       position: 'relative'
@@ -448,7 +448,7 @@ const InteractiveLearningJourney = () => {
                       position: 'absolute',
                       top: '-8px',
                       right: '-8px',
-                      background: '#f97316',
+                      background: '#3b82f6',
                       color: 'white',
                       width: '24px',
                       height: '24px',
@@ -467,7 +467,7 @@ const InteractiveLearningJourney = () => {
                   <div style={{
                     fontSize: '0.9rem',
                     fontWeight: '700',
-                    color: '#1f2937',
+                    color: '#1e293b',
                     marginBottom: '5px',
                     maxWidth: '120px'
                   }}>
@@ -477,7 +477,7 @@ const InteractiveLearningJourney = () => {
                   {/* Milestone Duration */}
                   <div style={{
                     fontSize: '0.8rem',
-                    color: '#6b7280',
+                    color: '#64748b',
                     marginBottom: '8px'
                   }}>
                     {milestone.duration}
@@ -507,21 +507,21 @@ const InteractiveLearningJourney = () => {
                         <div style={{
                           fontSize: '0.85rem',
                           fontWeight: '600',
-                          color: '#1f2937',
+                          color: '#1e293b',
                           marginBottom: '8px'
                         }}>
                           {milestone.title}
                         </div>
                         <div style={{
                           fontSize: '0.8rem',
-                          color: '#6b7280',
+                          color: '#64748b',
                           marginBottom: '10px',
                           lineHeight: '1.4'
                         }}>
                           {milestone.description}
                         </div>
                         <div style={{ marginBottom: '10px' }}>
-                          <div style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '5px' }}>
+                          <div style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '5px' }}>
                             Skills:
                           </div>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
@@ -530,7 +530,7 @@ const InteractiveLearningJourney = () => {
                                 key={skill}
                                 style={{
                                   background: '#f3f4f6',
-                                  color: '#374151',
+                                  color: '#1e293b',
                                   padding: '2px 6px',
                                   borderRadius: '8px',
                                   fontSize: '0.7rem',
@@ -578,13 +578,13 @@ const InteractiveLearningJourney = () => {
         </div>
 
         {/* Call to Action */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           style={{
             textAlign: 'center',
-            marginTop: '50px'
+            marginTop: '30px'
           }}
         >
           <div style={{
@@ -596,14 +596,14 @@ const InteractiveLearningJourney = () => {
             <h3 style={{
               fontSize: '1.5rem',
               fontWeight: '700',
-              color: '#1f2937',
+              color: '#1e293b',
               marginBottom: '15px'
             }}>
               Start Your Journey Today
             </h3>
             <p style={{
               fontSize: '1rem',
-              color: '#6b7280',
+              color: '#64748b',
               marginBottom: '20px',
               maxWidth: '500px',
               margin: '0 auto 20px'
@@ -614,7 +614,7 @@ const InteractiveLearningJourney = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               style={{
-                background: 'linear-gradient(135deg, #f97316, #fb923c)',
+                background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
                 color: 'white',
                 border: 'none',
                 padding: '15px 40px',
@@ -622,7 +622,7 @@ const InteractiveLearningJourney = () => {
                 fontSize: '1rem',
                 fontWeight: '600',
                 cursor: 'pointer',
-                boxShadow: '0 8px 25px rgba(249, 115, 22, 0.3)',
+                boxShadow: '0 8px 25px rgba(59, 130, 246, 0.3)',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '10px'
@@ -632,7 +632,7 @@ const InteractiveLearningJourney = () => {
               Begin Learning Journey
             </motion.button>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </div>
   );

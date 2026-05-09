@@ -116,16 +116,10 @@ const About = () => {
 
   return (
 
-    <section className="about-section" style={{
-
-      background: 'linear-gradient(180deg, #1a1f36 0%, #2d3748 50%, #1a1f36 100%)',
-
-      padding: '100px 0',
-
+    <section className="about-section section-gradient-1" style={{
+      padding: '30px 0',
       position: 'relative',
-
       overflow: 'hidden'
-
     }}>
 
       {/* Background decoration */}
@@ -144,7 +138,7 @@ const About = () => {
 
         borderRadius: '50%',
 
-        background: 'radial-gradient(circle, rgba(102, 126, 234, 0.1), transparent)',
+        background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08), transparent)',
 
         zIndex: 0
 
@@ -166,7 +160,7 @@ const About = () => {
 
         borderRadius: '50%',
 
-        background: 'radial-gradient(circle, rgba(118, 75, 162, 0.08), transparent)',
+        background: 'radial-gradient(circle, rgba(59, 130, 246, 0.05), transparent)',
 
         zIndex: 0
 
@@ -191,7 +185,7 @@ const About = () => {
         {/* Hero Section */}
 
         <motion.div 
-          style={{ textAlign: 'center', marginBottom: '100px' }}
+          style={{ textAlign: 'center', marginBottom: '30px' }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -214,17 +208,15 @@ const About = () => {
           }}>
             At <span style={{
               fontWeight: '700',
-              color: '#ffffff',
-              background: 'rgba(255, 215, 0, 0.3)',
+              color: '#1e293b',
+              background: 'rgba(59, 130, 246, 0.1)',
               padding: '2px 8px',
               borderRadius: '6px',
-              textShadow: '0 0 10px rgba(255, 215, 0, 0.8)',
-              border: '1px solid rgba(255, 215, 0, 0.5)'
+              textShadow: '0 0 10px rgba(59, 130, 246, 0.3)',
+              border: '1px solid rgba(59, 130, 246, 0.3)'
             }}>Sky States,</span> we're committed to equipping ambitious professionals with cutting-edge skills and real-world experience to thrive in today's digital landscape.
           </p>
         </motion.div>
-
-
 
         {/* Stats Section */}
         <motion.div
@@ -234,9 +226,12 @@ const About = () => {
           viewport={{ once: true }}
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '24px',
-            marginBottom: '100px'
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '16px',
+            marginBottom: '30px',
+            '@media (min-width: 768px)': {
+              gridTemplateColumns: 'repeat(4, 1fr)'
+            }
           }}
         >
           {stats.map((stat, index) => (
@@ -260,7 +255,7 @@ const About = () => {
                 left: 0,
                 right: 0,
                 height: '4px',
-                background: 'linear-gradient(90deg, #ff6b35, #ffa500, #ffd700)',
+                background: 'linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6)',
                 opacity: 0.8
               }} />
               
@@ -269,16 +264,16 @@ const About = () => {
                 fontWeight: '900',
                 marginBottom: '8px',
                 lineHeight: 1,
-                color: '#ffd700',
-                textShadow: '0 4px 8px rgba(255, 215, 0, 0.8) 0 0 20px rgba(255, 215, 0, 0.5)',
-                filter: 'drop-shadow(0 0 15px rgba(255, 215, 0, 0.6))'
+                color: '#3b82f6',
+                textShadow: '0 4px 8px rgba(59, 130, 246, 0.3) 0 0 20px rgba(59, 130, 246, 0.2)',
+                filter: 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.4))'
               }}>
                 {stat.number}
               </div>
               
               <div style={{
                 fontSize: '1rem',
-                color: 'rgba(255, 255, 255, 0.9)',
+                color: '#64748b',
                 fontWeight: '600'
               }}>
                 {stat.label}
@@ -293,7 +288,7 @@ const About = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
         viewport={{ once: true }}
-        style={{ textAlign: 'center', marginBottom: '100px' }}
+        style={{ textAlign: 'center', marginBottom: '30px' }}
       >
         <motion.button
           className="btn-gradient-primary"

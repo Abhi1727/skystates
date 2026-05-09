@@ -292,21 +292,21 @@ const EnhancedTestimonials = () => {
 
   return (
     <div style={{
-      padding: '80px 20px',
-      background: 'linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)',
+      padding: '30px 20px',
+      background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%)',
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Background Pattern */}
-      <div style={{
+      {/* Background Pattern - COMMENTED OUT */}
+      {/* <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
         opacity: 0.1,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f97316' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-      }} />
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+      }} /> */}
 
       <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         {/* Header */}
@@ -314,14 +314,14 @@ const EnhancedTestimonials = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '60px' }}
+          style={{ textAlign: 'center', marginBottom: '40px' }}
         >
           <h2 style={{
             fontSize: '3rem',
             fontWeight: '800',
-            color: 'white',
+            color: '#1e293b',
             marginBottom: '20px',
-            background: 'linear-gradient(135deg, #f97316, #fb923c)',
+            background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
@@ -330,7 +330,7 @@ const EnhancedTestimonials = () => {
           </h2>
           <p style={{
             fontSize: '1.3rem',
-            color: '#e2e8f0',
+            color: '#64748b',
             maxWidth: '700px',
             margin: '0 auto',
             lineHeight: '1.6'
@@ -339,16 +339,16 @@ const EnhancedTestimonials = () => {
           </p>
         </motion.div>
 
-        {/* Success Stats */}
-        <motion.div
+        {/* Success Stats - COMMENTED OUT */}
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '25px',
-            marginBottom: '60px'
+            gap: '16px',
+            marginBottom: '40px'
           }}
         >
           {[
@@ -363,26 +363,26 @@ const EnhancedTestimonials = () => {
                 key={index}
                 whileHover={{ scale: 1.05 }}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
+                  background: 'rgba(255, 255, 255, 0.8)',
                   backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  border: '1px solid rgba(59, 130, 246, 0.2)',
                   borderRadius: '16px',
-                  padding: '25px',
+                  padding: '18px',
                   textAlign: 'center'
                 }}
               >
-                <IconComponent size={32} color="#f97316" style={{ marginBottom: '15px' }} />
+                <IconComponent size={32} color="#3b82f6" style={{ marginBottom: '15px' }} />
                 <div style={{
                   fontSize: '2.2rem',
                   fontWeight: '800',
-                  color: '#f97316',
+                  color: '#3b82f6',
                   marginBottom: '8px'
                 }}>
                   {stat.number}
                 </div>
                 <div style={{
                   fontSize: '0.95rem',
-                  color: '#e2e8f0',
+                  color: '#64748b',
                   fontWeight: '600'
                 }}>
                   {stat.label}
@@ -390,7 +390,7 @@ const EnhancedTestimonials = () => {
               </motion.div>
             );
           })}
-        </motion.div>
+        </motion.div> */}
 
         {/* Main Success Story */}
         <AnimatePresence mode="wait">
@@ -401,22 +401,22 @@ const EnhancedTestimonials = () => {
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.6 }}
             style={{
-              background: 'rgba(255, 255, 255, 0.05)',
+              background: 'rgba(255, 255, 255, 0.9)',
               backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              border: '1px solid rgba(59, 130, 246, 0.2)',
               borderRadius: '24px',
-              padding: '40px',
-              marginBottom: '40px'
+              padding: '25px',
+              marginBottom: '30px'
             }}
           >
             {/* Unified Before/After Card */}
             <motion.div
               whileHover={{ scale: 1.02 }}
               style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: 'rgba(255, 255, 255, 0.9)',
+                border: '1px solid rgba(59, 130, 246, 0.2)',
                 borderRadius: '20px',
-                padding: '40px',
+                padding: '25px',
                 position: 'relative'
               }}
             >
@@ -428,7 +428,7 @@ const EnhancedTestimonials = () => {
                 <h3 style={{
                   fontSize: '1.8rem',
                   fontWeight: '700',
-                  color: 'white',
+                  color: '#1e293b',
                   marginBottom: '10px'
                 }}>
                   {currentStory.name}'s Career Transformation
@@ -439,7 +439,7 @@ const EnhancedTestimonials = () => {
                   alignItems: 'center',
                   gap: '30px',
                   fontSize: '0.9rem',
-                  color: '#e2e8f0'
+                  color: '#64748b'
                 }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                     <MapPin size={16} />
@@ -464,10 +464,10 @@ const EnhancedTestimonials = () => {
               }}>
                 {/* Before Section */}
                 <div style={{
-                  background: 'rgba(239, 68, 68, 0.1)',
-                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  background: 'rgba(239, 68, 68, 0.05)',
+                  border: '1px solid rgba(239, 68, 68, 0.2)',
                   borderRadius: '16px',
-                  padding: '25px',
+                  padding: '18px',
                   position: 'relative'
                 }}>
                   <div style={{
@@ -509,14 +509,14 @@ const EnhancedTestimonials = () => {
                       <h4 style={{
                         fontSize: '1.1rem',
                         fontWeight: '700',
-                        color: 'white',
+                        color: '#1e293b',
                         marginBottom: '3px'
                       }}>
                         {currentStory.before.role}
                       </h4>
                       <p style={{
                         fontSize: '0.85rem',
-                        color: '#9ca3af',
+                        color: '#64748b',
                         marginBottom: '5px'
                       }}>
                         {currentStory.before.company}
@@ -540,7 +540,7 @@ const EnhancedTestimonials = () => {
                   <Quote size={16} color="#ef4444" style={{ marginBottom: '10px', opacity: 0.7 }} />
                   <p style={{
                     fontSize: '0.85rem',
-                    color: '#e2e8f0',
+                    color: '#64748b',
                     lineHeight: '1.5',
                     fontStyle: 'italic'
                   }}>
@@ -554,7 +554,7 @@ const EnhancedTestimonials = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '2rem',
-                  color: '#f97316',
+                  color: '#3b82f6',
                   fontWeight: 'bold'
                 }}>
                   →
@@ -562,10 +562,10 @@ const EnhancedTestimonials = () => {
 
                 {/* After Section */}
                 <div style={{
-                  background: 'rgba(16, 185, 129, 0.1)',
-                  border: '1px solid rgba(16, 185, 129, 0.3)',
+                  background: 'rgba(16, 185, 129, 0.05)',
+                  border: '1px solid rgba(16, 185, 129, 0.2)',
                   borderRadius: '16px',
-                  padding: '25px',
+                  padding: '18px',
                   position: 'relative'
                 }}>
                   <div style={{
@@ -607,14 +607,14 @@ const EnhancedTestimonials = () => {
                       <h4 style={{
                         fontSize: '1.1rem',
                         fontWeight: '700',
-                        color: 'white',
+                        color: '#1e293b',
                         marginBottom: '3px'
                       }}>
                         {currentStory.after.role}
                       </h4>
                       <p style={{
                         fontSize: '0.85rem',
-                        color: '#9ca3af',
+                        color: '#64748b',
                         marginBottom: '5px'
                       }}>
                         {currentStory.after.company}
@@ -638,7 +638,7 @@ const EnhancedTestimonials = () => {
                   <Quote size={16} color="#10b981" style={{ marginBottom: '10px', opacity: 0.7 }} />
                   <p style={{
                     fontSize: '0.85rem',
-                    color: '#e2e8f0',
+                    color: '#64748b',
                     lineHeight: '1.5',
                     fontStyle: 'italic'
                   }}>
@@ -649,10 +649,10 @@ const EnhancedTestimonials = () => {
 
               {/* Achievement & Skills Section */}
               <div style={{
-                marginTop: '30px',
+                marginTop: '20px',
                 padding: '20px',
-                background: 'rgba(249, 115, 22, 0.1)',
-                border: '1px solid rgba(249, 115, 22, 0.3)',
+                background: 'rgba(59, 130, 246, 0.05)',
+                border: '1px solid rgba(59, 130, 246, 0.2)',
                 borderRadius: '16px',
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -662,7 +662,7 @@ const EnhancedTestimonials = () => {
                 <div style={{ flex: 1 }}>
                   <div style={{
                     fontSize: '0.85rem',
-                    color: '#9ca3af',
+                    color: '#64748b',
                     marginBottom: '8px'
                   }}>
                     Key Skills Acquired:
@@ -672,8 +672,8 @@ const EnhancedTestimonials = () => {
                       <span
                         key={skill}
                         style={{
-                          background: 'rgba(249, 115, 22, 0.2)',
-                          color: '#fed7aa',
+                          background: 'rgba(59, 130, 246, 0.1)',
+                          color: '#1e40af',
                           padding: '3px 10px',
                           borderRadius: '10px',
                           fontSize: '0.75rem',
@@ -695,14 +695,14 @@ const EnhancedTestimonials = () => {
                     <div style={{
                       fontSize: '1.5rem',
                       fontWeight: '800',
-                      color: '#f97316',
+                      color: '#3b82f6',
                       marginBottom: '2px'
                     }}>
                       {calculateSalaryIncrease(currentStory.before.salary, currentStory.after.salary)}
                     </div>
                     <div style={{
                       fontSize: '0.75rem',
-                      color: '#e2e8f0',
+                      color: '#64748b',
                       fontWeight: '600'
                     }}>
                       Salary Increase
@@ -714,14 +714,14 @@ const EnhancedTestimonials = () => {
                     alignItems: 'center',
                     gap: '8px',
                     padding: '8px 16px',
-                    background: 'rgba(251, 146, 60, 0.2)',
+                    background: 'rgba(59, 130, 246, 0.2)',
                     borderRadius: '20px',
-                    border: '1px solid rgba(251, 146, 60, 0.4)'
+                    border: '1px solid rgba(59, 130, 246, 0.4)'
                   }}>
-                    <Award size={16} color="#fb923c" />
+                    <Award size={16} color="#3b82f6" />
                     <span style={{
                       fontSize: '0.8rem',
-                      color: '#fed7aa',
+                      color: '#1e40af',
                       fontWeight: '600'
                     }}>
                       {currentStory.achievement}
@@ -746,9 +746,9 @@ const EnhancedTestimonials = () => {
               width: '50px',
               height: '50px',
               borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.1)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              color: 'white',
+              background: 'rgba(255, 255, 255, 0.8)',
+              border: '1px solid rgba(59, 130, 246, 0.2)',
+              color: '#1e293b',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -756,12 +756,12 @@ const EnhancedTestimonials = () => {
               transition: 'all 0.3s ease'
             }}
             onMouseEnter={(e) => {
-              e.target.style.background = 'rgba(249, 115, 22, 0.3)';
-              e.target.style.borderColor = '#f97316';
+              e.target.style.background = 'rgba(59, 130, 246, 0.2)';
+              e.target.style.borderColor = '#3b82f6';
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = 'rgba(255, 255, 255, 0.1)';
-              e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+              e.target.style.background = 'rgba(255, 255, 255, 0.8)';
+              e.target.style.borderColor = 'rgba(59, 130, 246, 0.2)';
             }}
           >
             <ChevronLeft size={24} />
@@ -780,7 +780,7 @@ const EnhancedTestimonials = () => {
                   height: '10px',
                   borderRadius: '50%',
                   border: 'none',
-                  background: index === currentIndex ? '#f97316' : 'rgba(255, 255, 255, 0.3)',
+                  background: index === currentIndex ? '#3b82f6' : 'rgba(59, 130, 246, 0.3)',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease'
                 }}
@@ -824,12 +824,12 @@ const EnhancedTestimonials = () => {
                 transition: 'all 0.3s ease'
               }}
               onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(249, 115, 22, 0.3)';
-                e.target.style.borderColor = '#f97316';
+                e.target.style.background = 'rgba(59, 130, 246, 0.2)';
+                e.target.style.borderColor = '#3b82f6';
               }}
               onMouseLeave={(e) => {
-                e.target.style.background = 'rgba(255, 255, 255, 0.1)';
-                e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                e.target.style.background = 'rgba(255, 255, 255, 0.8)';
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.2)';
               }}
             >
               <ChevronRight size={24} />
@@ -857,12 +857,12 @@ const EnhancedTestimonials = () => {
                 transition: 'all 0.3s ease'
               }}
               onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(249, 115, 22, 0.1)';
-                e.target.style.borderColor = 'rgba(249, 115, 22, 0.3)';
+                e.target.style.background = 'rgba(59, 130, 246, 0.1)';
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.3)';
               }}
               onMouseLeave={(e) => {
-                e.target.style.background = 'rgba(255, 255, 255, 0.05)';
-                e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                e.target.style.background = 'rgba(255, 255, 255, 0.8)';
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.2)';
               }}
             >
               <div style={{
@@ -888,14 +888,14 @@ const EnhancedTestimonials = () => {
                   <h4 style={{
                     fontSize: '1rem',
                     fontWeight: '600',
-                    color: 'white',
+                    color: '#1e293b',
                     marginBottom: '3px'
                   }}>
                     {story.name}
                   </h4>
                   <p style={{
                     fontSize: '0.85rem',
-                    color: '#9ca3af'
+                    color: '#64748b'
                   }}>
                     {story.after.role}
                   </p>
@@ -903,7 +903,7 @@ const EnhancedTestimonials = () => {
               </div>
               <div style={{
                 fontSize: '0.9rem',
-                color: '#10b981',
+                color: '#3b82f6',
                 fontWeight: '600',
                 marginBottom: '8px'
               }}>
@@ -911,7 +911,7 @@ const EnhancedTestimonials = () => {
               </div>
               <div style={{
                 fontSize: '0.8rem',
-                color: '#6b7280'
+                color: '#64748b'
               }}>
                 {story.course}
               </div>

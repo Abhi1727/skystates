@@ -128,7 +128,7 @@ const DataScienceAI = () => {
               }}>
                 {[
                   { icon: '🎓', text: 'Microsoft Certified' },
-                  { icon: '💼', text: '100% Job Guarantee' },
+                  { icon: '💼', text: '100% Job Assistance' },
                   { icon: '⏰', text: '6 Months Program' }
                 ].map((item, index) => (
                   <motion.div
@@ -1089,7 +1089,8 @@ const DataScienceAI = () => {
                 <p style={{ color: '#666', marginBottom: '15px' }}>
                   Registration Fee
                 </p>
-                <button 
+                {/* Register Now button commented out to disable registration functionality */}
+                {/* <button 
                   onClick={() => {
                     // Redirect to checkout with registration data
                     navigate('/checkout', { 
@@ -1115,7 +1116,7 @@ const DataScienceAI = () => {
                     transition: 'background 0.3s'
                   }}>
                   Register Now
-                </button>
+                </button> */}
               </div>
             </div>
             

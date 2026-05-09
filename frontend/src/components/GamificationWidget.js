@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import './HomepageTheme.css';
 
 const GamificationWidget = () => {
   const [points, setPoints] = useState(0);
@@ -9,6 +10,7 @@ const GamificationWidget = () => {
   const [currentReward, setCurrentReward] = useState(null);
   const [streak, setStreak] = useState(0);
   const [lastVisit, setLastVisit] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const achievementBadges = [
     { id: 1, name: 'Explorer', icon: '🔍', description: 'Visited 3 course pages', points: 50, condition: 'courses_visited', target: 3 },
@@ -54,7 +56,16 @@ const GamificationWidget = () => {
       }
       setLastVisit(today);
     }
-  }, []);
+
+    // Detect mobile screen size
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 380);
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [lastVisit]);
 
   useEffect(() => {
     // Save progress
@@ -156,16 +167,19 @@ const GamificationWidget = () => {
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
         style={{
           position: 'fixed',
-          top: '50%',
-          right: '20px',
-          transform: 'translateY(-50%)',
+          top: isMobile ? 'auto' : '50%',
+          bottom: isMobile ? '20px' : 'auto',
+          right: isMobile ? '50%' : '20px',
+          transform: isMobile ? 'translateX(50%)' : 'translateY(-50%)',
           background: 'white',
           borderRadius: '20px',
-          padding: '20px',
+          padding: window.innerWidth <= 480 ? '12px' : window.innerWidth <= 768 ? '15px' : '20px',
           boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-          zIndex: 900,
-          width: '280px',
-          border: '2px solid #e0e0e0'
+          zIndex: 1000,
+          width: window.innerWidth <= 380 ? 'calc(100vw - 40px)' : window.innerWidth <= 480 ? '240px' : window.innerWidth <= 768 ? '260px' : '280px',
+          maxWidth: '90vw',
+          border: '2px solid #e0e0e0',
+          transition: 'all 0.3s ease'
         }}
       >
         {/* Header */}
@@ -176,7 +190,7 @@ const GamificationWidget = () => {
           
           {/* Level & Points */}
           <div style={{
-            background: 'linear-gradient(135deg, #667eea, #764ba2)',
+            background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
             color: 'white',
             padding: '15px',
             borderRadius: '15px',
@@ -242,6 +256,11 @@ const GamificationWidget = () => {
                     key={achievementId}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
+                    whileHover={{ 
+                      scale: 1.02, 
+                      boxShadow: '0 5px 15px rgba(0, 0, 0, 0.1)',
+                      transition: { duration: 0.2 }
+                    }}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
@@ -249,7 +268,9 @@ const GamificationWidget = () => {
                       padding: '8px',
                       background: '#f8f9fa',
                       borderRadius: '8px',
-                      marginBottom: '8px'
+                      marginBottom: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease'
                     }}
                   >
                     <span style={{ fontSize: '1.2rem' }}>{achievement.icon}</span>
@@ -281,7 +302,11 @@ const GamificationWidget = () => {
             {rewards.map(reward => (
               <motion.div
                 key={reward.id}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ 
+                  scale: points >= reward.pointsRequired ? 1.02 : 1,
+                  boxShadow: points >= reward.pointsRequired ? '0 5px 15px rgba(40, 167, 69, 0.3)' : '0 2px 8px rgba(0, 0, 0, 0.1)',
+                  transition: { duration: 0.2 }
+                }}
                 onClick={() => redeemReward(reward)}
                 style={{
                   display: 'flex',
@@ -292,7 +317,8 @@ const GamificationWidget = () => {
                   borderRadius: '8px',
                   marginBottom: '8px',
                   cursor: points >= reward.pointsRequired ? 'pointer' : 'not-allowed',
-                  border: points >= reward.pointsRequired ? '1px solid #28a745' : '1px solid #e0e0e0'
+                  border: points >= reward.pointsRequired ? '1px solid #28a745' : '1px solid #e0e0e0',
+                  transition: 'all 0.3s ease'
                 }}
               >
                 <span style={{ fontSize: '1.2rem' }}>{reward.icon}</span>
@@ -317,8 +343,17 @@ const GamificationWidget = () => {
         </div>
 
         {/* Action Button */}
-        <button
+        <motion.button
           onClick={() => trackUserAction('page_scroll')}
+          whileHover={{ 
+            scale: 1.02,
+            boxShadow: '0 5px 15px rgba(102, 126, 234, 0.4)',
+            transition: { duration: 0.2 }
+          }}
+          whileTap={{ 
+            scale: 0.98,
+            transition: { duration: 0.1 }
+          }}
           style={{
             width: '100%',
             background: 'linear-gradient(135deg, #667eea, #764ba2)',
@@ -329,11 +364,12 @@ const GamificationWidget = () => {
             fontSize: '0.9rem',
             fontWeight: '600',
             cursor: 'pointer',
-            marginTop: '15px'
+            marginTop: '15px',
+            transition: 'all 0.3s ease'
           }}
         >
           🎯 Earn More Points
-        </button>
+        </motion.button>
       </motion.div>
 
       {/* Reward Notifications */}
@@ -346,15 +382,18 @@ const GamificationWidget = () => {
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             style={{
               position: 'fixed',
-              top: '20px',
-              right: '20px',
+              top: window.innerWidth <= 480 ? '10px' : '20px',
+              right: window.innerWidth <= 480 ? '10px' : '20px',
+              left: window.innerWidth <= 480 ? '10px' : 'auto',
               background: 'white',
               borderRadius: '15px',
-              padding: '20px',
+              padding: window.innerWidth <= 480 ? '15px' : '20px',
               boxShadow: '0 15px 40px rgba(0, 0, 0, 0.2)',
-              zIndex: 1000,
-              minWidth: '300px',
-              border: '2px solid #28a745'
+              zIndex: 1100,
+              minWidth: window.innerWidth <= 480 ? 'auto' : '300px',
+              maxWidth: 'calc(100vw - 40px)',
+              border: '2px solid #28a745',
+              transition: 'all 0.3s ease'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>

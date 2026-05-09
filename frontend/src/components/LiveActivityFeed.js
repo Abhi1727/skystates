@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, TrendingUp, Award, Clock, MapPin } from 'lucide-react';
+import './HomepageTheme.css';
 
 const LiveActivityFeed = () => {
   const [activities, setActivities] = useState([]);
@@ -114,7 +115,7 @@ const LiveActivityFeed = () => {
         >
           {/* Header */}
           <div style={{
-            background: 'linear-gradient(135deg, #f97316, #fb923c)',
+            background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
             color: 'white',
             padding: '15px 20px',
             display: 'flex',

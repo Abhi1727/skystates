@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import './HomepageTheme.css';
 
 const PopularCertificates = () => {
   const containerRef = useRef(null);
@@ -53,14 +54,13 @@ const PopularCertificates = () => {
   ];
 
   return (
-    <section ref={containerRef} className="popular-certificates" style={{
-      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-      padding: '100px 0',
+    <section ref={containerRef} className="popular-certificates section-gradient-2" style={{
+      padding: '35px 0',
       position: 'relative',
       overflow: 'hidden'
     }}>
       {/* Background Pattern */}
-      <div style={{
+      {/*<div style={{
         position: 'absolute',
         top: 0,
         left: 0,
@@ -68,7 +68,7 @@ const PopularCertificates = () => {
         bottom: 0,
         backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23667eea' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         opacity: 0.5
-      }} />
+      }} />*/}
 
       <div className="container">
         {/* Section Header */}
@@ -76,7 +76,7 @@ const PopularCertificates = () => {
           className="section-header"
           style={{ 
             textAlign: 'center', 
-            marginBottom: '80px',
+            marginBottom: '40px',
             position: 'relative',
             zIndex: 2
           }}
@@ -141,7 +141,7 @@ const PopularCertificates = () => {
               maxWidth: '600px',
               margin: '0 auto',
               lineHeight: '1.6',
-              marginBottom: '40px'
+              marginBottom: '20px'
             }}
           >
             Advance your career with industry-recognized professional certificates from Microsoft. 
@@ -161,23 +161,19 @@ const PopularCertificates = () => {
         {/* Certificate Cards Grid */}
         <div className="certificates-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
-          gap: '40px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '24px',
           marginBottom: '60px'
         }}>
           {certificates.map((certificate, index) => (
             <div
               key={certificate.id}
-              className="certificate-card"
+              className="certificate-card glass-card-premium"
               style={{
-                background: 'white',
-                borderRadius: '20px',
                 overflow: 'hidden',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer',
-                position: 'relative',
-                border: '1px solid rgba(0, 0, 0, 0.05)'
+                position: 'relative'
               }}
             >
               <Link 
@@ -190,9 +186,9 @@ const PopularCertificates = () => {
               >
                 {/* Certificate Header */}
                 <div style={{
-                  background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)',
-                  padding: '20px',
-                  borderBottom: '1px solid rgba(102, 126, 234, 0.1)'
+                  background: 'rgba(59, 130, 246, 0.05)',
+                  padding: '18px',
+                  borderBottom: '1px solid rgba(59, 130, 246, 0.1)'
                 }}>
                   <div style={{
                     display: 'flex',
@@ -209,7 +205,7 @@ const PopularCertificates = () => {
                         width: '12px',
                         height: '12px',
                         borderRadius: '50%',
-                        background: '#667eea',
+                        background: '#3b82f6',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -239,19 +235,19 @@ const PopularCertificates = () => {
                       }}>
                         ⭐ {certificate.rating}
                       </span>
-                      <span style={{
+                      {/*<span style={{
                         fontSize: '0.8rem',
                         color: '#6c757d'
                       }}>
                         ({certificate.students} students)
-                      </span>
+                      </span>*/}
                     </div>
                   </div>
                 </div>
 
                 {/* Certificate Image */}
                 <div style={{
-                  height: '220px',
+                  height: '160px',
                   overflow: 'hidden',
                   position: 'relative',
                   background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'
@@ -265,25 +261,24 @@ const PopularCertificates = () => {
                       left: '50%',
                       transform: 'translate(-50%, -50%)',
                       width: '100%',
-                      height: 'auto',
-                      maxHeight: '100%',
-                      objectFit: 'cover',
+                      height: '100%',
+                      objectFit: 'contain',
                       transition: 'transform 0.3s ease'
                     }}
                   />
                 </div>
 
                 {/* Certificate Content */}
-                <div style={{ padding: '25px' }}>
+                <div style={{ padding: '18px' }}>
                   {/* Partner Logo */}
                   <div style={{
                     display: 'flex',
                     justifyContent: 'center',
-                    marginBottom: '20px'
+                    marginBottom: '15px'
                   }}>
                     <div style={{
                       background: 'rgba(255, 255, 255, 0.8)',
-                      padding: '10px 20px',
+                      padding: '8px 16px',
                       borderRadius: '12px',
                       border: '1px solid rgba(102, 126, 234, 0.1)',
                       display: 'inline-flex',
@@ -311,7 +306,7 @@ const PopularCertificates = () => {
 
                   {/* Certificate Title */}
                   <h3 style={{
-                    fontSize: '1.6rem',
+                    fontSize: '1.4rem',
                     fontWeight: '700',
                     color: '#1a1a2e',
                     marginBottom: '15px',
@@ -323,10 +318,10 @@ const PopularCertificates = () => {
 
                   {/* Description */}
                   <p style={{
-                    fontSize: '1rem',
+                    fontSize: '0.9rem',
                     color: '#4a5568',
                     lineHeight: '1.6',
-                    marginBottom: '20px',
+                    marginBottom: '15px',
                     textAlign: 'center'
                   }}>
                     {certificate.description}
@@ -337,27 +332,27 @@ const PopularCertificates = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     gap: '20px',
-                    marginBottom: '20px'
+                    marginBottom: '15px'
                   }}>
                     <div style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '8px',
                       background: 'rgba(102, 126, 234, 0.1)',
-                      padding: '8px 16px',
+                      padding: '6px 12px',
                       borderRadius: '20px'
                     }}>
                       <span style={{ fontSize: '1.2rem' }}>⏱</span>
                       <div>
                         <div style={{
-                          fontSize: '0.9rem',
+                          fontSize: '0.8rem',
                           fontWeight: '600',
                           color: '#2d3748'
                         }}>
                           {certificate.duration}
                         </div>
                         <div style={{
-                          fontSize: '0.8rem',
+                          fontSize: '0.75rem',
                           color: '#6c757d'
                         }}>
                           {certificate.level} Level
@@ -372,7 +367,7 @@ const PopularCertificates = () => {
                     flexWrap: 'wrap',
                     gap: '10px',
                     justifyContent: 'center',
-                    marginBottom: '20px'
+                    marginBottom: '15px'
                   }}>
                     {certificate.highlights.map((highlight, idx) => (
                       <div
@@ -380,9 +375,9 @@ const PopularCertificates = () => {
                         style={{
                           background: 'rgba(102, 126, 234, 0.08)',
                           color: '#667eea',
-                          padding: '6px 12px',
-                          borderRadius: '15px',
-                          fontSize: '0.85rem',
+                          padding: '4px 10px',
+                          borderRadius: '12px',
+                          fontSize: '0.75rem',
                           fontWeight: '500',
                           border: '1px solid rgba(102, 126, 234, 0.15)'
                         }}
