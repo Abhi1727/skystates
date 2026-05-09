@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../contexts/CartContext';
+import { useDirectCheckout } from '../contexts/DirectCheckoutContext';
+import useSilentScheduledCounter from '../hooks/useSilentScheduledCounter';
 import LogoCarousel from './LogoCarousel';
 import FloatingRegisterButton from './FloatingRegisterButton';
 import BatchCountdownTimer from './BatchCountdownTimer';
@@ -13,7 +14,7 @@ import './HomepageTheme.css';
 
 const DataScienceAIShortTerm = () => {
   const navigate = useNavigate();
-  const { addToCart, isInCart } = useCart();
+  const { setProgram, isCurrentProgram } = useDirectCheckout();
   const [isHovered, setIsHovered] = useState(false);
   const [activeModule, setActiveModule] = useState(null);
   const [countdown, setCountdown] = useState({ days: 15, hours: 12, minutes: 45, seconds: 30 });
@@ -21,8 +22,17 @@ const DataScienceAIShortTerm = () => {
   const [skillLevel, setSkillLevel] = useState('beginner');
   const [progress, setProgress] = useState(0);
   const [mentorOnline, setMentorOnline] = useState(true);
+  
+  // Use silent scheduled counter for students (updates daily at 6 PM IST)
+  const { counter: students, isAnimating } = useSilentScheduledCounter(
+    'dataScienceAI_shortTerm',
+    5000, // Base value
+    2,    // Min increment (short-term program)
+    4     // Max increment (short-term program)
+  );
+  
   const [stats, setStats] = useState({
-    students: 0,
+    students: students,
     placement: 0,
     salary: 0,
     completionTime: 0
@@ -35,7 +45,12 @@ const DataScienceAIShortTerm = () => {
     type: 'short_program'
   };
 
-  // Animated counter effect
+  // Sync stats state with dynamic student counter
+  useEffect(() => {
+    setStats(prev => ({ ...prev, students }));
+  }, [students]);
+
+  // Animated counter effect for other stats
   useEffect(() => {
     const animateCounter = (target, duration, callback) => {
       let start = 0;
@@ -51,7 +66,6 @@ const DataScienceAIShortTerm = () => {
       }, 16);
     };
 
-    animateCounter(5000, 2000, (val) => setStats(prev => ({ ...prev, students: val })));
     animateCounter(95, 1500, (val) => setStats(prev => ({ ...prev, placement: val })));
     animateCounter(150, 1800, (val) => setStats(prev => ({ ...prev, salary: val })));
     animateCounter(4, 1200, (val) => setStats(prev => ({ ...prev, completionTime: val })));
@@ -575,8 +589,8 @@ const DataScienceAIShortTerm = () => {
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    const added = addToCart(programData);
-                    if (added) navigate('/checkout');
+                    const set = setProgram(programData);
+                    if (set) navigate('/checkout');
                   }}
                   style={{
                     background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
@@ -623,13 +637,13 @@ const DataScienceAIShortTerm = () => {
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    const added = addToCart({
+                    const set = setProgram({
                       name: 'Registration fee for Data Science and AI Short Term Program',
                       price: '499.00',
                       duration: '4 Months',
                       type: 'registration'
                     });
-                    if (added) navigate('/checkout');
+                    if (set) navigate('/checkout');
                   }}
                   style={{
                     background: '#007bff',
@@ -1934,8 +1948,8 @@ const DataScienceAIShortTerm = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => {
-                      const added = addToCart(programData);
-                      if (added) {
+                      const set = setProgram(programData);
+                      if (set) {
                         // Show success notification without redirecting
                         const notification = document.createElement('div');
                         notification.style.cssText = `

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useCart } from '../contexts/CartContext';
+import { useDirectCheckout } from '../contexts/DirectCheckoutContext';
 import { PAY_NOW_LINKS } from '../config';
 import './Header.css';
 
@@ -9,10 +9,11 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [showCart, setShowCart] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
-  const { cartItems, cartCount, removeFromCart, getCartTotal, addToCart } = useCart();
+  const [dropdownPosition, setDropdownPosition] = useState({ right: 0, left: 'auto' });
+  const registerDropdownRef = useRef(null);
+  const { setProgram } = useDirectCheckout();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -61,8 +62,8 @@ const Header = () => {
       duration: duration || '6 Months',
       type: 'full_program'
     };
-    const added = addToCart(programInfo);
-    if (added) navigate('/checkout');
+    const set = setProgram(programInfo);
+    if (set) navigate('/checkout');
   };
 
   // 6 registration options: left = program $99, right = one-to-one $499
@@ -77,9 +78,57 @@ const Header = () => {
     { name: 'Registration fee for DevOps and Cloud Computing Short Term Program', price: '499.00', duration: 'Short Term', type: 'registration' },
   ];
   const handleRegisterOption = (item) => {
-    const added = addToCart(item);
-    if (added) navigate('/checkout');
+    const set = setProgram(item);
+    if (set) navigate('/checkout');
   };
+
+  // Calculate dropdown position to prevent cutoff
+  const calculateDropdownPosition = () => {
+    const windowWidth = window.innerWidth;
+    const isMobile = windowWidth <= 768;
+    const isTablet = windowWidth > 768 && windowWidth <= 1024;
+    
+    if (isMobile) {
+      return { right: '-10px', left: 'auto' };
+    } else if (isTablet) {
+      return { right: '-20px', left: 'auto' };
+    } else {
+      return { right: 0, left: 'auto' };
+    }
+  };
+
+  // Update dropdown position on hover
+  React.useEffect(() => {
+    if (activeDropdown === 'register') {
+      setDropdownPosition(calculateDropdownPosition());
+    }
+  }, [activeDropdown]);
+
+  // Handle window resize to update dropdown position
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (activeDropdown === 'register') {
+        setDropdownPosition(calculateDropdownPosition());
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [activeDropdown]);
+
+  // Handle click outside to close dropdown
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (activeDropdown === 'register' && registerDropdownRef.current) {
+        if (!registerDropdownRef.current.contains(event.target)) {
+          setActiveDropdown(null);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [activeDropdown]);
 
   console.log('Header rendering, current path:', location.pathname);
 
@@ -127,8 +176,7 @@ const Header = () => {
           justifyContent: 'space-between',
           alignItems: 'center',
           position: 'relative',
-          zIndex: 2,
-          minHeight: '35px'
+          zIndex: 2
         }}>
           {/* Enhanced Brand - 10% Width */}
           <motion.div 
@@ -142,7 +190,7 @@ const Header = () => {
               minWidth: '120px'
             }}
           >
-            <h1 style={{ margin: 0, padding: '7px 0' }}>
+            <h1 style={{ margin: 0, padding: '4px 0' }}>
               <motion.div
                 initial={{ rotateY: 0 }}
                 animate={{ 
@@ -173,7 +221,7 @@ const Header = () => {
                   style={{
                     color: location.pathname === '/' ? 'var(--nav-primary)' : 'var(--nav-text-primary)',
                     textDecoration: 'none',
-                    fontSize: '28px',
+                    fontSize: '20px',
                     fontWeight: '800',
                     letterSpacing: '0.5px',
                     textShadow: '0 2px 8px rgba(0,0,0,0.1)',
@@ -284,7 +332,7 @@ const Header = () => {
                   style={{
                     color: location.pathname === '/jobs' ? 'var(--nav-primary)' : 'var(--nav-text-primary)',
                     textDecoration: 'none',
-                    padding: '6px 8px',
+                    padding: '4px 8px',
                     borderRadius: '16px',
                     display: 'block',
                     fontWeight: '600',
@@ -296,7 +344,7 @@ const Header = () => {
                     WebkitBackdropFilter: 'blur(10px)',
                     transformStyle: 'preserve-3d',
                     textShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                    fontSize: '15px'
+                    fontSize: '18px'
                   }}
                   onFocus={(e) => {
                     e.target.style.outline = '2px solid var(--nav-primary)';
@@ -350,7 +398,7 @@ const Header = () => {
                   style={{
                     color: 'var(--nav-text-primary)',
                     textDecoration: 'none',
-                    padding: '6px 8px',
+                    padding: '4px 8px',
                     borderRadius: '16px',
                     display: 'flex',
                     alignItems: 'center',
@@ -363,7 +411,7 @@ const Header = () => {
                     WebkitBackdropFilter: 'blur(10px)',
                     transformStyle: 'preserve-3d',
                     textShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                    fontSize: '15px'
+                    fontSize: '18px'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.background = 'linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)';
@@ -517,7 +565,7 @@ const Header = () => {
                   style={{
                     color: 'var(--nav-text-primary)',
                     textDecoration: 'none',
-                    padding: '6px 8px',
+                    padding: '4px 8px',
                     borderRadius: '16px',
                     display: 'flex',
                     alignItems: 'center',
@@ -530,7 +578,7 @@ const Header = () => {
                     WebkitBackdropFilter: 'blur(10px)',
                     transformStyle: 'preserve-3d',
                     textShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                    fontSize: '15px'
+                    fontSize: '18px'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.background = 'linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)';
@@ -658,12 +706,17 @@ const Header = () => {
 
             {/* Register now – dropdown: left 3 program $99, right 3 one-to-one $499 */}
             <motion.li
+              ref={registerDropdownRef}
               className="dropdown"
               whileHover={{ y: -2 }}
               transition={{ duration: 0.2 }}
               onHoverStart={() => setActiveDropdown('register')}
               onHoverEnd={() => setActiveDropdown(null)}
-              style={{ position: 'relative' }}
+              style={{ 
+                position: 'relative',
+                overflow: 'visible',
+                zIndex: 99998
+              }}
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -674,7 +727,7 @@ const Header = () => {
                   style={{
                     color: 'var(--nav-text-primary)',
                     textDecoration: 'none',
-                    padding: '6px 8px',
+                    padding: '4px 8px',
                     borderRadius: '16px',
                     display: 'flex',
                     alignItems: 'center',
@@ -687,7 +740,7 @@ const Header = () => {
                     WebkitBackdropFilter: 'blur(10px)',
                     transformStyle: 'preserve-3d',
                     textShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                    fontSize: '15px'
+                    fontSize: '18px'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.background = 'linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)';
@@ -732,25 +785,31 @@ const Header = () => {
                     style={{
                       position: 'absolute',
                       top: '100%',
-                      right: 0,
+                      right: dropdownPosition.right,
+                      left: dropdownPosition.left,
                       marginTop: '4px',
                       background: 'rgba(255, 255, 255, 0.98)',
                       backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
                       borderRadius: '12px',
                       padding: '16px 12px',
                       width: '420px',
                       maxWidth: '90vw',
-                      boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-                      border: '1px solid rgba(59, 130, 246, 0.2)',
+                      minWidth: '320px',
+                      boxShadow: '0 20px 50px rgba(0,0,0,0.15), 0 8px 20px rgba(59, 130, 246, 0.1)',
+                      border: '1px solid rgba(59, 130, 246, 0.3)',
                       listStyle: 'none',
                       margin: 0,
-                      zIndex: 9999,
+                      zIndex: 99999,
                       display: 'grid',
                       gridTemplateColumns: '1fr 1fr',
-                      gap: '20px 24px'
+                      gap: '20px 24px',
+                      transform: 'translateZ(0)',
+                      willChange: 'transform',
+                      isolation: 'isolate'
                     }}
                   >
-                    <div style={{ borderRight: '1px solid rgba(59, 130, 246, 0.2)', paddingRight: '16px' }}>
+                    <div style={{ borderRight: '1px solid rgba(59, 130, 246, 0.2)', paddingRight: '16px', position: 'relative', zIndex: 1 }}>
                       <div style={{ color: '#64748b', fontSize: '11px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '10px' }}>Program — $99</div>
                       {REGISTER_LEFT.map((item, idx) => (
                         <motion.div key={idx} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
@@ -786,7 +845,7 @@ const Header = () => {
                         </motion.div>
                       ))}
                     </div>
-                    <div>
+                    <div style={{ position: 'relative', zIndex: 1 }}>
                       <div style={{ color: '#64748b', fontSize: '11px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '10px' }}>One-to-One — $499</div>
                       {REGISTER_RIGHT.map((item, idx) => (
                         <motion.div key={idx} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
@@ -845,7 +904,7 @@ const Header = () => {
                   style={{
                     color: 'var(--nav-text-primary)',
                     textDecoration: 'none',
-                    padding: '6px 8px',
+                    padding: '4px 8px',
                     borderRadius: '16px',
                     display: 'flex',
                     alignItems: 'center',
@@ -858,7 +917,7 @@ const Header = () => {
                     WebkitBackdropFilter: 'blur(10px)',
                     transformStyle: 'preserve-3d',
                     textShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                    fontSize: '15px'
+                    fontSize: '18px'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.background = 'linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)';
@@ -1308,6 +1367,54 @@ const Header = () => {
             </motion.li>
           </motion.ul>
 
+          {/* Mobile Menu Toggle */}
+          <motion.button
+            className="mobile-menu-toggle"
+            type="button"
+            onClick={toggleMobileMenu}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Toggle mobile menu"
+            aria-expanded={mobileMenuOpen}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px',
+              borderRadius: '8px',
+              display: 'none', // Hidden by default, shown in responsive CSS
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--nav-text-primary)',
+              transition: 'all 0.3s ease'
+            }}
+          >
+            <motion.svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              animate={mobileMenuOpen ? { rotate: 90 } : { rotate: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <motion.path
+                d="M3 12h18M3 6h18M3 18h18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                animate={mobileMenuOpen ? 
+                  { d: "M6 18L18 6M6 6l12 12" } : 
+                  { d: "M3 12h18M3 6h18M3 18h18" }
+                }
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              />
+            </motion.svg>
+          </motion.button>
+
           {/* Action Items - 10% Width - Commented out */}
           {/* <motion.div 
             className="nav-actions"
@@ -1449,7 +1556,7 @@ const Header = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: 'rgba(0, 0, 0, 0.5)',
+                  background: 'rgba(0, 0, 0, 0.6)',
                   zIndex: 9998
                 }}
               />
@@ -1467,10 +1574,10 @@ const Header = () => {
                   width: '85%',
                   maxWidth: '420px',
                   height: '100vh',
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)',
-                  backdropFilter: 'blur(30px)',
-                  WebkitBackdropFilter: 'blur(30px)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  background: 'rgba(255, 255, 255, 1.0)',
+                  backdropFilter: 'blur(25px)',
+                  WebkitBackdropFilter: 'blur(25px)',
+                  border: '1px solid rgba(59, 130, 246, 0.3)',
                   zIndex: 9999,
                   overflowY: 'auto',
                   boxShadow: '-8px 0 32px rgba(31, 38, 135, 0.4)',
@@ -1535,7 +1642,14 @@ const Header = () => {
                     </motion.div>
                     <AnimatePresence>
                       {activeDropdown === 'program-mobile' && (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ paddingLeft: '20px' }}>
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ 
+                          paddingLeft: '20px',
+                          background: 'rgba(255, 255, 255, 1.0)',
+                          borderRadius: '8px',
+                          marginTop: '8px',
+                          border: '1px solid rgba(59, 130, 246, 0.15)',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                        }}>
                           <Link to="/product/data-science-ai-program" onClick={toggleMobileMenu} style={{ display: 'block', color: '#64748b', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>Data Science And AI</Link>
                           <Link to="/product/cyber-security-and-ethical-hacking-program" onClick={toggleMobileMenu} style={{ display: 'block', color: '#64748b', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>Cyber Security And Ethical Hacking</Link>
                           <Link to="/product/devops-and-cloud-computing-program" onClick={toggleMobileMenu} style={{ display: 'block', color: '#64748b', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>DevOps & Cloud Computing</Link>
@@ -1552,7 +1666,14 @@ const Header = () => {
                     </motion.div>
                     <AnimatePresence>
                       {activeDropdown === 'onetoone-mobile' && (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ paddingLeft: '20px' }}>
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ 
+                          paddingLeft: '20px',
+                          background: 'rgba(255, 255, 255, 1.0)',
+                          borderRadius: '8px',
+                          marginTop: '8px',
+                          border: '1px solid rgba(59, 130, 246, 0.15)',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                        }}>
                           <Link to="/product/data-science-ai-short-term-program" onClick={toggleMobileMenu} style={{ display: 'block', color: '#64748b', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>Data Science & AI Short Term</Link>
                           <Link to="/product/cyber-security-and-ethical-hacking-short-term-program" onClick={toggleMobileMenu} style={{ display: 'block', color: '#64748b', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>Cyber Security Short Term</Link>
                           <Link to="/product/devops-and-cloud-computing-short-term-program" onClick={toggleMobileMenu} style={{ display: 'block', color: '#64748b', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>DevOps & Cloud Computing Short Term</Link>
@@ -1569,7 +1690,14 @@ const Header = () => {
                     </motion.div>
                     <AnimatePresence>
                       {activeDropdown === 'register-mobile' && (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ paddingLeft: '16px' }}>
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ 
+                          paddingLeft: '16px',
+                          background: 'rgba(255, 255, 255, 1.0)',
+                          borderRadius: '8px',
+                          marginTop: '8px',
+                          border: '1px solid rgba(59, 130, 246, 0.15)',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                        }}>
                           <div style={{ color: '#94a3b8', fontSize: '12px', marginTop: '8px', marginBottom: '4px' }}>Program — $99</div>
                           {REGISTER_LEFT.map((item, idx) => (
                             <button key={`l-${idx}`} type="button" onClick={() => { handleRegisterOption(item); toggleMobileMenu(); }} style={{ display: 'block', width: '100%', textAlign: 'left', background: 'none', border: 'none', color: '#64748b', padding: '10px 0', fontSize: '14px', cursor: 'pointer', textDecoration: 'none' }}>{item.name.replace('Registration fee for ', '').replace(' Program', '')} — $99</button>
@@ -1591,7 +1719,14 @@ const Header = () => {
                     </motion.div>
                     <AnimatePresence>
                       {activeDropdown === 'paynow-mobile' && (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ paddingLeft: '20px' }}>
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ 
+                          paddingLeft: '20px',
+                          background: 'rgba(255, 255, 255, 1.0)',
+                          borderRadius: '8px',
+                          marginTop: '8px',
+                          border: '1px solid rgba(59, 130, 246, 0.15)',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                        }}>
                           {PAY_NOW_LINKS.map((item, idx) => (
                             <a key={idx} href={item.url} target={item.url && item.url !== '#' ? '_blank' : undefined} rel={item.url && item.url !== '#' ? 'noopener noreferrer' : undefined} onClick={toggleMobileMenu} style={{ display: 'block', color: '#64748b', padding: '12px 0', fontSize: '14px', textDecoration: 'none' }}>{item.label}</a>
                           ))}
@@ -1600,10 +1735,7 @@ const Header = () => {
                     </AnimatePresence>
                   </div>
 
-                  <motion.button type="button" onClick={() => { setShowCart(true); toggleMobileMenu(); }} style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', color: '#1e293b', fontSize: '16px', fontWeight: '500', padding: '15px 0', cursor: 'pointer', borderBottom: '1px solid rgba(59, 130, 246, 0.2)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    🛒 Cart {cartCount > 0 && `(${cartCount})`}
-                  </motion.button>
-
+                  
                   <Link to="/refund-returns" onClick={toggleMobileMenu} style={{ display: 'block', color: '#1e293b', fontSize: '16px', fontWeight: '500', padding: '15px 0', textDecoration: 'none', borderBottom: '1px solid rgba(59, 130, 246, 0.2)' }}>Refund and Returns Policy</Link>
 
                   {/* Auth Buttons */}

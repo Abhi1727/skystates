@@ -258,7 +258,195 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
+/* ===== ENHANCED RESPONSIVE DESIGN ===== */
+
+/* Small Phones (320px - 479px) */
+@media (max-width: 479px) {
+  .glass-card-premium {
+    border-radius: 12px;
+    padding: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+  
+  .btn-gradient-primary,
+  .btn-gradient-secondary {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--text-sm);
+    width: 100%;
+    margin-bottom: var(--space-sm);
+  }
+  
+  .value-pill {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--text-xs);
+  }
+  
+  .heading-gradient {
+    font-size: var(--text-2xl) !important;
+    margin-bottom: var(--space-sm);
+  }
+  
+  .subtitle-enhanced {
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-md);
+  }
+  
+  .responsive-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+
+/* Large Phones (480px - 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .glass-card-premium {
+    border-radius: 14px;
+    padding: var(--space-md);
+  }
+  
+  .btn-gradient-primary,
+  .btn-gradient-secondary {
+    padding: var(--space-md) var(--space-xl);
+    font-size: var(--text-base);
+  }
+  
+  .value-pill {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--text-sm);
+  }
+  
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+/* Tablets (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .glass-card-premium {
+    border-radius: 16px;
+    padding: var(--space-lg);
+  }
+  
+  .btn-gradient-primary {
+    padding: var(--space-md) var(--space-2xl);
+    font-size: var(--text-lg);
+  }
+  
+  .btn-gradient-secondary {
+    padding: var(--space-sm) var(--space-xl);
+    font-size: var(--text-base);
+  }
+  
+  .value-pill {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--text-base);
+  }
+  
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+  
+  /* Tablet landscape adjustments */
+  @media (orientation: landscape) and (max-height: 768px) {
+    .glass-card-premium {
+      padding: var(--space-md);
+    }
+    
+    .btn-gradient-primary,
+    .btn-gradient-secondary {
+      padding: var(--space-sm) var(--space-lg);
+      font-size: var(--text-sm);
+    }
+  }
+}
+
+/* Small Desktops (1024px - 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .glass-card-premium {
+    border-radius: 18px;
+    padding: var(--space-xl);
+  }
+  
+  .btn-gradient-primary {
+    padding: var(--space-lg) var(--space-2xl);
+    font-size: var(--text-lg);
+  }
+  
+  .btn-gradient-secondary {
+    padding: var(--space-md) var(--space-xl);
+    font-size: var(--text-base);
+  }
+  
+  .value-pill {
+    padding: var(--space-md) var(--space-lg);
+    font-size: var(--text-base);
+  }
+  
+  .responsive-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+/* Desktops (1200px - 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .glass-card-premium {
+    border-radius: 20px;
+    padding: var(--space-xl);
+  }
+  
+  .btn-gradient-primary {
+    padding: var(--space-lg) var(--space-2xl);
+    font-size: var(--text-xl);
+  }
+  
+  .btn-gradient-secondary {
+    padding: var(--space-md) var(--space-xl);
+    font-size: var(--text-lg);
+  }
+  
+  .value-pill {
+    padding: var(--space-md) var(--space-xl);
+    font-size: var(--text-lg);
+  }
+  
+  .responsive-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2xl);
+  }
+}
+
+/* Large Desktops (1440px and up) */
+@media (min-width: 1440px) {
+  .glass-card-premium {
+    border-radius: 24px;
+    padding: var(--space-2xl);
+  }
+  
+  .btn-gradient-primary {
+    padding: var(--space-xl) var(--space-2xl);
+    font-size: var(--text-xl);
+  }
+  
+  .btn-gradient-secondary {
+    padding: var(--space-lg) var(--space-xl);
+    font-size: var(--text-lg);
+  }
+  
+  .value-pill {
+    padding: var(--space-md) var(--space-xl);
+    font-size: var(--text-lg);
+  }
+  
+  .responsive-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-2xl);
+  }
+}
+
+/* Legacy fallback for older breakpoints */
 @media (max-width: 768px) {
   .glass-card-premium {
     border-radius: 16px;
@@ -273,6 +461,59 @@
   .value-pill {
     padding: 8px 14px;
     font-size: 0.85rem;
+  }
+}
+
+/* ===== POPULAR BADGE STYLES ===== */
+.popular-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  z-index: 10;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.popular-badge .lightning-icon {
+  font-size: 0.8em;
+  animation: rotate 2s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
+}
+
+/* Popular Badge Responsive Design */
+@media (max-width: 768px) {
+  .popular-badge {
+    top: 12px;
+    right: 12px;
+    padding: 6px 12px;
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .popular-badge {
+    top: 8px;
+    right: 8px;
+    padding: 5px 10px;
+    font-size: 0.6rem;
   }
 }
 

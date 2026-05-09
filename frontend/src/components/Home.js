@@ -1,7 +1,6 @@
 import React from 'react';
 import Hero from './Hero';
 import LogoMarquee from './LogoMarquee';
-import About from './About';
 import Features from './Features';
 import Programs from './Programs';
 import PopularCertificates from './PopularCertificates';
@@ -23,8 +22,7 @@ const Home = () => {
   // Progressive gradient variations with orange/amber theme
   const sectionBackgrounds = [
     { component: <Hero />, shade: 'transparent' }, // Hero has its own animated gradient background
-    { component: <About />, shade: 'section-gradient-1' }, // About section with gradient overlay
-    { component: <Programs />, shade: 'section-gradient-2' }, // Programs section with lighter gradient
+    { component: <Programs />, shade: 'section-gradient-1' }, // Programs section with gradient overlay
     { component: <InteractiveLearningJourney />, shade: 'gradient-light' }, // Interactive Learning Journey
     // { component: <EnhancedCourseComparison />, shade: 'gradient-medium' }, // Enhanced Course Comparison
     { component: <PopularCertificates />, shade: 'gradient-medium' }, // Popular Certificates with medium gradient
@@ -59,7 +57,7 @@ const Home = () => {
       
       {/* Additional Engagement Components */}
       {/* <div style={{ margin: '40px 0' }}><TestimonialsSection /></div> */}
-      <div style={{ margin: '20px 0' }}><EnhancedTestimonials /></div>
+      {/* <div style={{ margin: '20px 0' }}><EnhancedTestimonials /></div> */}
       <div style={{ margin: '20px 0' }}><Clients /></div>
       <div style={{ margin: '20px 0' }}><Newsletter /></div>
       {/* <GamificationWidget /> */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { CartProvider } from './contexts/CartContext';
+import { DirectCheckoutProvider } from './contexts/DirectCheckoutContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/Home';
@@ -11,6 +11,7 @@ import DevOps from './components/DevOps';
 import DataScienceAIShortTerm from './components/DataScienceAIShortTerm';
 import CyberSecurityShortTerm from './components/CyberSecurityShortTerm';
 import DevOpsShortTerm from './components/DevOpsShortTerm';
+import About from './components/About';
 import RefundReturns from './components/RefundReturns';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsAndConditions from './components/TermsAndConditions';
@@ -26,7 +27,7 @@ function App() {
   const { scrollRef } = useLocomotiveScroll(true); // Enabled for smooth scrolling
 
   return (
-    <CartProvider>
+    <DirectCheckoutProvider>
       <Router>
         <div className="App" data-scroll-container ref={scrollRef}>
           <CursorTrail />
@@ -35,6 +36,7 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/product/data-science-ai-program" element={<DataScienceAI />} />
               <Route path="/product/cyber-security-and-ethical-hacking-program" element={<CyberSecurity />} />
@@ -54,7 +56,7 @@ function App() {
           <Footer />
         </div>
       </Router>
-    </CartProvider>
+    </DirectCheckoutProvider>
   );
 }
 

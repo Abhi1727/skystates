@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useSearchParams } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, useStripe, useElements } from '@stripe/react-stripe-js';
-import { useCart } from '../../contexts/CartContext';
+import { useDirectCheckout } from '../../contexts/DirectCheckoutContext';
 import { API_BASE_URL } from '../../config';
 import Step1ContactInfo from './Step1ContactInfo';
 import Step2Payment from './Step2Payment';
@@ -14,7 +14,7 @@ import './CheckoutModern.css';
 const Checkout = () => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const { cartItems, getCartTotal, clearCart } = useCart();
+  const { program, getProgramTotal, clearProgram } = useDirectCheckout();
   
   const [clientSecret, setClientSecret] = useState('');
   const [intentLoading, setIntentLoading] = useState(false);
@@ -41,7 +41,7 @@ const Checkout = () => {
   const [orderComplete, setOrderComplete] = useState(false);
   const [directProgram, setDirectProgram] = useState(null);
   
-  const checkoutItems = directProgram ? [directProgram] : cartItems;
+  const checkoutItems = program ? [program] : [];
 
   useEffect(() => {
     if (location.state?.program) {
@@ -50,9 +50,9 @@ const Checkout = () => {
   }, [location.state]);
 
   useEffect(() => {
-    const total = directProgram ? parseFloat(directProgram.price) || 0 : getCartTotal();
+    const total = program ? parseFloat(program.price) || 0 : getProgramTotal();
     setCheckoutData(prev => ({ ...prev, orderTotal: total }));
-  }, [directProgram, cartItems, getCartTotal]);
+  }, [program, getProgramTotal]);
 
   useEffect(() => {
     localStorage.setItem('checkoutProgress', JSON.stringify(checkoutData));
@@ -112,10 +112,10 @@ const Checkout = () => {
       setOrderComplete(true);
       localStorage.removeItem('checkoutProgress');
       window.history.replaceState({}, '', location.pathname);
-      const t = setTimeout(() => clearCart(), 500);
+      const t = setTimeout(() => clearProgram(), 500);
       return () => clearTimeout(t);
     }
-  }, [searchParams, clearCart, location.pathname]);
+  }, [searchParams, clearProgram, location.pathname]);
 
   const stripePromise = loadStripe('pk_test_51QD8TfDyzD57haVrTQo8bVWlVTnPOmwKeCkbkLVzmaAacgeKCNo4cHSZWC15ekYJGej6EfmKELm1ucoeEMtmvhzL00bXi40Xmr');
 
@@ -211,16 +211,16 @@ const Checkout = () => {
 
   const handlePaymentSuccess = () => {
     setOrderComplete(true);
-    clearCart();
+    clearProgram();
     localStorage.removeItem('checkoutProgress');
   };
 
   if (checkoutItems.length === 0 && !orderComplete) {
     return (
       <div className="checkout-empty">
-        <div className="empty-icon">🛒</div>
-        <h2>Your cart is empty</h2>
-        <p>Add some courses to your cart to proceed with checkout.</p>
+        <div className="empty-icon">🎓</div>
+        <h2>No program selected</h2>
+        <p>Select a course to proceed with checkout.</p>
         <Link to="/" className="browse-courses-btn">
           Browse Courses
         </Link>

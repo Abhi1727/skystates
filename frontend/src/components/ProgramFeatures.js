@@ -14,78 +14,78 @@ const ProgramFeatures = ({
 }) => {
   const navigate = useNavigate();
 
-  // Default features if none provided
+  // Default features with blue theme alignment
   const defaultFeatures = [
     {
       icon: '🎯',
       title: '100% Job Assistance',
-      description: 'Through our in-house recruitment agency with over 250 hiring partners',
+      description: 'Through our in-house recruitment agency with over 250 hiring partners including Fortune 500 companies',
       color: '#3b82f6',
-      bgGradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.1))',
-      borderColor: 'rgba(59, 130, 246, 0.3)',
+      bgGradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(96, 165, 250, 0.08))',
+      borderColor: 'rgba(59, 130, 246, 0.4)',
       delay: 0
     },
     {
       icon: '🏆',
       title: 'Industry-Recognized Certificate',
-      description: `Advanced ${programName} certificate from Sky States`,
-      color: '#00ff88',
-      bgGradient: 'linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.1))',
-      borderColor: 'rgba(0, 255, 136, 0.3)',
+      description: `Advanced ${programName} certificate from Sky States, recognized by leading tech employers worldwide`,
+      color: '#60a5fa',
+      bgGradient: 'linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(59, 130, 246, 0.08))',
+      borderColor: 'rgba(96, 165, 250, 0.4)',
       delay: 0.1
     },
     {
       icon: '🚀',
       title: 'Capstone Projects',
-      description: 'From various domains and industry relevant projects',
-      color: '#ff6b6b',
-      bgGradient: 'linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 107, 107, 0.1))',
-      borderColor: 'rgba(255, 107, 107, 0.3)',
+      description: 'Real-world projects from healthcare, finance, and e-commerce domains with industry mentorship',
+      color: '#2563eb',
+      bgGradient: 'linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(59, 130, 246, 0.08))',
+      borderColor: 'rgba(37, 99, 235, 0.4)',
       delay: 0.2
     },
     {
       icon: '💼',
       title: 'Microsoft Training',
-      description: 'Professional-level training from Microsoft with certification',
-      color: '#4ecdc4',
-      bgGradient: 'linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(78, 205, 196, 0.1))',
-      borderColor: 'rgba(78, 205, 196, 0.3)',
+      description: 'Official Microsoft certification training with hands-on Azure and AI platform experience',
+      color: '#1e40af',
+      bgGradient: 'linear-gradient(135deg, rgba(30, 64, 175, 0.15), rgba(37, 99, 235, 0.08))',
+      borderColor: 'rgba(30, 64, 175, 0.4)',
       delay: 0.3
     },
     {
       icon: '🔬',
       title: 'Integrated Labs',
-      description: 'Hands-on learning experience with practical exercises',
-      color: '#a8e6cf',
-      bgGradient: 'linear-gradient(135deg, rgba(168, 230, 207, 0.2), rgba(168, 230, 207, 0.1))',
-      borderColor: 'rgba(168, 230, 207, 0.3)',
+      description: 'State-of-the-art cloud labs with 24/7 access to industry-standard tools and datasets',
+      color: '#93c5fd',
+      bgGradient: 'linear-gradient(135deg, rgba(147, 197, 253, 0.15), rgba(96, 165, 250, 0.08))',
+      borderColor: 'rgba(147, 197, 253, 0.4)',
       delay: 0.4
     },
     {
       icon: '👨‍🏫',
       title: 'Expert Faculty',
-      description: 'Dedicated live sessions by faculty of industry experts',
-      color: '#ffd3b6',
-      bgGradient: 'linear-gradient(135deg, rgba(255, 211, 182, 0.2), rgba(255, 211, 182, 0.1))',
-      borderColor: 'rgba(255, 211, 182, 0.3)',
+      description: 'Learn from industry veterans with 15+ years experience at Google, Microsoft, and Amazon',
+      color: '#3b82f6',
+      bgGradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.1))',
+      borderColor: 'rgba(59, 130, 246, 0.5)',
       delay: 0.5
     },
     {
       icon: '♾️',
       title: 'Lifetime Access',
-      description: 'Self-paced learning content through our Learning Management System',
-      color: '#ffaaa5',
-      bgGradient: 'linear-gradient(135deg, rgba(255, 170, 165, 0.2), rgba(255, 170, 165, 0.1))',
-      borderColor: 'rgba(255, 170, 165, 0.3)',
+      description: 'Continuous learning with lifetime access to updated content and alumni network',
+      color: '#60a5fa',
+      bgGradient: 'linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(59, 130, 246, 0.08))',
+      borderColor: 'rgba(96, 165, 250, 0.4)',
       delay: 0.6
     },
     {
       icon: '👥',
       title: 'Small Batch Sizes',
-      description: 'Personalized attention and tailored instruction',
-      color: '#ff8b94',
-      bgGradient: 'linear-gradient(135deg, rgba(255, 139, 148, 0.2), rgba(255, 139, 148, 0.1))',
-      borderColor: 'rgba(255, 139, 148, 0.3)',
+      description: 'Personalized mentoring with 1:15 faculty-to-student ratio for optimal learning',
+      color: '#2563eb',
+      bgGradient: 'linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(59, 130, 246, 0.08))',
+      borderColor: 'rgba(37, 99, 235, 0.4)',
       delay: 0.7
     }
   ];
@@ -101,31 +101,66 @@ const ProgramFeatures = ({
   };
 
   return (
-    <section className="program-features" style={{ 
+    <section className="program-features section-gradient-1" style={{ 
       padding: '100px 0', 
-      background: backgroundGradient,
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Animated Background Elements */}
+      {/* Professional Blue Background Elements */}
+      <div className="floating-accent" style={{
+        position: 'absolute',
+        top: '10%',
+        left: '5%',
+        width: '80px',
+        height: '80px',
+        background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
+        borderRadius: '50%',
+        animation: 'float 6s ease-in-out infinite'
+      }} />
+      <div className="floating-accent" style={{
+        position: 'absolute',
+        top: '60%',
+        right: '8%',
+        width: '60px',
+        height: '60px',
+        background: 'radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%)',
+        borderRadius: '50%',
+        animation: 'float 8s ease-in-out infinite 2s'
+      }} />
+      <div className="floating-accent" style={{
+        position: 'absolute',
+        bottom: '20%',
+        left: '12%',
+        width: '40px',
+        height: '40px',
+        background: 'radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%)',
+        borderRadius: '50%',
+        animation: 'float 7s ease-in-out infinite 1s'
+      }} />
+      
+      {/* Lightning Bolt Accents */}
       <div style={{
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%)',
-        animation: 'pulse 4s ease-in-out infinite'
-      }} />
+        top: '15%',
+        right: '15%',
+        fontSize: '24px',
+        color: 'rgba(59, 130, 246, 0.2)',
+        animation: 'professionalPulse 3s ease-in-out infinite',
+        transform: 'rotate(15deg)'
+      }}>
+        ⚡
+      </div>
       <div style={{
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%)',
-        animation: 'pulse 4s ease-in-out infinite 2s'
-      }} />
+        bottom: '25%',
+        right: '25%',
+        fontSize: '18px',
+        color: 'rgba(96, 165, 250, 0.15)',
+        animation: 'professionalPulse 4s ease-in-out infinite 1.5s',
+        transform: 'rotate(-10deg)'
+      }}>
+        ⚡
+      </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <motion.div
@@ -135,21 +170,18 @@ const ProgramFeatures = ({
           viewport={{ once: true }}
           style={{ textAlign: 'center', marginBottom: '70px' }}
         >
-          <h2 style={{ 
+          <h2 className="heading-gradient" style={{ 
             fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-            fontWeight: '800', 
+            fontWeight: '900', 
             marginBottom: '20px',
-            color: '#ffffff',
-            textShadow: '0 4px 20px rgba(0,0,0,0.3)',
             letterSpacing: '-0.02em'
           }}>
             {title}
-            <span style={{ 
+            <span className="subtitle-enhanced" style={{ 
               display: 'block',
               fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-              fontWeight: '400',
+              fontWeight: '500',
               marginTop: '10px',
-              opacity: 0.9,
               letterSpacing: '0.05em'
             }}>
               {subtitle}
@@ -182,41 +214,44 @@ const ProgramFeatures = ({
               transition={{ duration: 0.6, delay: feature.delay }}
               viewport={{ once: true }}
               whileHover={{ 
-                scale: 1.05,
-                boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
-                y: -10
+                scale: 1.03,
+                boxShadow: '0 25px 50px rgba(59, 130, 246, 0.15)',
+                y: -8
               }}
               style={{
                 background: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(20px)',
-                borderRadius: '20px',
-                padding: '30px',
-                border: `1px solid ${feature.borderColor}`,
-                boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+                backdropFilter: 'blur(25px)',
+                borderRadius: '24px',
+                padding: '35px',
+                border: `2px solid ${feature.borderColor}`,
+                boxShadow: '0 15px 35px rgba(0,0,0,0.08)',
                 cursor: 'pointer',
                 position: 'relative',
                 overflow: 'hidden',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = feature.bgGradient;
-                e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
+                e.currentTarget.style.transform = 'translateY(-8px) scale(1.03)';
+                e.currentTarget.style.borderColor = feature.color;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.borderColor = feature.borderColor;
               }}
             >
-              {/* Glowing orb effect */}
+              {/* Enhanced Glowing orb effect */}
               <div style={{
                 position: 'absolute',
                 top: '-50%',
                 right: '-50%',
                 width: '200%',
                 height: '200%',
-                background: `radial-gradient(circle, ${feature.color}20 0%, transparent 70%)`,
+                background: `radial-gradient(circle, ${feature.color}15 0%, transparent 60%)`,
                 opacity: 0,
-                transition: 'opacity 0.3s ease'
+                transition: 'opacity 0.4s ease',
+                pointerEvents: 'none'
               }}
               onMouseEnter={(e) => {
                 e.target.style.opacity = '1';
@@ -229,24 +264,25 @@ const ProgramFeatures = ({
               {/* Icon Container */}
               <motion.div
                 style={{
-                  width: '70px',
-                  height: '70px',
-                  borderRadius: '20px',
-                  background: feature.bgGradient,
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '24px',
+                  background: `linear-gradient(135deg, ${feature.color}, ${feature.color}80)`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '28px',
-                  marginBottom: '20px',
-                  border: `2px solid ${feature.borderColor}`,
+                  fontSize: '32px',
+                  marginBottom: '24px',
+                  border: `3px solid ${feature.borderColor}`,
                   position: 'relative',
-                  zIndex: 1
+                  zIndex: 1,
+                  boxShadow: `0 8px 25px ${feature.color}25`
                 }}
                 whileHover={{ 
                   rotate: 360,
-                  scale: 1.1
+                  scale: 1.15
                 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
               >
                 {feature.icon}
               </motion.div>
@@ -254,67 +290,73 @@ const ProgramFeatures = ({
               {/* Content */}
               <div style={{ position: 'relative', zIndex: 1 }}>
                 <h3 style={{
-                  fontSize: '1.3rem',
-                  fontWeight: '700',
-                  marginBottom: '12px',
-                  color: '#2c3e50',
-                  lineHeight: '1.3'
+                  fontSize: '1.4rem',
+                  fontWeight: '800',
+                  marginBottom: '14px',
+                  color: '#1e293b',
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.01em'
                 }}>
                   {feature.title}
                 </h3>
                 
                 <p style={{
-                  fontSize: '0.95rem',
-                  color: '#5a6c7d',
-                  lineHeight: '1.6',
-                  margin: 0
+                  fontSize: '1rem',
+                  color: '#475569',
+                  lineHeight: '1.7',
+                  margin: 0,
+                  fontWeight: '400'
                 }}>
                   {feature.description}
                 </p>
 
-                {/* Interactive indicator */}
+                {/* Enhanced Interactive indicator */}
                 <motion.div
                   style={{
-                    marginTop: '15px',
+                    marginTop: '18px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: '10px',
                     color: feature.color,
-                    fontSize: '0.85rem',
-                    fontWeight: '600'
+                    fontSize: '0.9rem',
+                    fontWeight: '700',
+                    letterSpacing: '0.5px'
                   }}
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileHover={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <span>Learn More</span>
+                  <span>Explore Feature</span>
                   <motion.span
                     animate={{ x: 0 }}
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.3 }}
+                    whileHover={{ x: 8 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    style={{ display: 'inline-block' }}
                   >
                     →
                   </motion.span>
                 </motion.div>
               </div>
 
-              {/* Decorative corner accent */}
+              {/* Enhanced Decorative corner accent */}
               <div style={{
                 position: 'absolute',
-                top: '10px',
-                right: '10px',
-                width: '30px',
-                height: '30px',
-                borderTop: `3px solid ${feature.color}`,
-                borderRight: `3px solid ${feature.color}`,
-                borderTopRightRadius: '15px',
-                opacity: 0.6
+                top: '12px',
+                right: '12px',
+                width: '35px',
+                height: '35px',
+                borderTop: `4px solid ${feature.color}`,
+                borderRight: `4px solid ${feature.color}`,
+                borderTopRightRadius: '18px',
+                opacity: 0.7,
+                boxShadow: `0 0 15px ${feature.color}40`
               }} />
             </motion.div>
           ))}
         </div>
 
         {/* Bottom CTA Section */}
-        {showCTA && (
+        {/* showCTA && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -322,29 +364,33 @@ const ProgramFeatures = ({
             viewport={{ once: true }}
             style={{
               textAlign: 'center',
-              marginTop: '70px',
-              padding: '40px',
-              background: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(20px)',
-              borderRadius: '20px',
-              border: '1px solid rgba(255, 255, 255, 0.2)'
+              marginTop: '80px',
+              padding: '50px',
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(30px)',
+              borderRadius: '24px',
+              border: '2px solid rgba(59, 130, 246, 0.2)',
+              boxShadow: '0 20px 40px rgba(59, 130, 246, 0.1)'
             }}
           >
             <h3 style={{
-              fontSize: '1.8rem',
-              fontWeight: '700',
-              color: '#ffffff',
-              marginBottom: '15px',
-              textShadow: '0 2px 10px rgba(0,0,0,0.3)'
+              fontSize: '2rem',
+              fontWeight: '800',
+              color: '#1e293b',
+              marginBottom: '18px',
+              textShadow: '0 2px 10px rgba(0,0,0,0.1)',
+              letterSpacing: '-0.01em'
             }}>
               Ready to Transform Your Career?
             </h3>
             <p style={{
-              fontSize: '1.1rem',
-              color: 'rgba(255, 255, 255, 0.9)',
-              marginBottom: '30px',
-              maxWidth: '600px',
-              margin: '0 auto 30px'
+              fontSize: '1.15rem',
+              color: '#475569',
+              marginBottom: '35px',
+              maxWidth: '650px',
+              margin: '0 auto 35px',
+              lineHeight: '1.6',
+              fontWeight: '400'
             }}>
               Join thousands of professionals who have advanced their careers with our comprehensive {programName.toLowerCase()} program.
             </p>
@@ -355,41 +401,18 @@ const ProgramFeatures = ({
               }}
               whileTap={{ scale: 0.95 }}
               onClick={handleEnrollClick}
+              className="btn-gradient-primary"
               style={{
-                background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
-                color: 'white',
-                padding: '16px 40px',
-                border: 'none',
-                borderRadius: '50px',
-                fontSize: '1.1rem',
-                fontWeight: '700',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 10px 30px rgba(59, 130, 246, 0.25)',
-                position: 'relative',
-                overflow: 'hidden'
+                fontSize: '1.15rem',
+                padding: '18px 45px'
               }}
             >
               <span style={{ position: 'relative', zIndex: 1 }}>
                 🚀 Get Started Now
               </span>
-              <motion.div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: '-100%',
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
-                }}
-                whileHover={{
-                  left: '0%',
-                  transition: { duration: 0.6 }
-                }}
-              />
             </motion.button>
           </motion.div>
-        )}
+        ) */}
       </div>
 
       {/* CSS Animation Styles */}

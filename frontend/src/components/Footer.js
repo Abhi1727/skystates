@@ -11,16 +11,16 @@ const Footer = () => {
       content: "Transform your career with industry-leading tech programs and 100% job placement support.",
       type: "description"
     },
-    // {
-    //   title: "Quick Links",
-    //   links: [
-    //     { name: "About Us", href: "/about" },
-    //     { name: "Programs", href: "/programs" },
-    //     { name: "Jobs", href: "/jobs" },
-    //     { name: "Contact", href: "/contact" }
-    //   ],
-    //   type: "links"
-    // },
+    {
+      title: "Quick Links",
+      links: [
+        { name: "About Us", href: "/about" },
+        { name: "Programs", href: "/programs" },
+        { name: "Jobs", href: "/jobs" },
+        { name: "Contact", href: "/contact" }
+      ],
+      type: "links"
+    },
     {
       title: "Programs",
       links: [
@@ -122,37 +122,71 @@ const Footer = () => {
                 }}>
                   {section.links.map((link, linkIndex) => (
                     <li key={linkIndex} style={{ marginBottom: '12px' }}>
-                      <a
-                        href={link.href}
-                        aria-label={`Navigate to ${link.name}`}
-                        style={{
-                          color: '#64748b',
-                          textDecoration: 'none',
-                          fontSize: '0.95rem',
-                          transition: 'all 0.3s ease',
-                          display: 'inline-block',
-                          textShadow: '0 1px 1px rgba(255,255,255,0.8)'
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.color = '#1e293b';
-                          e.target.style.outline = '2px solid #3b82f6';
-                          e.target.style.outlineOffset = '2px';
-                        }}
-                        onBlur={(e) => {
-                          e.target.style.color = '#64748b';
-                          e.target.style.outline = 'none';
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.color = '#1e293b';
-                          e.target.style.transform = 'translateX(5px)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.color = '#64748b';
-                          e.target.style.transform = 'translateX(0)';
-                        }}
-                      >
-                        {link.name}
-                      </a>
+                      {link.href.startsWith('http') || link.href.startsWith('mailto:') || link.href.startsWith('tel:') ? (
+                        <a
+                          href={link.href}
+                          aria-label={`Navigate to ${link.name}`}
+                          style={{
+                            color: '#64748b',
+                            textDecoration: 'none',
+                            fontSize: '0.95rem',
+                            transition: 'all 0.3s ease',
+                            display: 'inline-block',
+                            textShadow: '0 1px 1px rgba(255,255,255,0.8)'
+                          }}
+                          onFocus={(e) => {
+                            e.target.style.color = '#1e293b';
+                            e.target.style.outline = '2px solid #3b82f6';
+                            e.target.style.outlineOffset = '2px';
+                          }}
+                          onBlur={(e) => {
+                            e.target.style.color = '#64748b';
+                            e.target.style.outline = 'none';
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.color = '#1e293b';
+                            e.target.style.transform = 'translateX(5px)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.color = '#64748b';
+                            e.target.style.transform = 'translateX(0)';
+                          }}
+                        >
+                          {link.name}
+                        </a>
+                      ) : (
+                        <Link
+                          to={link.href}
+                          aria-label={`Navigate to ${link.name}`}
+                          style={{
+                            color: '#64748b',
+                            textDecoration: 'none',
+                            fontSize: '0.95rem',
+                            transition: 'all 0.3s ease',
+                            display: 'inline-block',
+                            textShadow: '0 1px 1px rgba(255,255,255,0.8)'
+                          }}
+                          onFocus={(e) => {
+                            e.target.style.color = '#1e293b';
+                            e.target.style.outline = '2px solid #3b82f6';
+                            e.target.style.outlineOffset = '2px';
+                          }}
+                          onBlur={(e) => {
+                            e.target.style.color = '#64748b';
+                            e.target.style.outline = 'none';
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.color = '#1e293b';
+                            e.target.style.transform = 'translateX(5px)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.color = '#64748b';
+                            e.target.style.transform = 'translateX(0)';
+                          }}
+                        >
+                          {link.name}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -282,8 +316,8 @@ const Footer = () => {
             flexWrap: 'wrap',
             justifyContent: 'center'
           }}>
-            <a
-              href="/privacy"
+            <Link
+              to="/privacy"
               aria-label="View Privacy Policy"
               style={{
                 color: '#64748b',
@@ -309,9 +343,9 @@ const Footer = () => {
               }}
             >
               Privacy Policy
-            </a>
-            <a
-              href="/terms"
+            </Link>
+            <Link
+              to="/terms"
               style={{
                 color: '#64748b',
                 textDecoration: 'none',
@@ -327,9 +361,9 @@ const Footer = () => {
               }}
             >
               Terms of Service
-            </a>
-            <a
-              href="/refund-returns"
+            </Link>
+            <Link
+              to="/refund-returns"
               style={{
                 color: '#64748b',
                 textDecoration: 'none',
@@ -345,7 +379,7 @@ const Footer = () => {
               }}
             >
               Refund Policy
-            </a>
+            </Link>
           </div>
         </motion.div>
       </div>

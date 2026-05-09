@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../contexts/CartContext';
+import { useDirectCheckout } from '../contexts/DirectCheckoutContext';
 import FloatingRegisterButton from './FloatingRegisterButton';
 import BatchCountdownTimer from './BatchCountdownTimer';
 import useDynamicCounter from '../hooks/useDynamicCounter';
@@ -9,7 +9,7 @@ import './HomepageTheme.css';
 
 const DevOps = () => {
   const navigate = useNavigate();
-  const { addToCart, isInCart } = useCart();
+  const { setProgram, isCurrentProgram } = useDirectCheckout();
   const [isHovered, setIsHovered] = useState(false);
   const [activeModule, setActiveModule] = useState(null);
   
@@ -264,8 +264,8 @@ const DevOps = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    const added = addToCart(programData);
-                    if (added) navigate('/checkout');
+                    const set = setProgram(programData);
+                    if (set) navigate('/checkout');
                   }}
                   className="btn-gradient-primary"
                   style={{
@@ -297,13 +297,13 @@ const DevOps = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    const added = addToCart({
+                    const set = setProgram({
                       name: 'Registration fee for DevOps and Cloud Computing Program',
                       price: '99.00',
                       duration: '6 Months',
                       type: 'registration'
                     });
-                    if (added) navigate('/checkout');
+                    if (set) navigate('/checkout');
                   }}
                   className="btn-gradient-secondary"
                   style={{
@@ -639,8 +639,8 @@ const DevOps = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => {
-                      const added = addToCart(programData);
-                      if (added) {
+                      const set = setProgram(programData);
+                      if (set) {
                         // Show success notification without redirecting
                         const notification = document.createElement('div');
                         notification.style.cssText = `

@@ -99,34 +99,15 @@ const Programs = () => {
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                  style={{
-                    position: 'absolute',
-                    top: '-12px',
-                    left: '24px',
-                    transform: 'translateX(0)',
-                    background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-                    color: 'white',
-                    padding: '10px 20px',
-                    borderRadius: '24px',
-                    fontSize: '0.75rem',
-                    fontWeight: '800',
-                    zIndex: 10,
-                    boxShadow: '0 12px 35px rgba(59, 130, 246, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-                    whiteSpace: 'nowrap',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
-                    backdropFilter: 'blur(15px)',
-                    letterSpacing: '0.5px'
-                  }}
                 >
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <motion.span
-                      animate={{ rotate: [0, 10, -10, 0] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      ⚡
-                    </motion.span>
-                    Most Popular
-                  </span>
+                  <motion.span
+                    className="lightning-icon"
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    ⚡
+                  </motion.span>
+                  Most Popular
                 </motion.div>
               )}
               

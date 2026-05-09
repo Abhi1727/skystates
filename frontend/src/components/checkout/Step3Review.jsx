@@ -222,7 +222,7 @@ const Step3Review = ({ contactData, paymentData, items, coupon, subtotal, total,
                   <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" strokeWidth="2"/>
                   <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
-                Complete Purchase
+                Pay Now
                 <span className="total-amount">${total.toFixed(2)}</span>
               </>
             )}

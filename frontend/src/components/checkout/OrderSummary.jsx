@@ -6,6 +6,10 @@ const OrderSummary = ({ items, coupon, subtotal, total, onApplyCoupon, onRemoveC
   const [couponError, setCouponError] = useState('');
   const [couponLoading, setCouponLoading] = useState(false);
 
+  // For direct checkout, always show 1 item
+  const itemCount = 1;
+  const itemCountText = 'item';
+
   const handleApplyCoupon = async (e) => {
     e.preventDefault();
     
@@ -50,7 +54,7 @@ const OrderSummary = ({ items, coupon, subtotal, total, onApplyCoupon, onRemoveC
       <div className="summary-header">
         <h3>Order Summary</h3>
         <div className="item-count">
-          {items.length} {items.length === 1 ? 'item' : 'items'}
+          {itemCount} {itemCountText}
         </div>
       </div>
 

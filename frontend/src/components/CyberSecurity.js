@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../contexts/CartContext';
+import { useDirectCheckout } from '../contexts/DirectCheckoutContext';
 import FloatingRegisterButton from './FloatingRegisterButton';
 import ProgramFeatures from './ProgramFeatures';
 import BatchCountdownTimer from './BatchCountdownTimer';
@@ -10,7 +10,7 @@ import './HomepageTheme.css';
 
 const CyberSecurity = () => {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { setProgram, isCurrentProgram } = useDirectCheckout();
   const [isHovered, setIsHovered] = useState(false);
   const [activeModule, setActiveModule] = useState(null);
   
@@ -265,8 +265,8 @@ const CyberSecurity = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    const added = addToCart(programData);
-                    if (added) navigate('/checkout');
+                    const set = setProgram(programData);
+                    if (set) navigate('/checkout');
                   }}
                   className="btn-gradient-primary"
                   style={{
@@ -298,13 +298,13 @@ const CyberSecurity = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    const added = addToCart({
+                    const set = setProgram({
                       name: 'Registration fee for Cyber Security and Ethical Hacking Program',
                       price: '99.00',
                       duration: '6 Months',
                       type: 'registration'
                     });
-                    if (added) navigate('/checkout');
+                    if (set) navigate('/checkout');
                   }}
                   className="btn-gradient-secondary"
                   style={{
@@ -685,8 +685,8 @@ const CyberSecurity = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => {
-                      const added = addToCart(programData);
-                      if (added) {
+                      const set = setProgram(programData);
+                      if (set) {
                         // Show success notification without redirecting
                         const notification = document.createElement('div');
                         notification.style.cssText = `

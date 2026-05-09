@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../contexts/CartContext';
+import { useDirectCheckout } from '../contexts/DirectCheckoutContext';
 import LogoCarousel from './LogoCarousel';
 import FloatingRegisterButton from './FloatingRegisterButton';
 import BatchCountdownTimer from './BatchCountdownTimer';
@@ -10,7 +10,7 @@ import './HomepageTheme.css';
 
 const DevOpsShortTerm = () => {
   const navigate = useNavigate();
-  const { addToCart, isInCart } = useCart();
+  const { setProgram, isCurrentProgram } = useDirectCheckout();
   const [isHovered, setIsHovered] = useState(false);
   const [activeModule, setActiveModule] = useState(null);
   const [countdown, setCountdown] = useState({ days: 15, hours: 12, minutes: 45, seconds: 30 });
@@ -570,8 +570,8 @@ const DevOpsShortTerm = () => {
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
-                    const added = addToCart(programData);
-                    if (added) navigate('/checkout');
+                    const set = setProgram(programData);
+                    if (set) navigate('/checkout');
                   }}
                   style={{
                     background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
@@ -1098,8 +1098,8 @@ const DevOpsShortTerm = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => {
-                      const added = addToCart(programData);
-                      if (added) {
+                      const set = setProgram(programData);
+                      if (set) {
                         // Show success notification without redirecting
                         const notification = document.createElement('div');
                         notification.style.cssText = `

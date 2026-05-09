@@ -1074,15 +1074,32 @@
 /* Final Actions */
 .final-actions {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 16px;
   margin: 32px 0;
 }
 
 .confirm-button {
-  flex: 1;
-  padding: 20px;
-  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 8px;
+  padding: 20px 40px;
+  min-height: var(--min-touch-target);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  line-height: var(--line-height-relaxed);
+  background: var(--primary-gradient);
+  color: white;
+  box-shadow: var(--shadow-md);
+  max-width: 400px;
+  width: 100%;
 }
 
 .confirm-button .total-amount {
@@ -1672,9 +1689,14 @@
   }
   
   .next-button,
-  .back-button,
+  .back-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
   .confirm-button {
     width: 100%;
+    max-width: 300px;
     justify-content: center;
   }
   
@@ -1694,6 +1716,7 @@
   
   .final-actions {
     flex-direction: column;
+    align-items: center;
   }
   
   .trust-footer {
