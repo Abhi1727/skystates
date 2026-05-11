@@ -122,15 +122,10 @@ const validateJobCreation = [
     .isLength({ max: 100 })
     .withMessage('Title cannot exceed 100 characters'),
   
-  body('company.name')
+  body('company')
     .trim()
     .notEmpty()
     .withMessage('Company name is required'),
-  
-  body('company.industry')
-    .trim()
-    .notEmpty()
-    .withMessage('Company industry is required'),
   
   body('location')
     .trim()
@@ -138,11 +133,11 @@ const validateJobCreation = [
     .withMessage('Location is required'),
   
   body('type')
-    .isIn(['full-time', 'part-time', 'contract', 'internship', 'freelance'])
+    .isIn(['Full Time', 'Part Time', 'Contract', 'Internship', 'Remote'])
     .withMessage('Invalid job type'),
   
   body('experience')
-    .isIn(['entry-level', 'mid-level', 'senior-level', 'executive'])
+    .isIn(['Entry Level', 'Mid Level', 'Senior Level', 'Executive'])
     .withMessage('Invalid experience level'),
   
   body('description')
@@ -151,10 +146,6 @@ const validateJobCreation = [
     .withMessage('Job description is required')
     .isLength({ max: 5000 })
     .withMessage('Description cannot exceed 5000 characters'),
-  
-  body('application.email')
-    .isEmail()
-    .withMessage('Please provide a valid application email'),
   
   handleValidationErrors
 ];

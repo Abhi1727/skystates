@@ -1,73 +1,44 @@
 /* Homepage Theme Redesign - Light Minimalist Blue Theme */
 /* Clean, modern design with white and grey accents */
 
-/* ===== CORE GRADIENT ANIMATIONS ===== */
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
+/* ===== CORE GRADIENT STYLES (ANIMATIONS DISABLED FOR PERFORMANCE) ===== */
+/* @keyframes gradientShift - DISABLED */
+/* @keyframes slidePattern - DISABLED */
+/* @keyframes speedLine - DISABLED */
+/* @keyframes float - DISABLED */
+/* @keyframes professionalPulse - DISABLED */
+/* @keyframes blueShimmer - DISABLED */
 
-@keyframes slidePattern {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(100px); }
-}
-
-@keyframes speedLine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-@keyframes professionalPulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-
-@keyframes blueShimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-/* ===== PRIMARY GRADIENTS ===== */
+/* ===== PRIMARY GRADIENTS (ANIMATIONS DISABLED) ===== */
 .gradient-primary {
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 25%, #f1f5f9 50%, #f8fafc 75%, #ffffff 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 8s ease infinite;
+  /* animation: gradientShift 8s ease infinite; - DISABLED */
 }
 
 .gradient-secondary {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 30%, #f1f5f9 60%, #f8fafc 100%);
-  background-size: 300% 300%;
-  animation: gradientShift 6s ease infinite;
+  /* animation: gradientShift 6s ease infinite; - DISABLED */
 }
 
 .gradient-light {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.02) 0%, rgba(96, 165, 250, 0.02) 25%, rgba(59, 130, 246, 0.02) 50%, rgba(96, 165, 250, 0.02) 75%, rgba(59, 130, 246, 0.02) 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 10s ease infinite;
+  /* animation: gradientShift 10s ease infinite; - DISABLED */
 }
 
 .gradient-medium {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(96, 165, 250, 0.05) 25%, rgba(59, 130, 246, 0.05) 50%, rgba(96, 165, 250, 0.05) 75%, rgba(59, 130, 246, 0.05) 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 9s ease infinite;
+  /* animation: gradientShift 9s ease infinite; - DISABLED */
 }
 
 .gradient-dark {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(96, 165, 250, 0.08) 25%, rgba(59, 130, 246, 0.08) 50%, rgba(96, 165, 250, 0.08) 75%, rgba(59, 130, 246, 0.08) 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 7s ease infinite;
+  /* animation: gradientShift 7s ease infinite; - DISABLED */
 }
 
-/* ===== PROFESSIONAL BLUE ACCENTS ===== */
+/* ===== PROFESSIONAL BLUE ACCENTS (ANIMATIONS DISABLED) ===== */
 .blue-gradient {
   background: linear-gradient(135deg, #3b82f6, #60a5fa, #3b82f6);
-  background-size: 200% 200%;
-  animation: blueShimmer 3s linear infinite;
+  /* animation: blueShimmer 3s linear infinite; - DISABLED */
 }
 
 .blue-text {

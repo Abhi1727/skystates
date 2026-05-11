@@ -410,7 +410,7 @@ const DataScienceAI = () => {
                   {[
                     { number: students, label: 'Students Enrolled', icon: '👥' },
                     { number: `${stats.placement}%`, label: 'Placement Rate', icon: '🎯' },
-                    { number: `${stats.salary}%`, label: 'Avg Salary Hike', icon: '📈' }
+                    { number: `$${stats.salary}K`, label: 'Average Salary', icon: '�' }
                   ].map((stat, index) => (
                     <motion.div
                       key={index}
@@ -1330,7 +1330,7 @@ const DataScienceAI = () => {
               textAlign: 'center'
             }}>
               <div style={{ fontSize: '48px', fontWeight: '700', color: '#007bff', marginBottom: '10px' }}>
-                $125K
+                $150K
               </div>
               <h4 style={{ fontSize: '18px', fontWeight: '600', color: '#333', marginBottom: '10px' }}>
                 Average Salary

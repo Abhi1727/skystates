@@ -15,7 +15,7 @@ const Programs = () => {
       spotsLeft: 5,
       spotsTotal: 10,
       rating: 4.9,
-      students: 1247,
+      students: 3247,
       link: '/product/data-science-ai-program'
     },
     {
@@ -27,7 +27,7 @@ const Programs = () => {
       spotsLeft: 8,
       spotsTotal: 10,
       rating: 4.8,
-      students: 892,
+      students: 2156,
       link: '/product/cyber-security-and-ethical-hacking-program'
     },
     {
@@ -39,7 +39,7 @@ const Programs = () => {
       spotsLeft: 7,
       spotsTotal: 10,
       rating: 4.7,
-      students: 1567,
+      students: 4597,
       link: '/product/devops-and-cloud-computing-program'
     }
   ];

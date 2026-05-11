@@ -18,7 +18,7 @@ const CyberSecurity = () => {
   const { counter: students } = useDynamicCounter('cyberSecurity', 2679, 2, 3);
   
   const [stats, setStats] = useState({
-    jobs: 0,
+    placement: 0,
     salary: 0
   });
 
@@ -45,8 +45,8 @@ const CyberSecurity = () => {
       }, 16);
     };
 
-    animateCounter(2000000, 2500, (val) => setStats(prev => ({ ...prev, jobs: Math.floor(val) })));
-    animateCounter(125, 1800, (val) => setStats(prev => ({ ...prev, salary: val })));
+    animateCounter(95, 1500, (val) => setStats(prev => ({ ...prev, placement: val })));
+    animateCounter(150, 1800, (val) => setStats(prev => ({ ...prev, salary: val })));
   }, []);
 
   return (
@@ -408,8 +408,8 @@ const CyberSecurity = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   {[
                     { number: students, label: 'Security Professionals', icon: '👥' },
-                    { number: `${(stats.jobs / 1000000).toFixed(1)}M`, label: 'Open Jobs', icon: '🎯' },
-                    { number: `${stats.salary}%`, label: 'Avg Salary Hike', icon: '📈' }
+                    { number: `${stats.placement}%`, label: 'Placement Rate', icon: '🎯' },
+                    { number: `$${stats.salary}K`, label: 'Average Salary', icon: '�' }
                   ].map((stat, index) => (
                     <motion.div
                       key={index}

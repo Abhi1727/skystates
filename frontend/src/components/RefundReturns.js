@@ -642,11 +642,11 @@ const RefundReturns = () => {
                     <span className="method-value">info@skystates.us</span>
                   </div>
                 </a>
-                <a href="tel:+1234567890" className="contact-method">
+                <a href="tel:+18888102434" className="contact-method">
                   <div className="method-icon">📞</div>
                   <div className="method-info">
                     <span className="method-label">Phone Support</span>
-                    <span className="method-value">+1 (234) 567-890</span>
+                    <span className="method-value">(888) 810-2434</span>
                   </div>
                 </a>
                 <div className="contact-method">

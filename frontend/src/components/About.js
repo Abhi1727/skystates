@@ -59,33 +59,27 @@ const About = () => {
   };
 
   // Create counters for each statistic at the top level
-  const studentCount = useCounter(5000);
-  const placementRate = useCounter(95);
-  const facultyCount = useCounter(50);
-  const partnerCount = useCounter(100);
-  const courseCount = useCounter(20);
-  const salaryHike = useCounter(150);
+  const successRate = useCounter(95);
+  const placements = useCounter(600);
+  const rating = useCounter(4.5);
+  const professionals = useCounter(60);
 
   // Statistics data
   const statistics = [
-    { number: 5000, suffix: '+', label: 'Students Enrolled', description: 'Transforming careers globally' },
-    { number: 95, suffix: '%', label: 'Placement Rate', description: 'Industry-leading success' },
-    { number: 50, suffix: '+', label: 'Expert Faculty', description: 'Real-world experience' },
-    { number: 100, suffix: '+', label: 'Hiring Partners', description: 'Top companies hiring' },
-    { number: 20, suffix: '+', label: 'Premium Courses', description: 'Cutting-edge curriculum' },
-    { number: 150, suffix: '%', label: 'Avg Salary Hike', description: 'Career acceleration' }
+    { number: 95, suffix: '%', label: 'Success Rate', description: 'Industry-leading outcomes' },
+    { number: 600, suffix: '+', label: 'Placements', description: 'Career transformations' },
+    { number: 4.5, suffix: '/5', label: 'Rating', description: 'Student satisfaction' },
+    { number: 60, suffix: '+', label: 'Industry Professionals', description: 'Expert instructors' }
   ];
 
   // Map statistics to their counter values
   const statisticsWithCounters = statistics.map((stat, index) => {
     let counter;
     switch (index) {
-      case 0: counter = studentCount; break;
-      case 1: counter = placementRate; break;
-      case 2: counter = facultyCount; break;
-      case 3: counter = partnerCount; break;
-      case 4: counter = courseCount; break;
-      case 5: counter = salaryHike; break;
+      case 0: counter = successRate; break;
+      case 1: counter = placements; break;
+      case 2: counter = rating; break;
+      case 3: counter = professionals; break;
       default: counter = 0;
     }
     return { ...stat, counter };
@@ -94,28 +88,22 @@ const About = () => {
   // Core values
   const coreValues = [
     {
-      title: 'Excellence in Education',
-      description: 'We deliver industry-relevant curriculum designed by experts from top tech companies.',
-      icon: 'fa-graduation-cap',
+      title: 'Creation',
+      description: 'We foster innovation and creative problem-solving in every aspect of learning and development.',
+      icon: 'fa-lightbulb',
       color: '#3b82f6'
     },
     {
-      title: 'Diversity & Inclusion',
-      description: 'We believe in creating opportunities for talented individuals from all backgrounds.',
-      icon: 'fa-users',
+      title: 'Excellence',
+      description: 'We pursue the highest standards in education, curriculum, and student success.',
+      icon: 'fa-graduation-cap',
       color: '#60a5fa'
     },
     {
-      title: 'Career Acceleration',
-      description: 'Our programs are designed to fast-track your career with practical skills and placement support.',
-      icon: 'fa-rocket',
+      title: 'Community',
+      description: 'We build a supportive network of learners, mentors, and industry professionals.',
+      icon: 'fa-users',
       color: '#2563eb'
-    },
-    {
-      title: 'Innovation First',
-      description: 'We stay ahead of industry trends to ensure our students learn the most in-demand technologies.',
-      icon: 'fa-lightbulb',
-      color: '#1e40af'
     }
   ];
 
@@ -222,7 +210,7 @@ const About = () => {
               fontFamily: 'Space Grotesk, sans-serif',
               letterSpacing: '-0.02em'
             }}>
-              About Sky States
+              Change Your Career with Sky States
             </h1>
             <p className="subtitle-enhanced" style={{
               fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
@@ -230,8 +218,7 @@ const About = () => {
               marginBottom: '32px',
               color: '#64748b'
             }}>
-              Empowering the next generation of tech professionals with cutting-edge education, 
-              expert mentorship, and guaranteed career placement support.
+              At Sky States, we're devoted to providing professionals with advanced skills and practical experience to flourish cuurent digital era.
             </p>
             <div style={{
               display: 'flex',

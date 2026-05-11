@@ -3,27 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Jobs - Sky States</title>
+    <title>Career Opportunities - Sky States</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .jobs-hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* Professional Design System */
+        .professional-hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
             color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .professional-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .professional-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .professional-hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .professional-hero .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #1e3a8a;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 15px 30px;
+            border: 2px solid white;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #1e3a8a;
+        }
+        
+        /* Trust & Credibility Bar */
+        .trust-bar {
+            background: #f8fafc;
             padding: 60px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .trust-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .trust-stat {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .trust-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        /* Value Proposition */
+        .value-proposition {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .value-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .value-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+        
+        .value-header p {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .value-card {
+            padding: 40px 30px;
+            background: #f8fafc;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 32px;
+            color: white;
+        }
+        
+        .value-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+        
+        .value-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        /* Social Proof */
+        .social-proof {
+            padding: 80px 0;
+            background: #f8fafc;
+        }
+        
+        .social-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .social-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+        
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .testimonial-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .author-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 2px;
+        }
+        
+        .author-info p {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0;
+        }
+        
+        .partner-logos {
             text-align: center;
         }
         
-        .jobs-hero h1 {
+        .partner-logos h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+        
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .logo-placeholder {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            color: #94a3b8;
+            border: 2px dashed #e2e8f0;
+        }
+        
+        /* Partner Form Section */
+        .partner-form-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .partner-form-content h2 {
             font-size: 36px;
             font-weight: 700;
             margin-bottom: 20px;
         }
         
-        .jobs-hero p {
+        .partner-form-content p {
             font-size: 18px;
             opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .partner-form-content .btn-primary {
+            background: white;
+            color: #1e3a8a;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .partner-form-content .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .professional-hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .trust-stats {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonials {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
         }
         
         .jobs-container {
@@ -332,7 +713,7 @@
                 </div>
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="#" class="active">Live Job</a></li>
+                    <li><a href="#" class="active">Career Opportunities</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle">Program <i class="fas fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
@@ -349,37 +730,151 @@
         </div>
     </header>
 
-    <!-- Jobs Hero Section -->
-    <section class="jobs-hero">
+    <!-- Professional Hero Section -->
+    <section class="professional-hero">
         <div class="container">
-            <h1>Live Job Opportunities</h1>
-            <p>Find your dream tech job with our curated listings from top companies</p>
+            <div class="hero-content">
+                <div class="professional-badge">ESTABLISHED 2024</div>
+                <h1>Career Opportunities at Sky States</h1>
+                <p class="subtitle">Connecting Top Talent with Leading Technology Companies</p>
+                <div class="hero-cta">
+                    <a href="#jobs-list" class="btn-primary">Browse Open Positions</a>
+                    <a href="#partner-form" class="btn-secondary">Partner With Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Credibility Bar -->
+    <section class="trust-bar">
+        <div class="container">
+            <div class="trust-stats">
+                <div class="trust-stat">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number" data-target="500">500+</div>
+                    <div class="stat-label">Professionals Placed</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="stat-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="stat-number" data-target="200">200+</div>
+                    <div class="stat-label">Partner Companies</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-number" data-target="92">92%</div>
+                    <div class="stat-label">Placement Success Rate</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-number" data-target="4.8">4.8/5</div>
+                    <div class="stat-label">Candidate Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition Section -->
+    <section class="value-proposition">
+        <div class="container">
+            <div class="value-header">
+                <h2>Why Choose Sky States for Your Career?</h2>
+                <p>We bridge the gap between exceptional talent and leading technology companies through personalized career development and strategic partnerships.</p>
+            </div>
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Career Growth</h3>
+                    <p>Access exclusive opportunities with clear advancement paths and continuous professional development programs.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Industry Connections</h3>
+                    <p>Build relationships with top technology companies and industry leaders through our extensive network.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Personalized Support</h3>
+                    <p>Receive dedicated career coaching, resume optimization, and interview preparation from industry experts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="social-header">
+                <h2>Success Stories from Our Candidates</h2>
+            </div>
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Sky States helped me land my dream job at a leading tech company. The career coaching and interview preparation were invaluable."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SJ</div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Data Scientist at TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The personalized approach and industry connections made all the difference. I'm now working in a role that perfectly matches my skills."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MC</div>
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>DevOps Engineer at CloudScale</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "From career guidance to salary negotiation, Sky States supported me every step of the way. Highly recommend their services!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AP</div>
+                        <div class="author-info">
+                            <h4>Amanda Park</h4>
+                            <p>Cybersecurity Analyst at SecureNet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="partner-logos">
+                <h3>Trusted by Leading Technology Companies</h3>
+                <div class="logo-grid">
+                    <div class="logo-placeholder">TechCorp</div>
+                    <div class="logo-placeholder">CloudScale</div>
+                    <div class="logo-placeholder">SecureNet</div>
+                    <div class="logo-placeholder">DataDriven</div>
+                    <div class="logo-placeholder">AI Innovations</div>
+                    <div class="logo-placeholder">Fortress Security</div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Jobs Container -->
-    <section class="jobs-container">
+    <section class="jobs-container" id="jobs-list">
         <div class="container">
-            <!-- Statistics -->
-            <div class="jobs-stats">
-                <div class="stat-card">
-                    <div class="stat-number">150+</div>
-                    <div class="stat-label">Active Jobs</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Companies</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">95%</div>
-                    <div class="stat-label">Placement Rate</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">$85k</div>
-                    <div class="stat-label">Average Salary</div>
-                </div>
-            </div>
-
             <!-- Filter Section -->
             <div class="filter-section">
                 <div class="filter-row">
@@ -433,6 +928,17 @@
             <!-- Pagination -->
             <div class="pagination" id="pagination">
                 <!-- Pagination will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Form Section -->
+    <section class="partner-form-section" id="partner-form">
+        <div class="container">
+            <div class="partner-form-content">
+                <h2>Partner With Sky States</h2>
+                <p>Join our network of leading technology companies and connect with exceptional talent.</p>
+                <a href="mailto:partners@skystates.com" class="btn-primary">Contact Our Partnership Team</a>
             </div>
         </div>
     </section>
@@ -567,7 +1073,69 @@
             renderJobs();
             renderPagination();
             setupMobileMenu();
+            animateStatistics();
+            setupScrollAnimations();
         });
+
+        // Animated Statistics Counter
+        function animateStatistics() {
+            const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const stat = entry.target;
+                        const target = parseFloat(stat.getAttribute('data-target'));
+                        const isPercentage = stat.textContent.includes('%');
+                        const isDecimal = stat.textContent.includes('.');
+                        const suffix = isPercentage ? '%' : (isDecimal ? '' : '+');
+                        
+                        let current = 0;
+                        const increment = target / 100;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            
+                            if (isDecimal) {
+                                stat.textContent = current.toFixed(1) + suffix;
+                            } else if (isPercentage) {
+                                stat.textContent = Math.floor(current) + suffix;
+                            } else {
+                                stat.textContent = Math.floor(current) + suffix;
+                            }
+                        }, 20);
+                        
+                        observer.unobserve(stat);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            statNumbers.forEach(stat => observer.observe(stat));
+        }
+
+        // Scroll Animations
+        function setupScrollAnimations() {
+            const animateElements = document.querySelectorAll('.value-card, .testimonial-card, .trust-stat');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
 
         function renderJobs() {
             const jobsList = document.getElementById('jobsList');

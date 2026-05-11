@@ -15,9 +15,9 @@ const Footer = () => {
       title: "Quick Links",
       links: [
         { name: "About Us", href: "/about" },
-        { name: "Programs", href: "/programs" },
+        // { name: "Programs", href: "/programs" },
         { name: "Jobs", href: "/jobs" },
-        { name: "Contact", href: "/contact" }
+        // { name: "Contact", href: "/contact" }
       ],
       type: "links"
     },
@@ -46,6 +46,16 @@ const Footer = () => {
           name: "(888) 810-2434", 
           href: "tel:(888) 810-2434",
           icon: "fas fa-phone"
+        },
+        {
+          name: "30 N Gould St, Sheridan, WY, 82801, USA",
+          href: "#",
+          icon: "fas fa-map-marker-alt"
+        },
+        {
+          name: "INC Headquarter: 8 The Green Suite R Dover, DE 19901, USA",
+          href: "#",
+          icon: "fas fa-building"
         }
       ],
       type: "contact"

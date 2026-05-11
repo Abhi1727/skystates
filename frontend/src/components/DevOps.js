@@ -17,7 +17,7 @@ const DevOps = () => {
   const { counter: students } = useDynamicCounter('devOps', 2119, 1, 2);
   
   const [stats, setStats] = useState({
-    companies: 0,
+    placement: 0,
     salary: 0
   });
 
@@ -44,8 +44,8 @@ const DevOps = () => {
       }, 16);
     };
 
-    animateCounter(1500, 2200, (val) => setStats(prev => ({ ...prev, companies: val })));
-    animateCounter(140, 1800, (val) => setStats(prev => ({ ...prev, salary: val })));
+    animateCounter(95, 1500, (val) => setStats(prev => ({ ...prev, placement: val })));
+    animateCounter(150, 1800, (val) => setStats(prev => ({ ...prev, salary: val })));
   }, []);
 
   return (
@@ -407,8 +407,8 @@ const DevOps = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   {[
                     { number: students, label: 'DevOps Engineers', icon: '👥' },
-                    { number: stats.companies, label: 'Hiring Companies', icon: '🏢' },
-                    { number: `${stats.salary}%`, label: 'Avg Salary Hike', icon: '📈' }
+                    { number: `${stats.placement}%`, label: 'Placement Rate', icon: '�' },
+                    { number: `$${stats.salary}K`, label: 'Average Salary', icon: '�' }
                   ].map((stat, index) => (
                     <motion.div
                       key={index}

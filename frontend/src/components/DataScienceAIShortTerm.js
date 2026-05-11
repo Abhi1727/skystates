@@ -31,11 +31,12 @@ const DataScienceAIShortTerm = () => {
     4     // Max increment (short-term program)
   );
   
+  // Optimized stats - set final values directly without animation
   const [stats, setStats] = useState({
     students: students,
-    placement: 0,
-    salary: 0,
-    completionTime: 0
+    placement: 95,
+    salary: 150,
+    completionTime: 4
   });
 
   const programData = {
@@ -50,68 +51,22 @@ const DataScienceAIShortTerm = () => {
     setStats(prev => ({ ...prev, students }));
   }, [students]);
 
-  // Animated counter effect for other stats
-  useEffect(() => {
-    const animateCounter = (target, duration, callback) => {
-      let start = 0;
-      const increment = target / (duration / 16);
-      const timer = setInterval(() => {
-        start += increment;
-        if (start >= target) {
-          callback(target);
-          clearInterval(timer);
-        } else {
-          callback(Math.floor(start));
-        }
-      }, 16);
-    };
+  // REMOVED: Heavy animated counter effects for performance
+  // Stats are now set directly without animation
 
-    animateCounter(95, 1500, (val) => setStats(prev => ({ ...prev, placement: val })));
-    animateCounter(150, 1800, (val) => setStats(prev => ({ ...prev, salary: val })));
-    animateCounter(4, 1200, (val) => setStats(prev => ({ ...prev, completionTime: val })));
-  }, []);
+  // REMOVED: Heavy countdown timer for performance
+  // Static countdown display instead of real-time updates
 
-  // Countdown timer effect
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown(prev => {
-        const totalSeconds = prev.days * 86400 + prev.hours * 3600 + prev.minutes * 60 + prev.seconds - 1;
-        if (totalSeconds <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-        
-        return {
-          days: Math.floor(totalSeconds / 86400),
-          hours: Math.floor((totalSeconds % 86400) / 3600),
-          minutes: Math.floor((totalSeconds % 3600) / 60),
-          seconds: totalSeconds % 60
-        };
-      });
-    }, 1000);
+  // REMOVED: Heavy progress animation for performance
+  // Static progress bar instead of continuous animation
 
-    return () => clearInterval(timer);
-  }, []);
-
-  // Progress animation
-  useEffect(() => {
-    const progressTimer = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) return 0;
-        return prev + 2;
-      });
-    }, 100);
-
-    return () => clearInterval(progressTimer);
-  }, []);
-
-  // Lightning bolt animation component
+  // Simplified Lightning Bolt component without animation
   const LightningBolt = ({ size = 24, color = '#3b82f6' }) => (
-    <motion.svg
+    <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
       fill="none"
-      initial={{ rotate: 0 }}
-      animate={{ rotate: [0, -10, 10, 0] }}
-      transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
     >
       <path
         d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
@@ -120,38 +75,12 @@ const DataScienceAIShortTerm = () => {
         strokeWidth="1"
         strokeLinejoin="round"
       />
-    </motion.svg>
+    </svg>
   );
 
   return (
     <div className="product-page">
-      {/* Add CSS animations */}
-      <style jsx>{`
-        @keyframes gradientShift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        @keyframes slidePattern {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(100px); }
-        }
-        @keyframes speedLine {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        @keyframes slideIn {
-          from { transform: translateX(100%); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideOut {
-          from { transform: translateX(0); opacity: 1; }
-          to { transform: translateX(100%); opacity: 0; }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-      `}</style>
+      {/* REMOVED: Inline CSS animations for performance */}
       {/* Enhanced Hero Section with Blue Theme Gradient */}
       <section className="product-hero section-gradient-1" style={{
         position: 'relative',
@@ -163,33 +92,7 @@ const DataScienceAIShortTerm = () => {
         <BatchCountdownTimer />
         {/* Background Pattern - REMOVED to rely on section-gradient-1 CSS class */}
 
-        {/* Floating Speed Elements */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            style={{
-              position: 'absolute',
-              fontSize: `${20 + i * 5}px`,
-              opacity: 0.05 + i * 0.01,
-              color: '#3b82f6',
-              top: `${10 + i * 15}%`,
-              left: `${5 + i * 15}%`,
-              animation: `float ${3 + i * 0.5}s ease-in-out infinite`,
-              animationDelay: `${i * 0.2}s`
-            }}
-            animate={{
-              y: [0, -20, 0],
-              rotate: [0, 5, -5, 0]
-            }}
-            transition={{
-              duration: 2 + i * 0.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            <LightningBolt size={30 + i * 10} color="#3b82f6" />
-          </motion.div>
-        ))}
+        {/* REMOVED: Floating Speed Elements for performance */}
 
 
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
@@ -202,11 +105,7 @@ const DataScienceAIShortTerm = () => {
             margin: '0 auto'
           }}>
             {/* Left Content - Speed Focused */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
+            <div>
               {/* Fast Track Badge */}
               <motion.div
                 style={{
@@ -717,20 +616,15 @@ const DataScienceAIShortTerm = () => {
                 </motion.button>
                 */}
               </div>
-            </motion.div>
+            </div>
 
             {/* Right Content - Mentor & Efficiency Card */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              style={{
+            <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: '30px'
-              }}
-            >
+              }}>
               {/* Mentor Support Card */}
               <motion.div
                 style={{
@@ -906,6 +800,7 @@ const DataScienceAIShortTerm = () => {
                   Start Live Chat
                 </motion.button> */}
               </motion.div>
+</div>
 
               {/* Efficiency Progress Card */}
               {/* <motion.div
@@ -1043,9 +938,8 @@ const DataScienceAIShortTerm = () => {
                   ))}
                 </div>
               </motion.div> */}
-            </motion.div>
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Skill Assessment & Personalization Section */}

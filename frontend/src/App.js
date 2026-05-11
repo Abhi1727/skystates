@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { DirectCheckoutProvider } from './contexts/DirectCheckoutContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -18,22 +18,33 @@ import TermsAndConditions from './components/TermsAndConditions';
 import Checkout from './components/checkout/Checkout';
 import LoginRegister from './components/LoginRegister';
 import AdminDashboard from './components/admin/AdminDashboard';
-import CursorTrail from './components/CursorTrail';
 import ScrollToTop from './components/ScrollToTop';
-import useLocomotiveScroll from './hooks/useLocomotiveScroll';
+import useLenis from './hooks/useLenis';
 import './App.css';
 
 function App() {
-  const { scrollRef } = useLocomotiveScroll(true); // Enabled for smooth scrolling
+  const { scrollRef, isLoaded } = useLenis(true); // Enabled with Lenis for performance
 
   return (
     <DirectCheckoutProvider>
       <Router>
-        <div className="App" data-scroll-container ref={scrollRef}>
-          <CursorTrail />
-          <ScrollToTop />
-          <Header />
-          <main>
+        <AppContent scrollRef={scrollRef} isLoaded={isLoaded} />
+      </Router>
+    </DirectCheckoutProvider>
+  );
+}
+
+function AppContent({ scrollRef, isLoaded }) {
+  const location = useLocation();
+  
+  // Hide header on admin routes
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  return (
+    <div className={`App ${isLoaded ? 'is-loaded lenis-ready' : ''}`} data-scroll-container ref={scrollRef}>
+      <ScrollToTop />
+      {!isAdminRoute && <Header />}
+      <main>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
@@ -55,8 +66,6 @@ function App() {
           </main>
           <Footer />
         </div>
-      </Router>
-    </DirectCheckoutProvider>
   );
 }
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize } = require('./config/database');
+const { connectDB } = require('./config/sqlite-database');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -51,10 +51,6 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Database connection
-sequelize.sync({ force: false }).then(() => {
-  console.log('PostgreSQL connected successfully');
-}).catch((err) => console.error('PostgreSQL connection error:', err));
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -96,17 +92,24 @@ app.use((err, req, res, next) => {
 
 // Start server
 const PORT = process.env.PORT || 5000;
-const server = app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV}`);
-});
 
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err, promise) => {
-  console.error('Unhandled Promise Rejection:', err);
-  server.close(() => {
-    process.exit(1);
+// Connect to database and start server
+connectDB().then(() => {
+  const server = app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV}`);
   });
+
+  // Handle unhandled promise rejections
+  process.on('unhandledRejection', (err, promise) => {
+    console.error('Unhandled Promise Rejection:', err);
+    server.close(() => {
+      process.exit(1);
+    });
+  });
+}).catch(err => {
+  console.error('Failed to connect to database:', err);
+  process.exit(1);
 });
 
 module.exports = app;

@@ -9,7 +9,6 @@ import BrouchuresTab from './BrouchuresTab';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [jobs, setJobs] = useState([]);
   const [coupons, setCoupons] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [brouchures, setBrouchures] = useState([]);
@@ -19,7 +18,6 @@ const AdminDashboard = () => {
   // Initialize empty data
   useEffect(() => {
     // Set initial empty states
-    setJobs([]);
     setCoupons([]);
     setBlogs([]);
     setBrouchures([]);
@@ -86,7 +84,7 @@ const AdminDashboard = () => {
         >
           <AnimatePresence mode="wait">
             {activeTab === 'dashboard' && <DashboardTab key="dashboard" />}
-            {activeTab === 'jobs' && <JobsTab key="jobs" jobs={jobs} setJobs={setJobs} showNotification={showNotification} />}
+            {activeTab === 'jobs' && <JobsTab key="jobs" showNotification={showNotification} />}
             {activeTab === 'coupons' && <CouponsTab key="coupons" coupons={coupons} setCoupons={setCoupons} showNotification={showNotification} />}
             {activeTab === 'blogs' && <BlogsTab key="blogs" blogs={blogs} setBlogs={setBlogs} showNotification={showNotification} />}
             {activeTab === 'brouchures' && <BrouchuresTab key="brouchures" brouchures={brouchures} setBrouchures={setBrouchures} showNotification={showNotification} />}

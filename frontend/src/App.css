@@ -168,16 +168,18 @@ section {
   padding: 20px 0;
 }
 
-/* Locomotive Scroll Styles */
-html.has-scroll-smooth {
-  overflow: hidden;
-}
 
 html {
   scroll-behavior: auto !important;
 }
 
 body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Disable body scrolling when modal is open */
+body.modal-open {
   overflow: hidden;
 }
 
@@ -229,10 +231,10 @@ main {
 /* Prevent content from jumping during load */
 .App {
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
 
-.App.is-loaded {
+.App.is-loaded.lenis-ready {
   opacity: 1;
 }
 

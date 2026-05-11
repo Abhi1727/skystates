@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const { User } = require('../config/sqlite-database');
 
 // Protect routes - verify JWT token (legacy, used when Clerk is not configured)
 const protectJWT = async (req, res, next) => {

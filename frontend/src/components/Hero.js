@@ -6,16 +6,13 @@ import './HomepageTheme.css';
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
-  // Professional accent animation component
+  // Simplified Lightning Bolt component without animation
   const LightningBolt = ({ size = 24, color = '#3b82f6' }) => (
-    <motion.svg
+    <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
       fill="none"
-      initial={{ rotate: 0 }}
-      animate={{ rotate: [0, -10, 10, 0] }}
-      transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
     >
       <path
         d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
@@ -24,34 +21,21 @@ const Hero = () => {
         strokeWidth="1"
         strokeLinejoin="round"
       />
-    </motion.svg>
+    </svg>
   );
 
   const stats = [
-    { number: "5000+", label: "Students", color: "#3b82f6", icon: "fa-users" },
+    { number: "10000+", label: "Students", color: "#3b82f6", icon: "fa-users" },
     { number: "95%", label: "Placement Rate", color: "#28a745", icon: "fa-chart-line" },
-    { number: "50+", label: "Expert Faculty", color: "#e74c3c", icon: "fa-chalkboard-teacher" },
-    { number: "100+", label: "Hiring Partners", color: "#3498db", icon: "fa-handshake" },
+    { number: "60+", label: "Expert Faculty", color: "#e74c3c", icon: "fa-chalkboard-teacher" },
+    { number: "200+", label: "Hiring Partners", color: "#3498db", icon: "fa-handshake" },
     { number: "20+", label: "Premium Courses", color: "#9b59b6", icon: "fa-laptop-code" },
     { number: "150%", label: "Avg Salary Hike", color: "#f39c12", icon: "fa-arrow-up" }
   ];
 
   return (
     <>
-      {/* CSS for animations */}
-      <style jsx>{`
-        @keyframes slideText {
-          0%, 12.5% { transform: translateY(0); }
-          25%, 37.5% { transform: translateY(-60px); }
-          50%, 62.5% { transform: translateY(-120px); }
-          75%, 87.5% { transform: translateY(-180px); }
-          100%, 112.5% { transform: translateY(-240px); }
-          125%, 137.5% { transform: translateY(-300px); }
-          150%, 162.5% { transform: translateY(-360px); }
-          175%, 187.5% { transform: translateY(-420px); }
-          200% { transform: translateY(-480px); }
-        }
-      `}</style>
+      {/* REMOVED: Heavy CSS animations for performance */}
       
       <section className="hero gradient-primary" style={{
       position: 'relative',
@@ -222,7 +206,7 @@ const Hero = () => {
               lineHeight: '1.6',
               fontWeight: '500'
             }}>
-              Achieve Success with <span className="blue-text">Professional</span> Skill Development
+              Get Success along with <span className="blue-text">Expert</span> Skill Development
             </p>
 
             {/* Value Proposition Pills */}
@@ -279,7 +263,7 @@ const Hero = () => {
                 { icon: '🎓', text: 'Industry Certified', color: '#10b981' },
                 { icon: '💼', text: 'Career Support', color: '#3b82f6' },
                 { icon: '⭐', text: '4.9/5 Rating', color: '#f59e0b' },
-                { icon: '👥', text: '5000+ Students', color: '#3b82f6' }
+                { icon: '👥', text: '10000+ Students', color: '#3b82f6' }
               ].map((item, index) => (
                 <motion.div
                   key={index}

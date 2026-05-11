@@ -1,7 +1,8 @@
 const express = require('express');
-const Job = require('../models/Job');
+const { Job, User, sequelize } = require('../config/sqlite-database');
 const { protect, authorize, optionalAuth } = require('../middleware/auth');
 const { validateJobCreation } = require('../middleware/validation');
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -23,50 +24,51 @@ router.get('/', optionalAuth, async (req, res) => {
       featured
     } = req.query;
 
-    // Build filter object
-    const filter = { isActive: true };
+    // Build where clause
+    const where = { isActive: true };
 
     if (search) {
-      filter.$or = [
-        { title: { $regex: search, $options: 'i' } },
-        { 'company.name': { $regex: search, $options: 'i' } },
-        { description: { $regex: search, $options: 'i' } },
-        { skills: { $in: [new RegExp(search, 'i')] } }
+      where[Op.or] = [
+        { title: { [Op.like]: `%${search}%` } },
+        { company: { [Op.like]: `%${search}%` } },
+        { description: { [Op.like]: `%${search}%` } }
       ];
     }
 
     if (location) {
-      filter.location = { $regex: location, $options: 'i' };
+      where.location = { [Op.like]: `%${location}%` };
     }
 
-    if (type) filter.type = type;
-    if (experience) filter.experience = experience;
-    if (remote === 'true') filter.remote = true;
-    if (featured === 'true') filter.isFeatured = true;
+    if (type) where.type = type;
+    if (experience) where.experience = experience;
+    if (remote === 'true') where.type = 'Remote';
+    if (featured === 'true') where.isFeatured = true;
 
     // Sort options
-    const sort = {};
-    sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+    const order = [[sortBy, sortOrder.toUpperCase()]];
 
     // Execute query with pagination
-    const jobs = await Job.find(filter)
-      .populate('postedBy', 'firstName lastName')
-      .sort(sort)
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
-      .exec();
-
-    // Get total count for pagination
-    const total = await Job.countDocuments(filter);
+    const offset = (page - 1) * limit;
+    const jobs = await Job.findAndCountAll({
+      where,
+      include: [{
+        model: User,
+        as: 'poster',
+        attributes: ['id', 'firstName', 'lastName']
+      }],
+      order,
+      limit: parseInt(limit),
+      offset
+    });
 
     res.json({
       success: true,
       data: {
-        jobs,
+        jobs: jobs.rows,
         pagination: {
           current: parseInt(page),
-          pages: Math.ceil(total / limit),
-          total
+          pages: Math.ceil(jobs.count / limit),
+          total: jobs.count
         }
       }
     });
@@ -84,9 +86,14 @@ router.get('/', optionalAuth, async (req, res) => {
 // @access  Public
 router.get('/:slug', optionalAuth, async (req, res) => {
   try {
-    const job = await Job.findOne({ slug: req.params.slug })
-      .populate('postedBy', 'firstName lastName profile.avatar')
-      .populate('applications.applicant', 'firstName lastName profile.avatar');
+    const job = await Job.findOne({
+      where: { slug: req.params.slug },
+      include: [{
+        model: User,
+        as: 'poster',
+        attributes: ['id', 'firstName', 'lastName', 'avatar']
+      }]
+    });
 
     if (!job) {
       return res.status(404).json({
@@ -96,14 +103,13 @@ router.get('/:slug', optionalAuth, async (req, res) => {
     }
 
     // Increment view count
-    job.views += 1;
-    await job.save();
+    await job.incrementViews();
 
     // Check if user has already applied
     let hasApplied = false;
     if (req.user) {
-      hasApplied = job.applications.some(application => 
-        application.applicant._id.toString() === req.user._id.toString()
+      hasApplied = (job.applications || []).some(application => 
+        application.applicant === req.user.id
       );
     }
 
@@ -130,14 +136,19 @@ router.post('/', protect, authorize('admin', 'instructor'), validateJobCreation,
   try {
     const jobData = {
       ...req.body,
-      postedBy: req.user._id
+      postedBy: req.user.id,
+      slug: req.body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '-' + Date.now()
     };
 
-    const job = new Job(jobData);
-    await job.save();
+    const job = await Job.create(jobData);
 
-    const populatedJob = await Job.findById(job._id)
-      .populate('postedBy', 'firstName lastName');
+    const populatedJob = await Job.findByPk(job.id, {
+      include: [{
+        model: User,
+        as: 'poster',
+        attributes: ['id', 'firstName', 'lastName']
+      }]
+    });
 
     res.status(201).json({
       success: true,
@@ -160,7 +171,7 @@ router.post('/', protect, authorize('admin', 'instructor'), validateJobCreation,
 // @access  Private (Admin/Instructor)
 router.put('/:id', protect, authorize('admin', 'instructor'), async (req, res) => {
   try {
-    const job = await Job.findById(req.params.id);
+    const job = await Job.findByPk(req.params.id);
 
     if (!job) {
       return res.status(404).json({
@@ -170,18 +181,22 @@ router.put('/:id', protect, authorize('admin', 'instructor'), async (req, res) =
     }
 
     // Check if user owns the job or is admin
-    if (req.user.role !== 'admin' && job.postedBy.toString() !== req.user._id.toString()) {
+    if (req.user.role !== 'admin' && job.postedBy !== req.user.id) {
       return res.status(403).json({
         success: false,
         message: 'Not authorized to update this job'
       });
     }
 
-    const updatedJob = await Job.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    ).populate('postedBy', 'firstName lastName');
+    await job.update(req.body);
+
+    const updatedJob = await Job.findByPk(job.id, {
+      include: [{
+        model: User,
+        as: 'poster',
+        attributes: ['id', 'firstName', 'lastName']
+      }]
+    });
 
     res.json({
       success: true,
@@ -204,7 +219,7 @@ router.put('/:id', protect, authorize('admin', 'instructor'), async (req, res) =
 // @access  Private (Admin/Instructor)
 router.delete('/:id', protect, authorize('admin', 'instructor'), async (req, res) => {
   try {
-    const job = await Job.findById(req.params.id);
+    const job = await Job.findByPk(req.params.id);
 
     if (!job) {
       return res.status(404).json({
@@ -214,14 +229,14 @@ router.delete('/:id', protect, authorize('admin', 'instructor'), async (req, res
     }
 
     // Check if user owns the job or is admin
-    if (req.user.role !== 'admin' && job.postedBy.toString() !== req.user._id.toString()) {
+    if (req.user.role !== 'admin' && job.postedBy !== req.user.id) {
       return res.status(403).json({
         success: false,
         message: 'Not authorized to delete this job'
       });
     }
 
-    await Job.findByIdAndDelete(req.params.id);
+    await job.destroy();
 
     res.json({
       success: true,
@@ -243,7 +258,7 @@ router.post('/:id/apply', protect, async (req, res) => {
   try {
     const { coverLetter, resume } = req.body;
 
-    const job = await Job.findById(req.params.id);
+    const job = await Job.findByPk(req.params.id);
 
     if (!job) {
       return res.status(404).json({
@@ -252,37 +267,37 @@ router.post('/:id/apply', protect, async (req, res) => {
       });
     }
 
-    // Check if user has already applied
-    const existingApplication = job.applications.find(application => 
-      application.applicant.toString() === req.user._id.toString()
-    );
+    try {
+      // Add application using the model method
+      await job.addApplication({
+        applicant: req.user.id,
+        coverLetter,
+        resume,
+        applicantName: req.user.getFullName(),
+        applicantEmail: req.user.email
+      });
 
-    if (existingApplication) {
+      const updatedJob = await Job.findByPk(job.id, {
+        include: [{
+          model: User,
+          as: 'poster',
+          attributes: ['id', 'firstName', 'lastName']
+        }]
+      });
+
+      res.status(201).json({
+        success: true,
+        message: 'Application submitted successfully',
+        data: {
+          job: updatedJob
+        }
+      });
+    } catch (applicationError) {
       return res.status(400).json({
         success: false,
-        message: 'You have already applied for this job'
+        message: applicationError.message
       });
     }
-
-    // Add application
-    job.applications.push({
-      applicant: req.user._id,
-      coverLetter,
-      resume
-    });
-
-    await job.save();
-
-    const updatedJob = await Job.findById(job._id)
-      .populate('applications.applicant', 'firstName lastName profile.avatar');
-
-    res.status(201).json({
-      success: true,
-      message: 'Application submitted successfully',
-      data: {
-        job: updatedJob
-      }
-    });
   } catch (error) {
     console.error('Apply for job error:', error);
     res.status(500).json({
@@ -297,12 +312,17 @@ router.post('/:id/apply', protect, async (req, res) => {
 // @access  Public
 router.get('/meta/types', async (req, res) => {
   try {
-    const types = await Job.distinct('type');
+    const types = await Job.findAll({
+      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('type')), 'type']],
+      where: { isActive: true }
+    });
+    
+    const typeList = types.map(t => t.type).filter(Boolean);
     
     res.json({
       success: true,
       data: {
-        types
+        types: typeList
       }
     });
   } catch (error) {
@@ -319,16 +339,61 @@ router.get('/meta/types', async (req, res) => {
 // @access  Public
 router.get('/meta/locations', async (req, res) => {
   try {
-    const locations = await Job.distinct('location');
+    const locations = await Job.findAll({
+      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('location')), 'location']],
+      where: { isActive: true }
+    });
+    
+    const locationList = locations.map(l => l.location).filter(Boolean);
     
     res.json({
       success: true,
       data: {
-        locations
+        locations: locationList
       }
     });
   } catch (error) {
     console.error('Get locations error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error'
+    });
+  }
+});
+
+// @route   GET /api/jobs/stats
+// @desc    Get job statistics
+// @access  Private (Admin/Instructor)
+router.get('/stats', protect, authorize('admin', 'instructor'), async (req, res) => {
+  try {
+    const stats = await Job.findAll({
+      attributes: [
+        [sequelize.fn('COUNT', sequelize.col('id')), 'total'],
+        [sequelize.fn('COUNT', sequelize.literal('CASE WHEN isActive = 1 THEN 1 END')), 'active'],
+        [sequelize.fn('COUNT', sequelize.literal('CASE WHEN isActive = 0 THEN 1 END')), 'inactive'],
+        [sequelize.fn('SUM', sequelize.col('applicationCount')), 'totalApplications']
+      ],
+      raw: true
+    });
+
+    const result = stats[0] || {
+      total: 0,
+      active: 0,
+      inactive: 0,
+      totalApplications: 0
+    };
+
+    res.json({
+      success: true,
+      data: {
+        total: parseInt(result.total) || 0,
+        active: parseInt(result.active) || 0,
+        closed: parseInt(result.inactive) || 0,
+        totalApplications: parseInt(result.totalApplications) || 0
+      }
+    });
+  } catch (error) {
+    console.error('Get job stats error:', error);
     res.status(500).json({
       success: false,
       message: 'Server error'

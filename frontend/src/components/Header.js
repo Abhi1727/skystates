@@ -486,7 +486,7 @@ const Header = () => {
                           e.target.style.paddingLeft = '20px';
                         }}
                       >
-                        📊 Data Science And AI
+                        Data Science And AI
                       </Link>
                     </motion.li>
                     <motion.li 
@@ -512,7 +512,7 @@ const Header = () => {
                           e.target.style.paddingLeft = '20px';
                         }}
                       >
-                        🛡️ Cyber Security And Ethical Hacking
+                        Cyber Security And Ethical Hacking
                       </Link>
                     </motion.li>
                     <motion.li 
@@ -538,7 +538,7 @@ const Header = () => {
                           e.target.style.paddingLeft = '20px';
                         }}
                       >
-                        ☁️ DevOps & Cloud Computing
+                        DevOps & Cloud Computing
                       </Link>
                     </motion.li>
                   </motion.ul>

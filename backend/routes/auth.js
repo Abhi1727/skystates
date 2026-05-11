@@ -2,7 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
-const User = require('../models/User');
+const { User } = require('../config/sqlite-database');
 const { protect } = require('../middleware/auth');
 const { validateUserRegistration, validateUserLogin } = require('../middleware/validation');
 
@@ -23,8 +23,7 @@ router.post('/register', validateUserRegistration, async (req, res) => {
     const { firstName, lastName, email, password, phone } = req.body;
 
     // Check if user already exists
-    const users = await User.findAll();
-    const existingUser = users.find(u => u.email === email);
+    const existingUser = await User.findByEmail(email);
     
     if (existingUser) {
       return res.status(400).json({
@@ -84,8 +83,7 @@ router.post('/login', validateUserLogin, async (req, res) => {
     const { email, password } = req.body;
 
     // Find user by email
-    const users = await User.findAll();
-    const user = users.find(u => u.email === email);
+    const user = await User.findByEmail(email);
 
     if (!user) {
       return res.status(401).json({
