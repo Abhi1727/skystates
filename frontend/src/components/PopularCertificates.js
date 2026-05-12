@@ -76,17 +76,18 @@ const PopularCertificates = () => {
           className="section-header"
           style={{ 
             textAlign: 'center', 
-            marginBottom: '40px',
+            marginBottom: 'clamp(20px, 4vw, 40px)',
             position: 'relative',
-            zIndex: 2
+            zIndex: 2,
+            padding: '0 clamp(10px, 3vw, 20px)'
           }}
         >
           {/* Trust Badges */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '20px',
-            marginBottom: '30px',
+            gap: 'clamp(8px, 2vw, 20px)',
+            marginBottom: 'clamp(15px, 3vw, 30px)',
             flexWrap: 'wrap'
           }}>
             {[
@@ -99,18 +100,19 @@ const PopularCertificates = () => {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: 'clamp(4px, 1.5vw, 8px)',
                   background: 'rgba(255, 255, 255, 0.9)',
                   backdropFilter: 'blur(10px)',
-                  padding: '8px 16px',
-                  borderRadius: '25px',
+                  padding: 'clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 16px)',
+                  borderRadius: '20px',
                   border: '1px solid rgba(102, 126, 234, 0.1)',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                  minWidth: 'fit-content'
                 }}
               >
-                <span style={{ fontSize: '1.2rem' }}>{badge.icon}</span>
+                <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>{badge.icon}</span>
                 <span style={{
-                  fontSize: '0.9rem',
+                  fontSize: 'clamp(0.75rem, 2vw, 0.9rem)',
                   fontWeight: '600',
                   color: '#2d3748'
                 }}>
@@ -136,12 +138,13 @@ const PopularCertificates = () => {
 
           <p 
             style={{
-              fontSize: '1.2rem',
+              fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
               color: '#4a5568',
-              maxWidth: '600px',
+              maxWidth: 'clamp(300px, 80vw, 600px)',
               margin: '0 auto',
               lineHeight: '1.6',
-              marginBottom: '20px'
+              marginBottom: 'clamp(15px, 3vw, 20px)',
+              padding: '0 clamp(10px, 3vw, 20px)'
             }}
           >
             Advance your career with industry-recognized professional certificates from Microsoft. 
@@ -161,9 +164,10 @@ const PopularCertificates = () => {
         {/* Certificate Cards Grid */}
         <div className="certificates-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '24px',
-          marginBottom: '60px'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
+          gap: 'clamp(16px, 4vw, 24px)',
+          marginBottom: 'clamp(30px, 6vw, 60px)',
+          padding: '0 clamp(10px, 3vw, 20px)'
         }}>
           {certificates.map((certificate, index) => (
             <div
@@ -306,10 +310,10 @@ const PopularCertificates = () => {
 
                   {/* Certificate Title */}
                   <h3 style={{
-                    fontSize: '1.4rem',
+                    fontSize: 'clamp(1.1rem, 3vw, 1.4rem)',
                     fontWeight: '700',
                     color: '#1a1a2e',
-                    marginBottom: '15px',
+                    marginBottom: 'clamp(10px, 2.5vw, 15px)',
                     textAlign: 'center',
                     lineHeight: '1.2'
                   }}>
@@ -318,10 +322,10 @@ const PopularCertificates = () => {
 
                   {/* Description */}
                   <p style={{
-                    fontSize: '0.9rem',
+                    fontSize: 'clamp(0.8rem, 2.2vw, 0.9rem)',
                     color: '#4a5568',
                     lineHeight: '1.6',
-                    marginBottom: '15px',
+                    marginBottom: 'clamp(10px, 2.5vw, 15px)',
                     textAlign: 'center'
                   }}>
                     {certificate.description}
@@ -331,8 +335,9 @@ const PopularCertificates = () => {
                   <div style={{
                     display: 'flex',
                     justifyContent: 'center',
-                    gap: '20px',
-                    marginBottom: '15px'
+                    gap: 'clamp(10px, 2.5vw, 20px)',
+                    marginBottom: 'clamp(10px, 2.5vw, 15px)',
+                    flexWrap: 'wrap'
                   }}>
                     <div style={{
                       display: 'flex',

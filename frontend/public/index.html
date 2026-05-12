@@ -29,11 +29,23 @@
         box-sizing: border-box;
       }
       
-      html, body {
+      /* Mobile-First Responsive Design */
+      html {
         overflow-x: hidden;
-        max-width: 100vw;
-        margin: 0;
-        padding: 0;
+        overflow-y: auto;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+      
+      body {
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: manipulation;
+        overscroll-behavior: contain;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
       }
       
       #root {
@@ -164,18 +176,20 @@
         color: rgba(255, 255, 255, 0.8);
       }
       
-      /* Locomotive Scroll Styles */
-      html.has-scroll-smooth {
-        overflow: hidden;
-      }
-      
-      body {
-        overflow-y: auto;
-      }
-      
-      [data-scroll-container] {
-        position: relative;
-        overflow: hidden;
+      /* Locomotive Scroll Disabled on Mobile */
+      @media (max-width: 768px) {
+        html.has-scroll-smooth {
+          overflow: auto;
+        }
+        
+        [data-scroll-container] {
+          position: relative;
+          overflow: auto;
+        }
+        
+        html.lenis-smooth {
+          overflow: auto;
+        }
       }
     </style>
     

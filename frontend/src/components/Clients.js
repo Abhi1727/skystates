@@ -34,31 +34,33 @@ const Clients = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '40px' }}
+          style={{ textAlign: 'center', marginBottom: 'clamp(20px, 4vw, 40px)', padding: '0 clamp(10px, 3vw, 20px)' }}
         >
           <h2 style={{
-            fontSize: '14px',
+            fontSize: 'clamp(0.875rem, 2vw, 14px)',
             fontWeight: '600',
             textTransform: 'uppercase',
             letterSpacing: '0.1em',
             color: '#6c757d',
-            marginBottom: '10px'
+            marginBottom: 'clamp(8px, 2vw, 10px)'
           }}>
             Trusted by top engineering teams
           </h2>
           <h3 style={{
-            fontSize: '32px',
+            fontSize: 'clamp(1.5rem, 4vw, 32px)',
             fontWeight: '700',
             color: '#2c3e50',
-            marginBottom: '20px'
+            marginBottom: 'clamp(15px, 3vw, 20px)',
+            lineHeight: '1.2'
           }}>
             Industry Leaders Choose Sky States
           </h3>
           <p style={{
-            fontSize: '16px',
+            fontSize: 'clamp(0.9rem, 2.5vw, 16px)',
             color: '#6c757d',
-            maxWidth: '600px',
-            margin: '0 auto'
+            maxWidth: 'clamp(280px, 80vw, 600px)',
+            margin: '0 auto',
+            lineHeight: '1.6'
           }}>
             Join thousands of professionals from leading companies who have transformed their careers with our programs
           </p>
@@ -72,7 +74,8 @@ const Clients = () => {
           viewport={{ once: true }}
           style={{
             position: 'relative',
-            marginBottom: '20px'
+            marginBottom: 'clamp(15px, 3vw, 20px)',
+            overflow: 'hidden'
           }}
         >
           <Marquee 
@@ -89,22 +92,26 @@ const Clients = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  margin: '0 20px',
-                  padding: '15px',
+                  margin: '0 clamp(10px, 2.5vw, 20px)',
+                  padding: 'clamp(10px, 2.5vw, 15px)',
                   background: 'white',
-                  borderRadius: '12px',
+                  borderRadius: 'clamp(8px, 2vw, 12px)',
                   boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
                   transition: 'all 0.3s ease',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  minWidth: 'clamp(120px, 25vw, 150px)',
+                  maxWidth: 'clamp(150px, 30vw, 200px)'
                 }}
               >
                 <img
                   src={logo}
                   alt={`Company Logo ${index + 1}`}
                   style={{
-                    height: '60px',
+                    height: 'clamp(40px, 8vw, 60px)',
                     width: 'auto',
-                    transition: 'all 0.3s ease'
+                    maxWidth: '100%',
+                    transition: 'all 0.3s ease',
+                    objectFit: 'contain'
                   }}
                   loading="lazy"
                 />
@@ -119,26 +126,27 @@ const Clients = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '40px' }}
+          style={{ textAlign: 'center', marginBottom: 'clamp(20px, 4vw, 40px)', padding: '0 clamp(10px, 3vw, 20px)' }}
         >
           <div style={{
             display: 'inline-block',
             position: 'relative'
           }}>
             <span style={{
-              fontSize: '14px',
+              fontSize: 'clamp(0.75rem, 2vw, 14px)',
               fontWeight: '600',
               color: '#6c757d',
-              marginRight: '10px'
+              marginRight: 'clamp(5px, 1.5vw, 10px)'
             }}>
               OUR CLIENTS
             </span>
             <h3 style={{
-              fontSize: '24px',
+              fontSize: 'clamp(1.25rem, 3.5vw, 24px)',
               fontWeight: '700',
               color: '#2c3e50',
               display: 'inline-block',
-              position: 'relative'
+              position: 'relative',
+              lineHeight: '1.2'
             }}>
               Our Corporate Clients
               <div style={{

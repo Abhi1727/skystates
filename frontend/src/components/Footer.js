@@ -88,9 +88,10 @@ const Footer = () => {
         {/* Main Footer Content */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '40px',
-          marginBottom: '60px'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(250px, 100%), 1fr))',
+          gap: 'clamp(20px, 4vw, 40px)',
+          marginBottom: 'clamp(30px, 6vw, 60px)',
+          padding: '0 clamp(10px, 3vw, 20px)'
         }}>
           {footerSections.map((section, index) => (
             <motion.div
@@ -101,9 +102,9 @@ const Footer = () => {
               viewport={{ once: true }}
             >
               <h3 style={{
-                fontSize: '1.2rem',
+                fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
                 fontWeight: '600',
-                marginBottom: '20px',
+                marginBottom: 'clamp(15px, 3vw, 20px)',
                 color: '#1e293b',
                 fontFamily: 'Space Grotesk, sans-serif',
                 letterSpacing: '-0.02em',
@@ -114,10 +115,10 @@ const Footer = () => {
               
               {section.type === 'description' && (
                 <p style={{
-                  fontSize: '0.95rem',
+                  fontSize: 'clamp(0.85rem, 2.2vw, 0.95rem)',
                   lineHeight: '1.6',
                   color: '#64748b',
-                  marginBottom: '20px',
+                  marginBottom: 'clamp(15px, 3vw, 20px)',
                   textShadow: '0 1px 1px rgba(255,255,255,0.8)'
                 }}>
                   {section.content}
@@ -131,7 +132,7 @@ const Footer = () => {
                   margin: 0
                 }}>
                   {section.links.map((link, linkIndex) => (
-                    <li key={linkIndex} style={{ marginBottom: '12px' }}>
+                    <li key={linkIndex} style={{ marginBottom: 'clamp(8px, 2vw, 12px)' }}>
                       {link.href.startsWith('http') || link.href.startsWith('mailto:') || link.href.startsWith('tel:') ? (
                         <a
                           href={link.href}
@@ -139,10 +140,11 @@ const Footer = () => {
                           style={{
                             color: '#64748b',
                             textDecoration: 'none',
-                            fontSize: '0.95rem',
+                            fontSize: 'clamp(0.8rem, 2.2vw, 0.95rem)',
                             transition: 'all 0.3s ease',
                             display: 'inline-block',
-                            textShadow: '0 1px 1px rgba(255,255,255,0.8)'
+                            textShadow: '0 1px 1px rgba(255,255,255,0.8)',
+                            lineHeight: '1.5'
                           }}
                           onFocus={(e) => {
                             e.target.style.color = '#1e293b';
@@ -171,10 +173,11 @@ const Footer = () => {
                           style={{
                             color: '#64748b',
                             textDecoration: 'none',
-                            fontSize: '0.95rem',
+                            fontSize: 'clamp(0.8rem, 2.2vw, 0.95rem)',
                             transition: 'all 0.3s ease',
                             display: 'inline-block',
-                            textShadow: '0 1px 1px rgba(255,255,255,0.8)'
+                            textShadow: '0 1px 1px rgba(255,255,255,0.8)',
+                            lineHeight: '1.5'
                           }}
                           onFocus={(e) => {
                             e.target.style.color = '#1e293b';
@@ -253,19 +256,21 @@ const Footer = () => {
                   margin: 0
                 }}>
                   {section.links.map((link, linkIndex) => (
-                    <li key={linkIndex} style={{ marginBottom: '16px' }}>
+                    <li key={linkIndex} style={{ marginBottom: 'clamp(10px, 2.5vw, 16px)' }}>
                       <a
                         href={link.href}
                         aria-label={link.icon === 'fas fa-envelope' ? `Send email to ${link.name}` : `Call ${link.name}`}
                         style={{
                           color: '#64748b',
                           textDecoration: 'none',
-                          fontSize: '0.95rem',
+                          fontSize: 'clamp(0.75rem, 2vw, 0.95rem)',
                           transition: 'all 0.3s ease',
                           display: 'flex',
-                          alignItems: 'center',
-                          gap: '12px',
-                          textShadow: '0 1px 1px rgba(255,255,255,0.8)'
+                          alignItems: 'flex-start',
+                          gap: 'clamp(8px, 2vw, 12px)',
+                          textShadow: '0 1px 1px rgba(255,255,255,0.8)',
+                          lineHeight: '1.4',
+                          wordBreak: 'break-word'
                         }}
                         onFocus={(e) => {
                           e.target.style.color = '#1e293b';
